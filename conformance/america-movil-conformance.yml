@@ -1,0 +1,125 @@
+generated: '2026-07-25'
+method: searched
+source: >-
+  Claro Insight product documentation tabs (which name the CAMARA/GSMA
+  specification and version each API derives from), the two harvested OpenAPI
+  documents, the CAMARA DeviceLocation v0.1.0 definition Claro links as its own
+  technical reference, and https://api.claro.com.br/docs.
+description: >-
+  What the América Móvil group's API estate actually conforms to. The honest
+  summary: CAMARA alignment is real but partial and version-lagging in Brazil,
+  absent as an implementation everywhere else in the group; the security model
+  is plain OAuth 2.0 client credentials rather than CAMARA's specified
+  three-legged/CIBA user-authorization pattern; and no certification of any kind
+  (TM Forum conformance, SOC 2, ISO 27001) is published anywhere.
+standards:
+- id: oauth2-client-credentials
+  conforms: true
+  evidence: >-
+    Both harvested OpenAPIs declare oauth2 clientCredentials with tokenUrl
+    /oauth2/v1/token; every published code sample performs the same
+    grant_type=client_credentials exchange against
+    https://api.claro.com.br/oauth2/v1/token (401 anonymous, confirmed live).
+- id: rfc6749-oauth2-metadata
+  conforms: false
+  evidence: >-
+    No /.well-known/oauth-authorization-server (RFC 8414) and no
+    openid-configuration on any host; discovery is documentation-only.
+- id: oidc
+  conforms: false
+  evidence: No OpenID Connect surface, id_token or userinfo endpoint is documented.
+- id: camara-sim-swap
+  conforms: partial
+  version: 0.4.0
+  evidence: >-
+    openapi/america-movil-claro-sim-swap-openapi.json implements the CAMARA
+    operation shape (POST /retrieve-date, POST /check with maxAge) and states it
+    derives from GSMA Mobile Connect Account Takeover Protection. It lags the
+    current CAMARA SIM Swap release and uses two-legged client credentials rather
+    than CAMARA's three-legged/CIBA authorization.
+- id: camara-device-location-verification
+  conforms: partial
+  version: 0.1.0
+  evidence: >-
+    The Device Location Verify product page names GSMA as co-author and links
+    https://github.com/camaraproject/DeviceLocation/blob/v0.1.0/code/API_definitions/location.yaml
+    as its technical reference; that definition is saved verbatim at
+    openapi/america-movil-claro-device-location-verify-camara-openapi.yaml.
+    Claro publishes no Claro-hosted variant of it — the linked document's only
+    server is the CAMARA placeholder.
+- id: camara-kyc-match
+  conforms: partial
+  version: 0.2.1
+  evidence: Product page names "GSMA Opengateway" as author, version 0.2.1, 28/03/2025; endpoint /gsma/gateway/knowyourcustomer/match.
+- id: camara-kyc-fill-in
+  conforms: partial
+  version: 0.2.1
+  evidence: Product page names CAMARA/GSMA standard "versão 0.1.0" in prose and document version 0.2.1; endpoint /gsma/gateway/kyc/fillin.
+- id: camara-number-verification
+  conforms: partial
+  version: 0.3.1
+  evidence: >-
+    Product page documents POST /verify with network-based authentication and a
+    true/false result — the CAMARA Number Verification shape. No specification is
+    published and no endpoint URL is given.
+- id: camara-number-recycling
+  conforms: partial
+  version: 0.2.1
+  evidence: Endpoint /number-recycling/v0.1/check with phoneNumber + specifiedDate; author "Claro / GSMA Opengateway".
+- id: camara-tenure
+  conforms: partial
+  version: 0.1.0
+  evidence: Endpoint /gsma/gateway/kyc/tenure/check; author "GSMA Open Gateway", 10/11/2025. Uses the legacy x-client-auth header and a data{} envelope rather than CAMARA conventions.
+- id: camara-geofencing-subscriptions
+  conforms: partial
+  version: 0.2.1
+  evidence: >-
+    Published subscription payload uses the CAMARA subscription model and the
+    CAMARA event-type identifier org.camaraproject.geofencing.v0.area-entered.
+- id: gsma-open-gateway
+  conforms: true
+  evidence: >-
+    América Móvil is a GSMA Open Gateway participant; Claro launched in Brazil
+    (Nov 2023) and Telcel in Mexico (28 May 2025). Endpoints are namespaced
+    /gsma/gateway/. Implementation exists only in Brazil.
+- id: gsma-mobile-connect-atp
+  conforms: true
+  evidence: The SIM Swap OpenAPI description names the GSMA Mobile Connect Account Takeover Protection specification (IDY.24 v2.0) as its origin.
+- id: ciba-backchannel-authentication
+  conforms: false
+  evidence: No CIBA, backchannel authentication endpoint or subject-consent flow appears in any specification, sample or product page — even for products whose copy states LGPD consent is mandatory.
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: Errors use application/json with Claro's own envelope (apiVersion/transactionId/error) or the CAMARA {status,code,message} shape; no application/problem+json anywhere.
+- id: rfc8594-sunset-header
+  conforms: false
+  evidence: No Sunset or Deprecation header is documented; retirement is signalled only by HTTP 410.
+- id: rfc9116-security-txt
+  conforms: false
+  evidence: /.well-known/security.txt returns 403 (api host) or 404 (all other hosts).
+- id: rfc9727-api-catalog
+  conforms: false
+  evidence: /.well-known/api-catalog is not served on any host.
+- id: tmforum-open-api-conformance
+  conforms: false
+  evidence: >-
+    No TM Forum conformance certificate (TMF620/622/641 or Operate API) is
+    published for América Móvil, Telcel, Telmex, Claro or Embratel. The
+    status-code contract at api.claro.com.br/docs does reference eTOM process
+    semantics for 405/422, showing TM Forum influence on the gateway design
+    without certification.
+- id: cloudevents
+  conforms: partial
+  evidence: The geofencing event identifier follows the CAMARA reverse-DNS type convention (org.camaraproject.geofencing.v0.area-entered) but no CloudEvents envelope is published.
+- id: lgpd
+  conforms: claimed
+  evidence: >-
+    Product pages state LGPD compliance and, for Device Location Verify, that
+    subject consent is mandatory. This is a contractual claim in marketing copy —
+    no certification, no DPA link and no technical consent mechanism is published.
+- id: iso-27001
+  conforms: unknown
+  evidence: No trust centre, certification page or compliance programme was found on any group property.
+- id: soc2
+  conforms: unknown
+  evidence: No SOC 2 report or trust centre published.

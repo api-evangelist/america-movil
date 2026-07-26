@@ -1,0 +1,63 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: América Móvil
+providerId: america-movil
+created: '2026-07-25'
+modified: '2026-07-25'
+generated: '2026-07-25'
+method: searched
+tags:
+- Rate Limiting
+- Telecommunications
+- Network APIs
+description: >-
+  Claro Brasil publishes no per-second or per-minute rate limit for its
+  marketplace APIs. What is published is a contracted request policy enforced at
+  the gateway — exceeding it (or tripping a DDoS rule) returns 429 — plus one
+  concrete quota, the free Trial plan's 1,000 requests over three months, and a
+  per-MSISDN ceiling on the LBS location service. No rate-limit response headers
+  are documented.
+sources:
+- https://api.claro.com.br/docs
+- https://www.claroinsight.com.br/pt-br/sim-swap
+- openapi/america-movil-claro-device-location-openapi.json
+headers:
+  documented: false
+  note: No X-RateLimit-*, RateLimit-* or Retry-After header is documented on any surface.
+responseCodes:
+  throttled: 429
+  throttledMeaning: >-
+    "Identifica que o cliente excedeu a política de requisições adquirida, ou uma
+    política de segurança de DDOS foi acionada."
+  backendUnavailable: 503
+limits:
+- name: Trial plan quota
+  scope: account
+  metric: requests
+  limit: 1000
+  timeFrame: 3 months
+  plan: trial
+  source: https://www.claroinsight.com.br/pt-br/sim-swap
+- name: Contracted request policy (Pay Per Use)
+  scope: contract
+  metric: requests
+  limit: null
+  timeFrame: contract
+  note: Enforced at the gateway; the ceiling is set per commercial contract and is not published.
+- name: LBS device location per-MSISDN ceiling
+  scope: msisdn
+  metric: requests
+  limit: null
+  timeFrame: unspecified
+  note: >-
+    "The maximum request limit for this MSISDN has been exceeded"
+    (API-LBSDEVICESLOCATIONS-429) — a per-subscriber ceiling exists but its value
+    is not published.
+  source: openapi/america-movil-claro-device-location-openapi.json
+- name: Startup programme allowance
+  scope: account
+  metric: requests
+  limit: 1000
+  timeFrame: month
+  note: Conexão Claro Open Gateway for Startups — 1,000 calls per month for six months.

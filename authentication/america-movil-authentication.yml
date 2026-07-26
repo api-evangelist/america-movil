@@ -1,0 +1,89 @@
+generated: '2026-07-25'
+method: searched
+source: >-
+  openapi/america-movil-claro-device-location-openapi.json,
+  openapi/america-movil-claro-sim-swap-openapi.json, and the authentication
+  sections plus code samples published on the Claro Insight product pages.
+docs: https://www.claroinsight.com.br/pt-br/catalogo-api
+description: >-
+  Every callable América Móvil API is Claro Brasil's, and every one of them
+  authenticates the same way: OAuth 2.0 client credentials against
+  https://api.claro.com.br/oauth2/v1/token, exchanged for a bearer token. The
+  wrinkle is the header. The 2019-generation "customers" services send both the
+  Basic credential and the bearer token in a non-standard `x-client-auth` header
+  and add an `X-CustomerID` partner header; the 2023-2025 Open Gateway services
+  use the standard `Authorization` header. Geofencing additionally requires an
+  `X-API-Key`. There is no three-legged flow, no CIBA and no user consent
+  mechanism anywhere in the estate.
+summary:
+  types: [apiKey, http, oauth2]
+  api_key_in: [header]
+  oauth2_flows: [clientCredentials]
+  three_legged: false
+  ciba: false
+  mtls: false
+  openid_connect: false
+token_endpoint:
+  url: https://api.claro.com.br/oauth2/v1/token
+  probe_status: 401
+  grant_type: client_credentials
+  request_content_type: application/x-www-form-urlencoded
+  credential_transport:
+  - 'Authorization: Basic base64(client_id:client_secret)'
+  - 'x-client-auth: Basic base64(client_id:client_secret)'
+  response_field: access_token
+  metadata_document: none (no RFC 8414 / OIDC discovery — see well-known/america-movil-well-known.yml)
+credential_issuance:
+  self_serve: false
+  process: >-
+    Register at https://www.claroinsight.com.br/user/register, log in, request the
+    API from the catalog, and receive client_id/client_secret once the request is
+    approved. Credentials, endpoints and Swagger downloads are all behind the login.
+  ip_filtering: >-
+    The gateway documents 403 for source IPs without permission, so allow-listing
+    is part of the access model.
+schemes:
+- name: OAuth2
+  type: oauth2
+  flows:
+  - flow: clientCredentials
+    tokenUrl: /oauth2/v1/token
+    absoluteTokenUrl: https://api.claro.com.br/oauth2/v1/token
+    scopes: 2 declared at operation level, none in the flow map
+  sources:
+  - openapi/america-movil-claro-device-location-openapi.json
+  - openapi/america-movil-claro-sim-swap-openapi.json
+  detail: scopes/america-movil-scopes.yml
+- name: BasicAuth
+  type: http
+  scheme: basic
+  sources:
+  - openapi/america-movil-claro-device-location-openapi.json
+- name: BearerAuth
+  type: http
+  scheme: bearer
+  sources:
+  - openapi/america-movil-claro-device-location-openapi.json
+- name: ApiKeyAuth
+  type: apiKey
+  in: header
+  parameter: X-API-Key
+  sources:
+  - openapi/america-movil-claro-device-location-openapi.json
+  - https://www.claroinsight.com.br/pt-br/geofencing
+  note: Also required alongside the bearer token on the Geofencing subscription endpoint.
+non_standard_headers:
+- header: x-client-auth
+  carries: 'Basic <base64> on the token call, Bearer <token> on the API call'
+  used_by: [Claro Alerta, Claro Score, Claro Valida Telefone, Claro Valida Endereço 2.0, Tenure]
+- header: X-CustomerID
+  carries: partner/tenant identifier, e.g. claro_exemplo
+  used_by: [Claro Alerta, Claro Score, Claro Valida Telefone, Claro Valida Endereço 2.0]
+gaps:
+- No metadata document — clients cannot discover the token endpoint programmatically.
+- No refresh-token, token-introspection or revocation endpoint is documented.
+- >-
+  No subject authorization. CAMARA specifies three-legged/CIBA authorization for
+  SIM Swap, Number Verification, KYC and Device Location; Claro implements
+  two-legged client credentials, and the LGPD consent its own docs require for
+  Device Location Verify is contractual rather than protocol-enforced.

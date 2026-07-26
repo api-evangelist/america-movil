@@ -1,0 +1,210 @@
+generated: '2026-07-25'
+method: searched
+source: >-
+  The "Códigos de Exemplo" tabs of the Claro Insight product pages at
+  https://www.claroinsight.com.br/pt-br/<product> (served anonymously), plus the
+  in-spec examples of the two harvested OpenAPI documents.
+description: >-
+  Request examples for the Claro Brasil API marketplace, transcribed verbatim
+  from the provider's own published sample code. Credentials in the samples are
+  the provider's own placeholders (XXXX / SUA_CLIENT_ID) — no real secret is
+  recorded here. Two request conventions coexist: the legacy "customers"
+  services (2019 vintage) wrap everything in a data.customer envelope and
+  authenticate with the non-standard `x-client-auth` header, while the newer
+  GSMA Open Gateway / CAMARA services use flat CAMARA payloads and the standard
+  `Authorization` header.
+token:
+  endpoint: https://api.claro.com.br/oauth2/v1/token
+  method: POST
+  content_type: application/x-www-form-urlencoded
+  body: grant_type=client_credentials
+  auth_header_variants:
+  - 'Authorization: Basic base64(client_id:client_secret)'
+  - 'x-client-auth: Basic base64(client_id:client_secret)'
+  response_field: access_token
+examples:
+- api: america-movil:claro-know-your-customer-api
+  name: KYC Match
+  endpoint: https://api.claro.com.br/mobile/v1/gsma/gateway/knowyourcustomer/match
+  method: POST
+  headers:
+    Authorization: Bearer {access_token}
+    Content-Type: application/json
+  request:
+    phoneNumber: '+5511999999999'
+    idDocument: '123456789'
+    name: João da Silva
+    birthdate: '1990-01-01'
+  source: https://www.claroinsight.com.br/pt-br/claro-kyc
+- api: america-movil:claro-kyc-fill-in-api
+  name: KYC Fill In
+  endpoint: https://api.claro.com.br/mobile/v1/gsma/gateway/kyc/fillin
+  method: POST
+  headers:
+    Authorization: Bearer {access_token}
+    Content-Type: application/json
+  request:
+    phoneNumber: '+5511999999999'
+  source: https://www.claroinsight.com.br/pt-br/fill-in
+- api: america-movil:claro-device-location-api
+  name: Device Location Retrieval (Open Gateway endpoint)
+  note: >-
+    The "Device Location Retrieval" product exposes a CAMARA-shaped Open Gateway
+    endpoint in its code samples, distinct from the older LBS operation captured
+    in openapi/america-movil-claro-device-location-openapi.json. Both are
+    published by Claro under the same product page.
+  endpoint: https://api.claro.com.br/mobile/v1/gsma/gateway/devicelocation/retrieve
+  method: POST
+  headers:
+    Authorization: Bearer {access_token}
+    Content-Type: application/json
+  request:
+    device:
+      phoneNumber: '+5511999999999'
+    maxAge: 600
+  source: https://www.claroinsight.com.br/pt-br/device-location-retrievel
+- api: america-movil:claro-geofencing-api
+  name: Geofencing — create subscription
+  endpoint: https://api.claro.com.br/mobile/v1/gsma/gateway/geofencing/subscriptions
+  method: POST
+  headers:
+    Authorization: Bearer {access_token}
+    X-API-Key: '{api_key}'
+    Content-Type: application/json
+  request:
+    webhook:
+      notificationUrl: https://application-server.com
+      notificationAuthToken: '{notification_auth_token}'
+    subscriptionDetail:
+      device:
+        phoneNumber: '+5511999999999'
+        networkAccessIdentifier: 123456789@domain.com
+        ipv4Address:
+          publicAddress: 84.125.93.10
+          publicPort: 4958
+        ipv6Address: '2001:db8:85a3:8d3:1319:8a2e:370:7344'
+      area:
+        areaType: CIRCLE
+        center:
+          latitude: -23.5505
+          longitude: -46.6333
+        radius: 2000
+      type: org.camaraproject.geofencing.v0.area-entered
+    subscriptionExpireTime: '2025-08-18T14:06:15.589Z'
+  source: https://www.claroinsight.com.br/pt-br/geofencing
+- api: america-movil:claro-number-recycling-api
+  name: Number Recycling check
+  endpoint: https://api.claro.com.br/number-recycling/v0.1/check
+  method: POST
+  headers:
+    Authorization: Bearer {access_token}
+    Content-Type: application/json
+  request:
+    phoneNumber: '+5511999999999'
+    specifiedDate: '{date}'
+  source: https://www.claroinsight.com.br/pt-br/number-recycling
+- api: america-movil:claro-tenure-api
+  name: Tenure check
+  endpoint: https://api.claro.com.br/gsma/gateway/kyc/tenure/check
+  method: POST
+  headers:
+    x-client-auth: Bearer {access_token}
+    Content-Type: application/json
+  request:
+    data:
+      phoneNumber: '5511999999999'
+  source: https://www.claroinsight.com.br/pt-br/tenure
+- api: america-movil:claro-alerta-api
+  name: Claro Alerta
+  endpoint: https://api.claro.com.br/customers/v1/alerts
+  method: POST
+  headers:
+    x-client-auth: Bearer {access_token}
+    X-CustomerID: claro_exemplo
+    event-types: SIMCARD_CHANGED,DEVICE_CHANGED
+    Content-Type: application/json
+  request:
+    data:
+      customer:
+        networkMsisdn: '{msisdn}'
+  source: https://www.claroinsight.com.br/pt-br/claro-alerta
+- api: america-movil:claro-score-api
+  name: Claro Score
+  endpoint: https://api.claro.com.br/customers/v1/scores
+  method: POST
+  headers:
+    x-client-auth: Bearer {access_token}
+    X-CustomerID: claro_exemplo
+    Content-Type: application/json
+  request:
+    data:
+      customer:
+        idCpf: '{cpf}'
+  source: https://www.claroinsight.com.br/pt-br/claro-score
+- api: america-movil:claro-valida-telefone-api
+  name: Claro Valida Telefone
+  endpoint: https://api.claro.com.br/customers/v1/validationsphones
+  method: POST
+  headers:
+    x-client-auth: Bearer {access_token}
+    X-CustomerID: claro_exemplo
+    Content-Type: application/json
+  request:
+    data:
+      customer:
+        networkMsisdn: '{msisdn}'
+        cpf: '{cpf}'
+  source: https://www.claroinsight.com.br/pt-br/claro-valida-telefone
+- api: america-movil:claro-valida-endereco-api
+  name: Claro Valida Endereço 2.0
+  endpoint: https://api.claro.com.br/customers/v2/validationsaddress
+  method: POST
+  headers:
+    x-client-auth: Bearer {access_token}
+    X-CustomerID: claro_exemplo
+    Content-Type: application/json
+  request:
+    data:
+      customer:
+        addressZipCode: '{cep}'
+        addressNumber: '{number}'
+        networkMsisdn: '{msisdn}'
+        cpf: '{cpf}'
+  source: https://www.claroinsight.com.br/pt-br/claro-valida-endereco-v2
+- api: america-movil:claro-sim-swap-api
+  name: SIM Swap — retrieve date
+  endpoint: https://api.claro.com.br/mobile/v1/gsma/gateway/simswap/retrieve-date
+  method: POST
+  operationId: retrieveSimSwapDate
+  request:
+    phoneNumber: '+346661113334'
+  source: openapi/america-movil-claro-sim-swap-openapi.json
+- api: america-movil:claro-sim-swap-api
+  name: SIM Swap — check
+  endpoint: https://api.claro.com.br/mobile/v1/gsma/gateway/simswap/check
+  method: POST
+  operationId: checkSimSwap
+  request:
+    phoneNumber: '+346661113334'
+    maxAge: 240
+  source: openapi/america-movil-claro-sim-swap-openapi.json
+- api: america-movil:claro-device-location-api
+  name: LBS device location retrieval
+  endpoint: https://api.claro.com.br/mobile/v1/lbs/devices/locations
+  method: GET
+  operationId: device-locations-v1
+  headers:
+    X-QueryString: MSISDN=192388923&locationMethod=99&locationType=LAST
+  response_example:
+    apiVersion: '1;2023-06-30'
+    transactionId: 1440a001-6bc8-4d5e-a55e-f32680c457e6
+    data:
+      deviceLocation:
+        geograficLocation:
+          geometry: {X: '-23.532600', Y: '-23.532600'}
+          typeArea: CircularArea
+          method: Cell
+          accuracy: {radius: '500'}
+          msisdn: '5521912345678'
+          validationDate: '20150611113203'
+  source: openapi/america-movil-claro-device-location-openapi.json

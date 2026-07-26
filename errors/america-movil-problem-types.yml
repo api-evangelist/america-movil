@@ -1,0 +1,123 @@
+generated: '2026-07-25'
+method: derived
+source: >-
+  openapi/america-movil-claro-sim-swap-openapi.json,
+  openapi/america-movil-claro-device-location-openapi.json
+format: claro-gateway
+rfc9457: false
+envelopes:
+- name: CAMARA ErrorInfo
+  media_type: application/json
+  shape: '{ "status": integer, "code": string, "message": string }'
+  used_by: [SIM Swap]
+- name: Claro gateway error
+  media_type: application/json
+  shape: '{ "apiVersion", "transactionId", "error": { "httpCode", "message", "errorCode", "detailedMessage", "link" } }'
+  used_by: [Mobile LBS Devices Locations]
+problems:
+- status: 400
+  code: INVALID_ARGUMENT
+  title: Client specified an invalid argument, request body or query param
+  source_operations: [retrieveSimSwapDate, checkSimSwap]
+  source: openapi/america-movil-claro-sim-swap-openapi.json
+- status: 401
+  code: UNAUTHENTICATED
+  title: Request not authenticated due to missing, invalid, or expired credentials
+  source_operations: [retrieveSimSwapDate, checkSimSwap]
+  source: openapi/america-movil-claro-sim-swap-openapi.json
+- status: 403
+  code: PERMISSION_DENIED
+  title: Client does not have sufficient permissions to perform this action
+  source_operations: [retrieveSimSwapDate, checkSimSwap]
+  source: openapi/america-movil-claro-sim-swap-openapi.json
+- status: 404
+  code: SIM_SWAP.UNKNOWN_PHONE_NUMBER
+  title: SIM Swap can't be checked because the phone number is unknown
+  source_operations: [retrieveSimSwapDate, checkSimSwap]
+  source: openapi/america-movil-claro-sim-swap-openapi.json
+- status: 409
+  code: CONFLICT
+  title: Another request is created for the same MSISDN
+  remediation: Serialize requests per MSISDN; retry after the in-flight request completes.
+  source_operations: [retrieveSimSwapDate, checkSimSwap]
+  source: openapi/america-movil-claro-sim-swap-openapi.json
+- status: 500
+  code: INTERNAL
+  title: Server error
+  source_operations: [retrieveSimSwapDate, checkSimSwap]
+  source: openapi/america-movil-claro-sim-swap-openapi.json
+- status: 503
+  code: UNAVAILABLE
+  title: Service unavailable — typically the server is down
+  source_operations: [retrieveSimSwapDate, checkSimSwap]
+  source: openapi/america-movil-claro-sim-swap-openapi.json
+- status: 504
+  code: TIMEOUT
+  title: Request timeout exceeded. Try later
+  remediation: If it happens repeatedly, reduce the request complexity.
+  source_operations: [retrieveSimSwapDate, checkSimSwap]
+  source: openapi/america-movil-claro-sim-swap-openapi.json
+- status: 400
+  code: API-LBSDEVICESLOCATIONS-400
+  title: Bad Request
+  source_operations: [device-locations-v1]
+  source: openapi/america-movil-claro-device-location-openapi.json
+- status: 401
+  code: API-LBSDEVICESLOCATIONS-401
+  title: Unauthorized user
+  source_operations: [device-locations-v1]
+  source: openapi/america-movil-claro-device-location-openapi.json
+- status: 403
+  code: API-LBSDEVICESLOCATIONS-403
+  title: Client authorization failed
+  source_operations: [device-locations-v1]
+  source: openapi/america-movil-claro-device-location-openapi.json
+- status: 404
+  code: API-LBSDEVICESLOCATIONS-404
+  title: Resource not found
+  source_operations: [device-locations-v1]
+  source: openapi/america-movil-claro-device-location-openapi.json
+- status: 405
+  code: API-LBSDEVICESLOCATIONS-405
+  title: Unavailable HTTP method
+  source_operations: [device-locations-v1]
+  source: openapi/america-movil-claro-device-location-openapi.json
+- status: 406
+  code: API-LBSDEVICESLOCATIONS-406
+  title: Requested content type not acceptable
+  source_operations: [device-locations-v1]
+  source: openapi/america-movil-claro-device-location-openapi.json
+- status: 415
+  code: API-LBSDEVICESLOCATIONS-415
+  title: Unsupported media type
+  source_operations: [device-locations-v1]
+  source: openapi/america-movil-claro-device-location-openapi.json
+- status: 422
+  code: API-LBSDEVICESLOCATIONS-422
+  title: Business fault occurred
+  detail: >-
+    Carries one of the fourteen LBS business faults
+    (API-LBSDEVICESLOCATIONS-001 … -014) in the detailedMessage; see
+    errors/america-movil-error-codes.yml.
+  source_operations: [device-locations-v1]
+  source: openapi/america-movil-claro-device-location-openapi.json
+- status: 429
+  code: API-LBSDEVICESLOCATIONS-429
+  title: The maximum request limit for this MSISDN has been exceeded
+  source_operations: [device-locations-v1]
+  source: openapi/america-movil-claro-device-location-openapi.json
+- status: 451
+  code: API-LBSDEVICESLOCATIONS-451
+  title: Unavailable for legal reasons
+  source_operations: [device-locations-v1]
+  source: openapi/america-movil-claro-device-location-openapi.json
+- status: 500
+  code: API-LBSDEVICESLOCATIONS-500
+  title: Internal server error
+  source_operations: [device-locations-v1]
+  source: openapi/america-movil-claro-device-location-openapi.json
+- status: 503
+  code: API-LBSDEVICESLOCATIONS-503
+  title: Service unavailable
+  source_operations: [device-locations-v1]
+  source: openapi/america-movil-claro-device-location-openapi.json

@@ -1,0 +1,83 @@
+generated: '2026-07-25'
+method: probed
+source: >-
+  live DNS/TLS/HTTP probes of every apis.yml host and every OpenAPI servers[]
+  host, extended by hand to cover the API edge, the sandbox edge, the developer
+  marketplace and the .com.br registrable domains the automated pass skipped.
+hosts:
+- host: www.americamovil.com
+  role: corporate / investor relations
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Oct 19 08:08:32 2026 GMT
+  hsts: false
+- host: www.telcel.com
+  role: Mexico operating company
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Aug  8 23:59:59 2026 GMT
+  hsts: null
+- host: www.claro.com.br
+  role: Brazil operating company
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Jan  6 23:59:59 2027 GMT
+  hsts: true
+  hsts_max_age: 31536000
+- host: api.claro.com.br
+  role: production API gateway edge (CloudFront)
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Jan  6 23:59:59 2027 GMT
+  hsts: true
+  hsts_max_age: 31536000
+  hsts_include_subdomains: true
+  anonymous_status: 403
+- host: api-sandbox.claro.com.br
+  role: sandbox API edge
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Jan  6 23:59:59 2027 GMT
+  hsts: false
+  anonymous_status: 404
+- host: www.claroinsight.com.br
+  role: Claro Insight API marketplace (the group's only developer portal)
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Jan 11 23:59:59 2027 GMT
+  hsts: false
+  anonymous_status: 200
+domains:
+- domain: americamovil.com
+  dnssec: false
+  caa: []
+  spf: true
+  dmarc: true
+  dmarc_policy: reject
+- domain: telcel.com
+  dnssec: false
+  caa: []
+  spf: true
+  dmarc: true
+  dmarc_policy: reject
+- domain: claro.com.br
+  dnssec: false
+  caa: []
+  spf: true
+  dmarc: true
+  dmarc_policy: reject
+  dmarc_note: 'pct=100, fo=1, rua/ruf reporting to OnDMARC and Cisco DMP'
+- domain: claroinsight.com.br
+  dnssec: false
+  caa: []
+  spf: true
+  dmarc: false
+  dmarc_note: >-
+    No _dmarc record. The domain that hosts the developer marketplace, the
+    registration flow and the login is the one domain in the estate with no DMARC
+    policy — a phishing surface aimed squarely at API customers.
+observations:
+- Strong e-mail authentication on the brand domains (SPF + DMARC p=reject) but none on claroinsight.com.br.
+- No CAA record on any domain — any CA may issue for these names.
+- No DNSSEC anywhere in the estate.
+- HSTS is enforced on the production API edge and the Brazilian consumer site, but not on the sandbox edge or the developer marketplace.

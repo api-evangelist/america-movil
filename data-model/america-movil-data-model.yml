@@ -1,0 +1,83 @@
+generated: '2026-07-25'
+method: derived
+source: >-
+  Schemas and $ref graph of openapi/america-movil-claro-sim-swap-openapi.json and
+  openapi/america-movil-claro-device-location-openapi.json, plus the request
+  payloads Claro publishes for the products that have no specification.
+description: >-
+  The Claro Brasil network-API estate has no CRUD object model — there are no
+  resources to create, list or delete. Every product is a lookup keyed on one of
+  three subscriber identifiers, returning an attribute or a verdict. The whole
+  data model is therefore an identifier graph: MSISDN, CPF and (for M2M) device
+  identifiers fan out to network facts.
+primary_keys:
+- key: phoneNumber / networkMsisdn / MSISDN
+  format: E.164 (+55DDNNNNNNNNN) or bare 55DDNNNNNNNNN depending on the product generation
+  used_by: [SIM Swap, Number Verification, Number Recycling, Tenure, KYC Match, KYC Fill In, Device Location, Geofencing, Claro Alerta, Claro Valida Telefone, Claro Valida Endereço]
+- key: cpf / idCpf / idDocument
+  format: Brazilian taxpayer identifier
+  used_by: [Claro Score, Claro Valida Telefone, Claro Valida Endereço, Face Match, KYC Match]
+- key: networkAccessIdentifier / ipv4Address / ipv6Address
+  format: 3GPP GPSI external identifier, or the device's public IP and port
+  used_by: [Geofencing]
+entities:
+- name: SimSwapInfo
+  source: openapi/america-movil-claro-sim-swap-openapi.json
+  fields: [latestSimChange]
+  relationships:
+  - {type: belongs_to, entity: PhoneNumber, via: phoneNumber}
+- name: CheckSimSwapInfo
+  source: openapi/america-movil-claro-sim-swap-openapi.json
+  fields: [swapped]
+  relationships:
+  - {type: belongs_to, entity: PhoneNumber, via: phoneNumber}
+- name: CreateSimSwapDate
+  source: openapi/america-movil-claro-sim-swap-openapi.json
+  fields: [phoneNumber]
+  relationships:
+  - {type: has_one, entity: PhoneNumber, via: $ref PhoneNumber}
+- name: CreateCheckSimSwap
+  source: openapi/america-movil-claro-sim-swap-openapi.json
+  fields: [phoneNumber, maxAge]
+  relationships:
+  - {type: has_one, entity: PhoneNumber, via: $ref PhoneNumber}
+- name: PhoneNumber
+  source: openapi/america-movil-claro-sim-swap-openapi.json
+  kind: value object
+  pattern: '^\+?[0-9]{5,15}$'
+- name: ErrorInfo
+  source: openapi/america-movil-claro-sim-swap-openapi.json
+  fields: [status, code, message]
+- name: deviceLocationWithPoint
+  source: openapi/america-movil-claro-device-location-openapi.json
+  fields: [deviceLocation.geograficLocation.geometry, typeArea, method, pointName, msisdn, validationDate]
+  relationships:
+  - {type: belongs_to, entity: Subscriber, via: msisdn}
+- name: deviceLocationWithCircularArea
+  source: openapi/america-movil-claro-device-location-openapi.json
+  fields: [geometry, typeArea, method, accuracy.radius, msisdn, validationDate]
+  relationships:
+  - {type: belongs_to, entity: Subscriber, via: msisdn}
+- name: deviceLocationWithCircularArchArea
+  source: openapi/america-movil-claro-device-location-openapi.json
+  fields: [geometry, typeArea, method, 'accuracy.{inRadius,outRadius,startAngle,stopAngle}', msisdn, validationDate]
+  relationships:
+  - {type: belongs_to, entity: Subscriber, via: msisdn}
+- name: error
+  source: openapi/america-movil-claro-device-location-openapi.json
+  fields: [apiVersion, transactionId, error.httpCode, error.message, error.detailedMessage, error.link]
+- name: GeofencingSubscription
+  source: published payload (no specification)
+  fields: [webhook.notificationUrl, webhook.notificationAuthToken, subscriptionDetail.device, subscriptionDetail.area, subscriptionDetail.type, subscriptionExpireTime]
+  relationships:
+  - {type: has_one, entity: Device, via: subscriptionDetail.device}
+  - {type: has_one, entity: Area, via: subscriptionDetail.area}
+  note: The only entity in the estate with a lifecycle — it is created and expires at subscriptionExpireTime.
+domains:
+  claro_declared:
+  - {domain: Customer, source: 'x-claro-domains in the SIM Swap spec'}
+  - {domain: Geographic Location, source: 'x-claro-domains in the LBS spec'}
+observations:
+- No entity carries a server-assigned resource id; correlation is by transactionId only.
+- Response payloads are verdicts (boolean/score/date), which is why the estate has no ERD in the conventional sense.
+- Subscriber attributes behind the KYC family are refreshed daily, per the product FAQs.

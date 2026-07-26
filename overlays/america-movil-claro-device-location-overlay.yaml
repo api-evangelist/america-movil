@@ -1,0 +1,55 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Claro Mobile LBS Devices Locations
+  version: 1.0.0
+extends: openapi/america-movil-claro-device-location-openapi.json
+x-generated: '2026-07-25'
+x-method: generated
+x-source: >-
+  API Evangelist enrichment pipeline. Records provenance, the live token
+  endpoint, the operation's data sensitivity and the error registry, without
+  mutating the harvested specification.
+actions:
+- target: $.info
+  update:
+    x-apievangelist-provider: america-movil
+    x-apievangelist-operating-company: Claro Brasil
+    x-apievangelist-catalog: https://www.claroinsight.com.br/pt-br/device-location-retrievel
+    x-apievangelist-standard: none — Claro's own LBS platform API, predating and sitting beside the CAMARA Device Location work
+    x-apievangelist-gateway: Apigee proxy mobile-lbsdeviceslocations-v1
+    x-apievangelist-source-zip: https://www.claroinsight.com.br/sites/default/files/files/device-location-docs-pt.zip
+- target: $.components.securitySchemes.OAuth2.flows.clientCredentials
+  update:
+    x-apievangelist-absolute-token-url: https://api.claro.com.br/oauth2/v1/token
+    x-apievangelist-token-probe-status: 401
+- target: $.paths['/lbs/devices/locations'].get
+  update:
+    x-apievangelist-consequence: read
+    x-apievangelist-data-class: precise personal location (LGPD sensitive)
+    x-apievangelist-consent: >-
+      No technical consent mechanism is published. Claro's own Device Location
+      Verify product states subject consent is mandatory under LGPD; this LBS
+      operation documents none.
+    x-apievangelist-error-registry: errors/america-movil-error-codes.yml
+    x-apievangelist-rate-limit: per-MSISDN ceiling enforced, value unpublished (429 API-LBSDEVICESLOCATIONS-429)
+- target: $.paths['/lbs/devices/locations'].get.responses
+  update:
+    x-apievangelist-note: >-
+      451 Unavailable For Legal Reasons is defined in components.responses but is
+      not referenced by the operation; the estate-wide contract at
+      https://api.claro.com.br/docs does define its meaning.
+- target: $.servers
+  update:
+  - url: https://api.claro.com.br/mobile/v1
+    description: Production (SaaS)
+  - url: https://api-sandbox.claro.com.br/mobile/v1
+    description: Sandbox (SaaS)
+  - url: https://api-test.claro.com.br/mobile/v1
+    description: Test (SaaS)
+  - url: https://test.apigw.claro.com.br/mobile/v1
+    description: Test (on-premises)
+  - url: https://cas.apigw.claro.com.br/mobile/v1
+    description: Production (on-premises DC Campinas)
+  - url: https://lpa.apigw.claro.com.br/mobile/v1
+    description: Production (on-premises DC Lapa)
+    x-apievangelist-note: On-premises data-centre hostnames are published in the specification itself.

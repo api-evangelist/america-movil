@@ -1,0 +1,94 @@
+arazzo: 1.0.1
+info:
+  title: Account-takeover check for a Brazilian mobile line
+  version: 1.0.0
+  description: >-
+    Before trusting a phone number as an authentication factor, ask Claro Brasil
+    two questions: has the SIM pairing changed recently, and where is the device
+    on the network? Step one is the decision gate — if the SIM was swapped inside
+    the window, stop and escalate rather than spending a location lookup on a
+    line you already distrust.
+x-generated: '2026-07-25'
+x-method: generated
+x-source: >-
+  Composed from operations verified in the two harvested Claro Brasil OpenAPI
+  documents. Both operationIds exist verbatim in the referenced specs.
+sourceDescriptions:
+- name: simSwap
+  url: ../openapi/america-movil-claro-sim-swap-openapi.json
+  type: openapi
+- name: deviceLocation
+  url: ../openapi/america-movil-claro-device-location-openapi.json
+  type: openapi
+workflows:
+- workflowId: account-takeover-check
+  summary: Check for a recent SIM swap, then locate the device if the line is still trusted.
+  description: >-
+    Requires an OAuth 2.0 client-credentials token from
+    https://api.claro.com.br/oauth2/v1/token, issued to a registered Claro
+    Insight account with both APIs contracted.
+  inputs:
+    type: object
+    required: [phoneNumber, msisdn]
+    properties:
+      phoneNumber:
+        type: string
+        description: Line under evaluation, E.164 with country code.
+        example: '+5511999999999'
+      msisdn:
+        type: string
+        description: Same line in bare international format, as the LBS header expects.
+        example: '5511999999999'
+      maxAge:
+        type: integer
+        description: SIM-swap lookback window in hours (1-2400).
+        default: 240
+      locationType:
+        type: string
+        description: CURRENT, LAST, CURRENT_OR_LAST or LAST_OR_CURRENT.
+        default: LAST
+  steps:
+  - stepId: check-sim-swap
+    description: Ask whether the SIM pairing changed inside the lookback window.
+    operationId: checkSimSwap
+    requestBody:
+      contentType: application/json
+      payload:
+        phoneNumber: $inputs.phoneNumber
+        maxAge: $inputs.maxAge
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      swapped: $response.body#/swapped
+  - stepId: retrieve-sim-swap-date
+    description: >-
+      Read the exact timestamp of the last pairing change, for the audit record
+      behind the decision.
+    operationId: retrieveSimSwapDate
+    requestBody:
+      contentType: application/json
+      payload:
+        phoneNumber: $inputs.phoneNumber
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      latestSimChange: $response.body#/latestSimChange
+  - stepId: locate-device
+    description: >-
+      Only meaningful when the line is still trusted. Returns the network-derived
+      position with its accuracy shape and the age of the fix.
+    operationId: device-locations-v1
+    parameters:
+    - name: X-QueryString
+      in: header
+      value: MSISDN={$inputs.msisdn}&locationType={$inputs.locationType}
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      transactionId: $response.body#/transactionId
+      deviceLocation: $response.body#/data
+  outputs:
+    swapped: $steps.check-sim-swap.outputs.swapped
+    latestSimChange: $steps.retrieve-sim-swap-date.outputs.latestSimChange
+    deviceLocation: $steps.locate-device.outputs.deviceLocation
+    transactionId: $steps.locate-device.outputs.transactionId

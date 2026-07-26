@@ -1,0 +1,22 @@
+generated: '2026-07-25'
+method: generated
+source: >-
+  Grounded in the operationIds of the two harvested Claro Brasil OpenAPI
+  documents and the cross-cutting rules captured in conventions/, errors/ and
+  rate-limits/. No provider-published AGENTS.md or skill file exists — the
+  Claro Insight marketplace ships PDF tutorials, not agent instructions.
+skills:
+- file: america-movil-sim-swap-fraud-check.md
+  name: Check a Brazilian mobile line for a recent SIM swap
+  api: openapi/america-movil-claro-sim-swap-openapi.json
+  operations: [retrieveSimSwapDate, checkSimSwap]
+- file: america-movil-device-location-lookup.md
+  name: Look up the network location of a device on the Claro network
+  api: openapi/america-movil-claro-device-location-openapi.json
+  operations: [device-locations-v1]
+not_written:
+  reason: >-
+    The other eleven Claro Insight products publish endpoints and payloads but no
+    machine-readable contract, so a skill for them could not be grounded in a real
+    operationId. They are recorded in examples/america-movil-examples.yml and in
+    mcp/america-movil-mcp.yml under documented_endpoints_without_spec.

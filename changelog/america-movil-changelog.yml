@@ -1,0 +1,114 @@
+generated: '2026-07-25'
+method: searched
+source: >-
+  The "Documentação" tab of every Claro Insight product page, which publishes the
+  document version, author, date and change note for each API; plus the embedded
+  change tables in the two harvested OpenAPI documents.
+description: >-
+  Claro Brasil publishes no single dated changelog for the marketplace. What it
+  publishes instead is a per-API version block — version, author, date, change
+  note — on each product page. Collected here as a per-product release record,
+  newest first. It shows the estate's two waves clearly: a 2019 "API
+  Monetization MVP" wave of Claro-authored customer-data services, and a
+  2023-2025 GSMA Open Gateway wave.
+scheme: per-product; no unified changelog
+entries:
+- product: Face Match
+  api: america-movil:claro-face-match-api
+  version: V2
+  date: '2025-11-19'
+  author: Time Claro Data Analytics
+  changes: Versão Multiparceiros (multi-partner version)
+  source: https://www.claroinsight.com.br/pt-br/facial-biometrics
+- product: KYC Fill In
+  api: america-movil:claro-kyc-fill-in-api
+  version: 0.2.1
+  date: '2025-12-02'
+  author: Claro / GSMA Open Gateway
+  source: https://www.claroinsight.com.br/pt-br/fill-in
+- product: Geofencing Subscriptions
+  api: america-movil:claro-geofencing-api
+  version: 0.2.1
+  date: '2025-12-02'
+  author: Claro / GSMA Open Gateway
+  source: https://www.claroinsight.com.br/pt-br/geofencing
+- product: Number Recycling
+  api: america-movil:claro-number-recycling-api
+  version: 0.2.1
+  date: '2025-12-02'
+  author: Claro / GSMA Open Gateway
+  source: https://www.claroinsight.com.br/pt-br/number-recycling
+- product: Tenure (KYC family)
+  api: america-movil:claro-tenure-api
+  version: 0.1.0
+  date: '2025-11-10'
+  author: GSMA Open Gateway
+  source: https://www.claroinsight.com.br/pt-br/tenure
+- product: Device Location Retrieval
+  api: america-movil:claro-device-location-api
+  version: '1.0'
+  date: '2025-09-26'
+  author: TI Hub Novos Negócios – Data Analytics
+  source: https://www.claroinsight.com.br/pt-br/device-location-retrievel
+- product: Device Location Verify
+  api: america-movil:claro-device-location-verify-api
+  version: v0.1.0
+  date: '2025-09-26'
+  author: TI Hub Novos Negócios – Data Analytics / GSMA
+  changes: Aligned to CAMARA DeviceLocation v0.1.0 (location.yaml)
+  source: https://www.claroinsight.com.br/pt-br/device-location-verify
+- product: Know Your Customer (KYC Match)
+  api: america-movil:claro-know-your-customer-api
+  version: 0.2.1
+  date: '2025-03-28'
+  author: GSMA Open Gateway
+  source: https://www.claroinsight.com.br/pt-br/claro-kyc
+- product: SIM Swap
+  api: america-movil:claro-sim-swap-api
+  version: 0.4.0
+  date: '2023-12-01'
+  author: Diego Bulsing Rodrigues / Hub Data Analytics
+  changes: '[Monetization] / [Hub Data Analytics] — initial version'
+  source: openapi/america-movil-claro-sim-swap-openapi.json
+- product: Number Verification
+  api: america-movil:claro-number-verification-api
+  version: 0.3.1
+  date: '2023-12-01'
+  author: Claro / Hub Data Analytics
+  changes: Versão inicial
+  source: https://www.claroinsight.com.br/pt-br/number-verification
+- product: Mobile - LBS Devices Locations
+  api: america-movil:claro-device-location-api
+  version: '1;2023-06-30'
+  date: '2023-06-29'
+  author: EngDB
+  changes: '[LBS Device Locations] Versão inicial'
+  source: openapi/america-movil-claro-device-location-openapi.json
+- product: Claro Alerta (Customers Alerts Service)
+  api: america-movil:claro-alerta-api
+  version: '1;2019-11-06'
+  date: '2019-11-06'
+  author: Claro
+  changes: '[Claro API Monetization MVP] API changes'
+  source: https://www.claroinsight.com.br/pt-br/claro-alerta
+- product: Claro Valida Endereço 2.0 (Customers Validations)
+  api: america-movil:claro-valida-endereco-api
+  version: '1;2019-08-15'
+  date: '2019-08-15'
+  author: Hub Data Analytics
+  changes: '[Claro API Monetization MVP] Versão inicial'
+  source: https://www.claroinsight.com.br/pt-br/claro-valida-endereco-v2
+- product: Claro Valida Telefone (Customers Addresses Service)
+  api: america-movil:claro-valida-telefone-api
+  version: '1;2019-08-15'
+  date: '2019-08-15'
+  author: Hub Data Analytics
+  changes: '[Claro API Monetization MVP] Initial'
+  source: https://www.claroinsight.com.br/pt-br/claro-valida-telefone
+- product: Claro Score (Customers Scores Service)
+  api: america-movil:claro-score-api
+  version: '1;2019-08-02'
+  date: '2019-08-02'
+  author: Claro
+  changes: '[Claro API Monetization MVP] Versão inicial; atualização do swagger'
+  source: https://www.claroinsight.com.br/pt-br/claro-score

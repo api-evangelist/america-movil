@@ -1,0 +1,120 @@
+generated: '2026-07-25'
+method: searched
+source: >-
+  https://api.claro.com.br/docs — "Claro APIs", the gateway's public status-code
+  contract, linked from the error.link.href of every gateway error response;
+  plus the LBS business-fault registry published in the Device Location OpenAPI
+  and the per-product response tables on claroinsight.com.br.
+description: >-
+  Claro Brasil publishes one estate-wide HTTP contract that every API on the
+  api.claro.com.br gateway follows, and it is reachable anonymously even though
+  the rest of the developer surface is registration-gated. It defines the
+  meaning of each success and error status, an error-code naming scheme
+  (API-<PROXY>-<NNN>), and the business-fault registry for the LBS location
+  service.
+envelope_field: error.errorCode
+documentation_link_field: error.link.href
+success_codes:
+- {code: 200, name: OK, use: Success of GET and of synchronous PATCH, PUT and DELETE}
+- {code: 201, name: Created, use: Success of synchronous POST}
+- {code: 202, name: Accepted, use: Success of asynchronous POST, PATCH, PUT and DELETE}
+- {code: 204, name: No Content, use: Success of synchronous DELETE; use 200 when a body must be returned}
+- {code: 304, name: Not Modified, use: Used with HTTP caching — the record has not changed since the last request}
+error_codes:
+- code: 400
+  name: Bad Request
+  meaning: >-
+    Format/syntax validation failure — URI, HTTP headers or query string; JSON
+    payload validated against JSON Schema for field name, type and requiredness;
+    XML firewall policy violations.
+  action: Fix the request; do not retry unmodified.
+- code: 401
+  name: Unauthorized
+  meaning: No authentication token was sent where one is required, or the token is invalid.
+  action: Obtain a new access token from /oauth2/v1/token.
+- code: 403
+  name: Forbidden
+  meaning: >-
+    Authenticated but not authorized for the resource. Also used for source-IP
+    filtering, and — for contracted APIs — when a version that has not been
+    contracted is requested.
+  action: Check the contracted product/version and the allow-listed source IPs.
+- code: 404
+  name: Not Found
+  meaning: >-
+    A non-existent resource was requested (invalid URL). Treated as a business
+    failure when a resource is requested by unique identifier and does not exist.
+- code: 405
+  name: Method Not Allowed
+  meaning: >-
+    HTTP method unavailable or not authorized for the caller. Also returned when
+    DELETE is invoked on an eTOM business process that has passed its point of
+    no return.
+- code: 406
+  name: Not Acceptable
+  meaning: The format requested in Accept is not implemented (e.g. XML requested where only JSON exists).
+- code: 410
+  name: Gone
+  meaning: >-
+    The resource is no longer available. Reserved for retired APIs and retired
+    versions, signalling that a new version or a different API must be used.
+  action: Migrate to the successor API or version.
+- code: 415
+  name: Unsupported Media Type
+  meaning: The Content-Type sent is not among the accepted formats.
+- code: 422
+  name: Unprocessable Entity
+  meaning: >-
+    Semantically incorrect data — logical validation errors in the API gateway,
+    business errors returned by the backend, or an eTOM process suspended or
+    definitively interrupted by data-validation problems.
+- code: 429
+  name: Too Many Requests
+  meaning: The client exceeded its contracted request policy, or a DDoS security policy was triggered.
+  action: Back off and retry; review the contracted plan.
+- code: 451
+  name: Unavailable For Legal Reasons
+  meaning: Access blocked by geographic (geolocation), legal or regulatory restriction.
+- code: 500
+  name: Internal Server Error
+  meaning: Unforeseen error in the API gateway or backend. Requires a support ticket/incident with the production team.
+- code: 503
+  name: Service Unavailable
+  meaning: Backend unavailable — down, in a maintenance window, or throttling.
+business_faults:
+  service: Mobile - LBS Devices Locations
+  returned_on: 422
+  source: openapi/america-movil-claro-device-location-openapi.json
+  codes:
+  - {code: API-LBSDEVICESLOCATIONS-001, meaning: General problem in the location server}
+  - {code: API-LBSDEVICESLOCATIONS-002, meaning: Unspecified error; also used where privacy rules prevent surfacing the real error}
+  - {code: API-LBSDEVICESLOCATIONS-003, meaning: The requesting location-based application is not allowed to access the location server, or a wrong password was supplied}
+  - {code: API-LBSDEVICESLOCATIONS-004, meaning: Unknown subscriber — no such subscription exists}
+  - {code: API-LBSDEVICESLOCATIONS-005, meaning: Absent subscriber — the user is currently not reachable}
+  - {code: API-LBSDEVICESLOCATIONS-006, meaning: Congestion in the location server}
+  - {code: API-LBSDEVICESLOCATIONS-007, meaning: Too many position items specified in the request}
+  - {code: API-LBSDEVICESLOCATIONS-008, meaning: A protocol element in the request has an invalid format}
+  - {code: API-LBSDEVICESLOCATIONS-009, meaning: The position request has invalid syntax}
+  - {code: API-LBSDEVICESLOCATIONS-010, meaning: The requested service is not supported by the location server}
+  - {code: API-LBSDEVICESLOCATIONS-011, meaning: A protocol element in the request has an invalid value}
+  - {code: API-LBSDEVICESLOCATIONS-012, meaning: A protocol element attribute has a wrong value}
+  - {code: API-LBSDEVICESLOCATIONS-013, meaning: Congestion in the mobile network}
+  - {code: API-LBSDEVICESLOCATIONS-014, meaning: A protocol element in the position request is unsupported by the location server, or the position result is unsupported by the LCS client}
+per_product_response_tables:
+  note: >-
+    Each Claro Insight product page publishes the subset of statuses its API
+    returns. Observed subsets, anonymously readable.
+  products:
+  - {product: SIM Swap, statuses: [200, 400, 401, 403, 404, 409, 500, 503, 504]}
+  - {product: Number Verification, statuses: [200, 400, 401, 403, 500, 503, 504]}
+  - {product: Know Your Customer, statuses: [200, 400, 401, 403, 404, 500, 503, 504]}
+  - {product: KYC Fill In, statuses: [200, 400, 401, 403, 500, 503, 504]}
+  - {product: Device Location Retrieval, statuses: [200, 400, 401, 404, 500, 504]}
+  - {product: Device Location Verify, statuses: [200, 400, 401, 404, 500, 504]}
+  - {product: Number Recycling, statuses: [200, 400, 401, 404, 500, 504]}
+  - {product: Geofencing, statuses: [200, 400, 401, 500, 504]}
+  - {product: Tenure, statuses: [200, 400, 401, 403, 404, 422]}
+  - {product: Claro Alerta, statuses: [200, 400, 401, 403, 404, 406, 415, 500]}
+  - {product: Claro Score, statuses: [200, 400, 401, 403, 404, 500]}
+  - {product: Claro Valida Telefone, statuses: [200, 400, 401, 403, 404, 500]}
+  - {product: Claro Valida Endereço 2.0, statuses: [200, 400, 401, 403, 404, 500]}

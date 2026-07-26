@@ -76,6 +76,10 @@ apis:
     url: https://www.claroinsight.com.br/pt-br/sim-swap
   - type: APIReference
     url: https://www.claroinsight.com.br/pt-br/catalogo-api
+  - type: Overlay
+    url: overlays/america-movil-claro-sim-swap-overlay.yaml
+  - type: AgentSkill
+    url: skills/america-movil-sim-swap-fraud-check.md
 - aid: america-movil:claro-device-location-api
   name: Claro Device Location API
   description: >-
@@ -101,6 +105,10 @@ apis:
     url: https://www.claroinsight.com.br/pt-br/device-location-retrievel
   - type: APIReference
     url: https://www.claroinsight.com.br/pt-br/catalogo-api
+  - type: Overlay
+    url: overlays/america-movil-claro-device-location-overlay.yaml
+  - type: AgentSkill
+    url: skills/america-movil-device-location-lookup.md
 - aid: america-movil:claro-number-verification-api
   name: Claro Number Verification API
   description: >-
@@ -124,9 +132,14 @@ apis:
   name: Claro Device Location Verify API
   description: >-
     Verifies whether a mobile device is located within a caller-supplied
-    geographic area, using Claro Brasil network-derived location. Aligns with the
-    CAMARA Device Location Verification pattern. Listed in the Claro Insight
-    catalog; documentation requires portal registration.
+    geographic area, using Claro Brasil network-derived location, returning true
+    or false. Claro's product page names GSMA as co-author, states that subject
+    consent is mandatory under Brazil's LGPD, and links the CAMARA DeviceLocation
+    v0.1.0 definition (code/API_definitions/location.yaml) as the API's technical
+    reference — that upstream definition is saved verbatim in openapi/ and is the
+    only machine-readable contract published for this product. Claro publishes no
+    Claro-hosted variant of it and no endpoint URL; the rest of the documentation
+    requires portal registration.
   humanURL: https://www.claroinsight.com.br/pt-br/device-location-verify
   tags:
   - Device Location
@@ -138,6 +151,8 @@ apis:
     url: https://www.claroinsight.com.br/pt-br/device-location-verify
   - type: APIReference
     url: https://www.claroinsight.com.br/pt-br/catalogo-api
+  - type: OpenAPI
+    url: openapi/america-movil-claro-device-location-verify-camara-openapi.yaml
 - aid: america-movil:claro-know-your-customer-api
   name: Claro Know Your Customer API
   description: >-
@@ -146,6 +161,7 @@ apis:
     subscriber records for onboarding and fraud prevention. Listed in the Claro
     Insight catalog; documentation requires portal registration.
   humanURL: https://www.claroinsight.com.br/pt-br/claro-kyc
+  baseURL: https://api.claro.com.br/mobile/v1/gsma/gateway/knowyourcustomer
   tags:
   - KYC
   - Identity Verification
@@ -164,6 +180,7 @@ apis:
     self-declared input. Listed in the Claro Insight catalog; documentation
     requires portal registration.
   humanURL: https://www.claroinsight.com.br/pt-br/fill-in
+  baseURL: https://api.claro.com.br/mobile/v1/gsma/gateway/kyc
   tags:
   - KYC
   - Identity Verification
@@ -181,6 +198,7 @@ apis:
     phone number are not silently transferred. Listed in the Claro Insight
     catalog; documentation requires portal registration.
   humanURL: https://www.claroinsight.com.br/pt-br/number-recycling
+  baseURL: https://api.claro.com.br/number-recycling/v0.1
   tags:
   - Number Recycling
   - Identity Verification
@@ -198,6 +216,7 @@ apis:
     identity and credit decisions. Listed in the Claro Insight catalog;
     documentation requires portal registration.
   humanURL: https://www.claroinsight.com.br/pt-br/tenure
+  baseURL: https://api.claro.com.br/gsma/gateway/kyc/tenure
   tags:
   - Tenure
   - Identity Verification
@@ -215,6 +234,7 @@ apis:
     leaves an area. Listed in the Claro Insight catalog; documentation requires
     portal registration.
   humanURL: https://www.claroinsight.com.br/pt-br/geofencing
+  baseURL: https://api.claro.com.br/mobile/v1/gsma/gateway/geofencing
   tags:
   - Geofencing
   - IoT
@@ -248,6 +268,7 @@ apis:
     an alert, a Claro-branded companion to the CAMARA SIM Swap API. Listed in the
     Claro Insight catalog; documentation requires portal registration.
   humanURL: https://www.claroinsight.com.br/pt-br/claro-alerta
+  baseURL: https://api.claro.com.br/customers/v1
   tags:
   - SIM Swap
   - Device Swap
@@ -264,6 +285,7 @@ apis:
     a mobile number using Claro Brasil subscriber records. Listed in the Claro
     Insight catalog; documentation requires portal registration.
   humanURL: https://www.claroinsight.com.br/pt-br/claro-valida-telefone
+  baseURL: https://api.claro.com.br/customers/v1
   tags:
   - Identity Verification
   - KYC
@@ -281,6 +303,7 @@ apis:
     onboarding. Listed in the Claro Insight catalog; documentation requires
     portal registration.
   humanURL: https://www.claroinsight.com.br/pt-br/claro-valida-endereco-v2
+  baseURL: https://api.claro.com.br/customers/v2
   tags:
   - Address Verification
   - KYC
@@ -297,6 +320,7 @@ apis:
     identify lower-risk consumers. Listed in the Claro Insight catalog;
     documentation requires portal registration.
   humanURL: https://www.claroinsight.com.br/pt-br/claro-score
+  baseURL: https://api.claro.com.br/customers/v1
   tags:
   - Scoring
   - Credit Risk
@@ -329,6 +353,14 @@ apis:
   - type: Documentation
     url: https://www.telcel.com/empresas/soluciones/busines-intelligence/autenticacion-movil
 common:
+- type: AgenticAccess
+  url: agentic-access/america-movil-agentic-access.yml
+- type: DomainSecurity
+  url: security/america-movil-domain-security.yml
+- type: OAuthScopes
+  url: scopes/america-movil-scopes.yml
+- type: Authentication
+  url: authentication/america-movil-authentication.yml
 - type: Website
   url: https://www.americamovil.com/
 - type: Website
@@ -355,6 +387,52 @@ common:
   url: https://camaraproject.org/
 - type: Standards
   url: https://www.gsma.com/solutions-and-impact/gsma-open-gateway/
+- type: Blog
+  url: https://www.claro.com.br/blog
+- type: Packages
+  url: packages/america-movil-packages.yml
+- type: MCPServer
+  url: mcp/america-movil-mcp.yml
+- type: LLMsTxt
+  url: llms/america-movil-llms.txt
+- type: LLMsTxt
+  url: llms/america-movil-claro-llms.txt
+- type: Conformance
+  url: conformance/america-movil-conformance.yml
+- type: ErrorCatalog
+  url: errors/america-movil-error-codes.yml
+- type: ErrorCatalog
+  url: errors/america-movil-problem-types.yml
+- type: Lifecycle
+  url: lifecycle/america-movil-lifecycle.yml
+- type: Conventions
+  url: conventions/america-movil-conventions.yml
+- type: ChangeLog
+  url: changelog/america-movil-changelog.yml
+- type: Sandbox
+  url: sandbox/america-movil-sandbox.yml
+- type: Plans
+  url: plans/america-movil-plans.yml
+- type: RateLimits
+  url: rate-limits/america-movil-rate-limits.yml
+- type: DataModel
+  url: data-model/america-movil-data-model.yml
+- type: Webhooks
+  url: asyncapi/america-movil-webhooks.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: Arazzo
+  url: arazzo/america-movil-account-takeover-check.yml
+- type: Examples
+  url: examples/america-movil-examples.yml
+- type: DeveloperPortal
+  url: https://www.claroinsight.com.br/
+- type: APIReference
+  url: https://www.claroinsight.com.br/pt-br/catalogo-api
+- type: Support
+  url: https://www.claroinsight.com.br/pt-br/contato
+- type: PrivacyPolicy
+  url: https://www.claro.com.br/privacidade
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com

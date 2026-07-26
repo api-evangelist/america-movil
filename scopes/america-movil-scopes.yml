@@ -1,0 +1,50 @@
+generated: '2026-07-25'
+method: derived
+source: >-
+  openapi/america-movil-claro-device-location-openapi.json,
+  openapi/america-movil-claro-sim-swap-openapi.json
+docs: null
+docs_note: >-
+  Claro Brasil publishes no scopes or permissions reference page. The marketplace
+  grants access per API through an approval workflow rather than through a scope
+  catalog, and both harvested specifications declare an EMPTY scopes map on the
+  clientCredentials flow while still requiring named scopes at the operation
+  level — so the only scope evidence is the operation security requirements
+  below.
+schemes:
+- name: OAuth2
+  source: openapi/america-movil-claro-sim-swap-openapi.json
+  flows:
+  - flow: clientCredentials
+    tokenUrl: /oauth2/v1/token
+    absoluteTokenUrl: https://api.claro.com.br/oauth2/v1/token
+    declared_scopes: 0
+- name: OAuth2
+  source: openapi/america-movil-claro-device-location-openapi.json
+  flows:
+  - flow: clientCredentials
+    tokenUrl: /oauth2/v1/token
+    absoluteTokenUrl: https://api.claro.com.br/oauth2/v1/token
+    declared_scopes: 0
+scopes:
+- scope: retrieve-sim-swap-date
+  description: >-
+    Read the timestamp of the most recent SIM pairing change for a line
+    (operation retrieveSimSwapDate).
+  flows: [clientCredentials]
+  sources:
+  - openapi/america-movil-claro-sim-swap-openapi.json
+- scope: check-sim-swap
+  description: >-
+    Ask whether a SIM swap occurred within a caller-supplied window
+    (operation checkSimSwap).
+  flows: [clientCredentials]
+  sources:
+  - openapi/america-movil-claro-sim-swap-openapi.json
+gaps:
+- The flow-level scopes map is empty in both specs, so a client cannot request these scopes from metadata alone.
+- The LBS device-location operation declares OAuth2 with no scope requirement at all, alongside Basic, Bearer and X-API-Key alternatives.
+- >-
+  No CAMARA-standard scope (e.g. device-location-read) appears in any
+  Claro-published document — only in the upstream CAMARA definition Claro links
+  from its Device Location Verify product page.

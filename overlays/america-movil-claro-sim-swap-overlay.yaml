@@ -1,0 +1,53 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Claro SIM Swap
+  version: 1.0.0
+extends: openapi/america-movil-claro-sim-swap-openapi.json
+x-generated: '2026-07-25'
+x-method: generated
+x-source: >-
+  API Evangelist enrichment pipeline. Captures what we learned about this API
+  from Claro's own public surfaces without mutating the harvested specification.
+actions:
+- target: $.info
+  update:
+    x-apievangelist-provider: america-movil
+    x-apievangelist-operating-company: Claro Brasil
+    x-apievangelist-catalog: https://www.claroinsight.com.br/pt-br/sim-swap
+    x-apievangelist-standard: CAMARA SIM Swap / GSMA Mobile Connect Account Takeover Protection (IDY.24 v2.0)
+    x-apievangelist-open-gateway: true
+    x-apievangelist-access: registration-gated marketplace; OAuth 2.0 client credentials issued after an approved API request
+- target: $.servers
+  update:
+  - url: https://api.claro.com.br/mobile/v1/gsma/gateway/simswap
+    description: Production (SaaS)
+    x-apievangelist-verified: '2026-07-25'
+- target: $.components.securitySchemes.OAuth2.flows.clientCredentials
+  update:
+    x-apievangelist-absolute-token-url: https://api.claro.com.br/oauth2/v1/token
+    x-apievangelist-token-probe-status: 401
+    x-apievangelist-note: >-
+      The specification declares a relative tokenUrl. The absolute endpoint is
+      published in Claro Insight code samples and confirmed live. Credentials are
+      sent as HTTP Basic in either Authorization or the non-standard x-client-auth
+      header, depending on the product generation.
+- target: $.paths['/retrieve-date'].post
+  update:
+    x-apievangelist-consequence: read
+    x-apievangelist-data-class: subscriber identity signal (LGPD personal data)
+    x-apievangelist-scope: retrieve-sim-swap-date
+- target: $.paths['/check'].post
+  update:
+    x-apievangelist-consequence: read
+    x-apievangelist-data-class: subscriber identity signal (LGPD personal data)
+    x-apievangelist-scope: check-sim-swap
+- target: $.components.securitySchemes
+  update:
+    x-apievangelist-gaps:
+      declared_scopes_empty: >-
+        The oauth2 flow declares an empty scopes map even though operations
+        require the scopes retrieve-sim-swap-date and check-sim-swap. See
+        scopes/america-movil-scopes.yml.
+      three_legged_missing: >-
+        CAMARA specifies a three-legged / CIBA subject-authorization pattern for
+        SIM Swap. This implementation is two-legged client credentials only.

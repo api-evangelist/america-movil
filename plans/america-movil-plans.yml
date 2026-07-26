@@ -1,0 +1,48 @@
+generated: '2026-07-25'
+method: searched
+source: >-
+  The plan blocks published on the Claro Insight product pages (SIM Swap, Number
+  Verification, Device Location Verify, KYC Fill In) and the portal checkout flow
+  (e.g. /pt-br/checkout/sim-swap/catalog/2490/plan/1361).
+description: >-
+  Claro Insight sells every marketplace API on the same two-plan ladder: a free
+  Trial to develop against, then metered Pay Per Use in production under a
+  commercial contract. No unit prices are published anonymously — the pay-per-use
+  rate is contractual and reached through "Contratar"/"Solicitar" or a sales
+  conversation.
+currency: BRL
+plans:
+- name: Plano Trial
+  slug: trial
+  price: 0
+  billing: free trial
+  limits:
+    requests: 1000
+    period: 3 months
+  features:
+  - 1.000 solicitações gratuitas
+  - Período de 3 meses
+  - Relatório de consumo (consumption report)
+  signup: https://www.claroinsight.com.br/user/register
+  applies_to: [SIM Swap, Number Verification, Device Location Verify, KYC Fill In]
+- name: Plano Pay Per Use
+  slug: pay-per-use
+  price: null
+  billing: metered per successful query, under contract
+  public_rate_card: false
+  notes: >-
+    "Cobrado por consumo conforme seu contrato." Billing counts a query as
+    successful once at least one supplied field is resolved to true/false.
+    Geofencing is billed differently — per fence created, plus per mobile line
+    registered inside the fence.
+  applies_to: all marketplace APIs
+programs:
+- name: Conexão Claro Open Gateway for Startups
+  benefit: 1,000 free calls per month for six months
+  note: >-
+    Named in Claro's Open Gateway startup programme materials; not offered as a
+    self-serve plan on the marketplace product pages.
+gaps:
+- No published unit price for any API.
+- No enterprise/volume tier published.
+- No overage or rate-card documentation.

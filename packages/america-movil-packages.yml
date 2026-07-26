@@ -1,0 +1,39 @@
+generated: '2026-07-25'
+method: searched
+source: >-
+  npm registry search, PyPI project probes, GitHub organization probes, and every
+  Claro Insight product page ("Códigos de Exemplo" tabs)
+summary: >-
+  América Móvil publishes no first-party client libraries in any public package
+  registry. What Claro Brasil ships instead of SDKs is copy-paste sample code
+  embedded in the Claro Insight product pages — cURL, PHP, Java, Python — plus a
+  PDF consumption tutorial per API inside the downloadable docs zips. No npm,
+  PyPI, Maven Central, NuGet, pkg.go.dev, RubyGems, Packagist or crates.io
+  package was found for América Móvil, Telcel, Telmex or Claro network APIs.
+packages: []
+registries_probed:
+- registry: npm
+  queries: ["claro open gateway", "claro sim swap"]
+  result: no first-party package
+- registry: pypi
+  probes: [claro-insight, claro-api, americamovil, telcel, claro-open-gateway]
+  result: all 404
+- registry: github
+  probes:
+  - {org: americamovil, status: 404}
+  - {org: america-movil, status: 404}
+  - {org: telcel, status: 404}
+  - {org: ClaroInsight, status: 404}
+  - {org: clarobrasil, status: 200, note: exists with 0 public repositories}
+  - {org: claro-brasil, status: 200, note: exists with 0 public repositories}
+  result: no published source or SDK repositories
+code_samples_instead_of_sdks:
+  languages: [curl, php, java, python]
+  location: >-
+    The "Códigos de Exemplo" tab on each Claro Insight product page, served
+    anonymously.
+  captured: examples/america-movil-examples.yml
+  tutorials: >-
+    Each product page offers "Baixar documentação" — a zip containing a PDF
+    step-by-step consumption tutorial. Two of those zips (sim-swap, device-location)
+    also carry the OpenAPI documents saved in openapi/.

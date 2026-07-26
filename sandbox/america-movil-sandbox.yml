@@ -1,0 +1,52 @@
+generated: '2026-07-25'
+method: searched
+source: >-
+  servers[] of the two harvested OpenAPI documents, live probes of the sandbox
+  edge, and the Trial plan blocks on the Claro Insight product pages.
+description: >-
+  Claro Brasil operates a real non-production estate — a SaaS sandbox, lab, dev
+  and test edge plus an on-premises test data centre — and sells a free Trial
+  plan to develop against. What it does NOT publish is any of the things that
+  make a sandbox self-serve: there are no test credentials, no magic test MSISDNs,
+  no deterministic fixtures and no simulator. Access to every environment
+  requires registration on the marketplace and an approved API request, so an
+  anonymous developer cannot make a single call.
+environments:
+- name: Sandbox (SaaS)
+  host: https://api-sandbox.claro.com.br
+  probe_status: 404 at root; resolves and answers
+  used_by: [SIM Swap, Mobile LBS Devices Locations]
+- name: Lab (SaaS)
+  host: https://api-lab.claro.com.br
+  used_by: [SIM Swap]
+- name: Dev (SaaS)
+  host: https://api-dev.claro.com.br
+  used_by: [SIM Swap]
+- name: Test (SaaS)
+  host: https://api-test.claro.com.br
+  used_by: [SIM Swap, Mobile LBS Devices Locations]
+- name: Test (on-premises)
+  host: https://test.apigw.claro.com.br
+  used_by: [Mobile LBS Devices Locations]
+credentials:
+  self_serve: false
+  how_to_get: >-
+    Register at https://www.claroinsight.com.br/user/register, log in, request the
+    API, and receive client_id/client_secret for the OAuth 2.0 client-credentials
+    flow. Credentials, endpoints and the Swagger download are all behind the login.
+  key_prefixes_documented: false
+  separate_test_keys_documented: false
+free_tier:
+  plan: Plano Trial
+  quota: 1000 requests over 3 months
+  reporting: consumption report included
+  detail: plans/america-movil-plans.yml
+test_data:
+  magic_values: none published
+  test_msisdns: none published
+  fixtures: none published
+  time_simulation: none published
+  note: >-
+    The only sample identifiers published are illustrative placeholders in the
+    code samples and specs (+5511999999999, 5521912345678, +346661113334); they
+    are documentation examples, not reserved test numbers.

@@ -1,0 +1,12 @@
+generated: '2026-07-25'
+method: derived
+source: arazzo/*.yml
+workflows:
+- file: america-movil-account-takeover-check.yml
+  workflowId: account-takeover-check
+  title: Account-takeover check for a Brazilian mobile line
+  summary: >-
+    Check a Claro Brasil line for a recent SIM swap, capture the exact pairing
+    date for the audit record, then locate the device on the network if the line
+    is still trusted.
+  operations: [checkSimSwap, retrieveSimSwapDate, device-locations-v1]

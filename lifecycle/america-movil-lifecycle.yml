@@ -1,0 +1,64 @@
+generated: '2026-07-25'
+method: searched
+source: >-
+  https://api.claro.com.br/docs (status-code contract), the Documentação tab of
+  every Claro Insight product page (version + author + date + changes), and the
+  info blocks of the two harvested OpenAPI documents.
+versioning:
+  schemes:
+  - {scheme: 'major;date', example: '1;2023-06-30', where: gateway document version and the apiVersion response field}
+  - {scheme: semver, example: 0.4.0, where: CAMARA-derived products}
+  - {scheme: uri-path, example: /customers/v2, where: request path}
+  current_by_product: changelog/america-movil-changelog.yml
+  notes: >-
+    Two versioning cultures coexist. The 2019 "customers" services carry a
+    Claro-internal `major;date` document version. The 2023-2025 Open Gateway
+    products carry the CAMARA semantic version of the specification they derive
+    from (SIM Swap 0.4.0, Number Verification 0.3.1, KYC family 0.2.1, Device
+    Location Verify 0.1.0, Tenure 0.1.0).
+deprecation:
+  policy_url: null
+  policy_published: false
+  sunset_header: false
+  retirement_signal:
+    status: 410
+    rule: >-
+      "Gone — identifica que o recurso não está mais disponível. Deve ser
+      utilizado para API e versões aposentadas, identificando que uma nova versão
+      ou outra API deverá ser utilizada."
+    source: https://api.claro.com.br/docs
+  notes: >-
+    Claro publishes no dated deprecation or sunset policy, no notice period, and
+    no RFC 8594 Sunset/Deprecation headers. The only published retirement
+    contract is the reserved use of HTTP 410 for retired APIs and versions, plus
+    403 when an uncontracted version is requested. This is a status-code
+    convention, not a lifecycle policy.
+sla:
+  url: null
+  uptime_target: null
+  notes: >-
+    No SLA, uptime target or support-response commitment is published anywhere on
+    the Claro Insight marketplace. Technical incident handling is routed to the
+    Embratel Cloud support desk (0800 772 5683 / mesacld@embratel.com.br).
+status_page:
+  url: null
+  probed: [https://status.claro.com.br, https://status.claroinsight.com.br]
+  result: NXDOMAIN on both — no public status page exists for the API estate.
+environments:
+- {name: Sandbox (SaaS), host: https://api-sandbox.claro.com.br}
+- {name: Lab (SaaS), host: https://api-lab.claro.com.br}
+- {name: Dev (SaaS), host: https://api-dev.claro.com.br}
+- {name: Test (SaaS), host: https://api-test.claro.com.br}
+- {name: Production (SaaS), host: https://api.claro.com.br}
+- {name: Test (on-premises), host: https://test.apigw.claro.com.br}
+- {name: Production (on-premises, DC Campinas), host: https://cas.apigw.claro.com.br}
+- {name: Production (on-premises, DC Lapa), host: https://lpa.apigw.claro.com.br}
+deprecated_operations: []
+retired_surfaces:
+- url: https://opengateway.claro.com.br/apis
+  status: 500
+  note: >-
+    Dangling CloudFront deployment of what search engines still index as the
+    "Catálogo de API - Claro Insight" Open Gateway host. Returns a CloudFront 500
+    rather than a 410 or a redirect — the retirement convention above is not
+    applied to the retired portal itself.

@@ -1,0 +1,68 @@
+generated: '2026-07-25'
+method: searched
+source: >-
+  https://www.claroinsight.com.br/pt-br/geofencing (published subscription
+  payload and FAQ) and https://www.claroinsight.com.br/pt-br/claro-alerta
+  (published event-types request header).
+spec_type: none
+asyncapi_published: false
+description: >-
+  América Móvil publishes no AsyncAPI document, no event catalog and no
+  streaming surface. It does, however, document one real push surface: the Claro
+  Brasil Geofencing API is a CAMARA-style subscription API where the caller
+  registers a webhook and Claro POSTs a notification whenever a monitored M2M
+  line enters or leaves a geographic fence. A second, weaker event surface is
+  the Claro Alerta service, which selects event classes through a request header
+  but returns them synchronously rather than pushing them. Everything below is
+  transcribed from the provider's own published payloads — no schema has been
+  invented.
+webhooks:
+- name: Geofencing area subscription
+  api: america-movil:claro-geofencing-api
+  style: CAMARA subscription + webhook callback
+  subscribe_endpoint: https://api.claro.com.br/mobile/v1/gsma/gateway/geofencing/subscriptions
+  subscribe_method: POST
+  version: 0.2.1
+  subscription_payload:
+    webhook:
+      notificationUrl: consumer HTTPS endpoint that receives the notification
+      notificationAuthToken: bearer token Claro presents back to the consumer endpoint
+    subscriptionDetail:
+      device: [phoneNumber, networkAccessIdentifier, ipv4Address, ipv6Address]
+      area: {areaType: CIRCLE, center: {latitude, longitude}, radius: metres}
+      type: the event type subscribed to
+    subscriptionExpireTime: RFC 3339 timestamp after which the subscription lapses
+  event_types:
+  - type: org.camaraproject.geofencing.v0.area-entered
+    description: The monitored device entered the subscribed area.
+    published_example: true
+  - type: org.camaraproject.geofencing.v0.area-left
+    description: >-
+      The complementary exit event. Claro's FAQ states notifications fire
+      "sempre que um evento de entrada ou saída da cerca ocorrer" (whenever an
+      entry or exit event occurs); only the area-entered type string is
+      published verbatim in the sample, so the exit type is recorded here as
+      documented-in-prose, not as a verbatim published identifier.
+    published_example: false
+  delivery_auth: notificationAuthToken supplied by the consumer at subscription time
+  signature_verification: none documented
+  retry_policy: none documented
+  scope: M2M devices only — "o uso desta API é exclusivo para dispositivos M2M"
+  billing: per fence created, plus per mobile line registered inside the fence
+- name: Claro Alerta event classes
+  api: america-movil:claro-alerta-api
+  style: request-header event selection, synchronous response (not a push webhook)
+  endpoint: https://api.claro.com.br/customers/v1/alerts
+  request_header: 'event-types: SIMCARD_CHANGED,DEVICE_CHANGED'
+  event_types:
+  - {type: SIMCARD_CHANGED, description: The SIM card on the line was changed}
+  - {type: DEVICE_CHANGED, description: The handset on the line was changed}
+  note: >-
+    Marketing copy describes Claro Alerta as delivering "alertas de notificação",
+    but the published integration is a POST that returns the alert state
+    synchronously. No subscription, callback URL or delivery contract is
+    documented.
+gaps:
+- No AsyncAPI or CloudEvents schema is published for either surface.
+- No callbacks/webhooks section exists in either harvested OpenAPI.
+- No signature, replay-protection or retry semantics are documented for the geofencing callback.

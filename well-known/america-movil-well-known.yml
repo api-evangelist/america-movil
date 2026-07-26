@@ -1,0 +1,86 @@
+generated: '2026-07-25'
+method: searched
+source: live probes of every apis.yml baseURL host, every OpenAPI servers[] host, and the docs/portal host
+summary: >-
+  No /.well-known/ discovery document is served anywhere in the América Móvil
+  group. The production API edge (api.claro.com.br) answers 403 to every
+  unauthenticated path including /.well-known/*, the sandbox edge answers 404,
+  and the Claro Insight portal (Drupal) answers 404. There is no
+  openid-configuration, no oauth-authorization-server (RFC 8414), no
+  oauth-protected-resource, no api-catalog (RFC 9727), no ai-plugin.json and no
+  security.txt (RFC 9116). The OAuth 2.0 client-credentials token endpoint is
+  real and live at https://api.claro.com.br/oauth2/v1/token (401 anonymous) but
+  it is documented only in portal code samples, not advertised through metadata.
+hosts:
+- host: https://api.claro.com.br
+  note: Production API edge (CloudFront). All paths return 403 unauthenticated.
+  documents:
+  - path: /.well-known/security.txt
+    status: 403
+  - path: /security.txt
+    status: 403
+  - path: /.well-known/openid-configuration
+    status: 403
+  - path: /.well-known/oauth-authorization-server
+    status: 403
+  - path: /.well-known/oauth-protected-resource
+    status: 403
+  - path: /.well-known/api-catalog
+    status: 403
+  - path: /.well-known/ai-plugin.json
+    status: 403
+- host: https://api-sandbox.claro.com.br
+  note: Sandbox API edge. Resolves and answers; no discovery surface.
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+- host: https://www.claroinsight.com.br
+  note: Claro Insight API marketplace (Drupal).
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /robots.txt
+    status: 200
+    note: Standard Drupal robots.txt; no API or discovery hints.
+  - path: /sitemap.xml
+    status: 404
+- host: https://www.claro.com.br
+  note: Claro Brasil consumer site.
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /llms.txt
+    status: 200
+    file: ../llms/america-movil-llms.txt
+    note: >-
+      A real provider-published llms.txt (9,632 bytes, served as ISO-8859-1).
+      Consumer/brand oriented — it indexes product, support and institutional
+      pages for AI agents and does not mention the API marketplace or any
+      developer surface.
+oauth:
+  token_endpoint: https://api.claro.com.br/oauth2/v1/token
+  status: 401
+  discovered_via: >-
+    Portal code samples on every Claro Insight product page (curl/PHP/Java/Python)
+    and the relative tokenUrl /oauth2/v1/token in both harvested OpenAPI documents.
+  metadata_published: false
