@@ -1,0 +1,510 @@
+aid: america-movil
+name: América Móvil
+review:
+  question: >-
+    Does América Móvil publish a real, self-serve public developer surface, and
+    what is its CAMARA / GSMA Open Gateway posture?
+  answer: partial
+  date: '2026-07-25'
+  reviewer: API Evangelist
+  homeMarket: Mexico
+  tier: mno-carrier
+  gated: true
+  summary: >-
+    América Móvil has no corporate developer portal. The only real API surface in
+    the group belongs to one operating company — Claro Brasil — whose "Claro
+    Insight" marketplace publishes a 14-API catalog with per-API detail pages,
+    priced plans and a checkout flow, but keeps every Swagger download behind
+    registration. Two OpenAPI documents were nonetheless recovered from the
+    portal's own public file store and are saved verbatim. In the home market of
+    Mexico, Telcel's Open Gateway launch is real as a commitment and a sales
+    listing, but there is nothing callable and nothing published. América Móvil
+    is a GSMA Open Gateway participant, was named at the September 2024 launch of
+    Aduna and then dropped out of the July 2025 equity structure, and reaches
+    developers in Brazil through the CPaaS aggregator Infobip rather than
+    directly.
+findings:
+  developerPortal:
+    corporate:
+      url: https://www.americamovil.com/
+      status: 403
+      note: >-
+        Corporate/investor-relations site. Returns 403 to non-browser clients;
+        renders in a browser. Navigation is Overview / About Us / Investors /
+        Corporate Governance / Press Room. No developer, API or Open Gateway link
+        anywhere in the navigation.
+      isDeveloperPortal: false
+    probedSubdomains:
+      - url: https://developer.americamovil.com
+        status: 000
+        note: DNS does not resolve.
+      - url: https://developers.americamovil.com
+        status: 000
+        note: DNS does not resolve.
+      - url: https://docs.americamovil.com
+        status: 000
+        note: DNS does not resolve.
+      - url: https://api.americamovil.com
+        status: 000
+        note: DNS does not resolve.
+      - url: https://opengateway.americamovil.com
+        status: 000
+        note: DNS does not resolve.
+      - url: https://www.americamovil.com/developer
+        status: 403
+        note: Same bot-blocked corporate site; no developer path exists.
+      - url: https://www.americamovil.com/opengateway
+        status: 403
+        note: Same bot-blocked corporate site; no Open Gateway path exists.
+      - url: https://developer.telcel.com
+        status: 000
+        note: DNS does not resolve.
+      - url: https://developers.telcel.com
+        status: 000
+        note: DNS does not resolve.
+      - url: https://opengateway.telcel.com
+        status: 000
+        note: DNS does not resolve.
+      - url: https://desarrolladores.telcel.com
+        status: 000
+        note: DNS does not resolve.
+      - url: https://api.telcel.com
+        status: 000
+        note: DNS does not resolve.
+      - url: https://www.telcel.com/opengateway
+        status: 404
+        note: Telcel site is live (200) but has no Open Gateway path.
+      - url: https://developers.claro.com.br
+        status: 000
+        note: DNS does not resolve.
+      - url: https://developer.claro.com.br
+        status: 000
+        note: DNS does not resolve.
+      - url: https://apis.claro.com.br
+        status: 000
+        note: DNS does not resolve.
+      - url: https://opengateway.claro.com.br
+        status: 500
+        note: >-
+          DANGLING DEPLOYMENT. Resolves to CloudFront distribution
+          d1gc0lxfj3bgdy.cloudfront.net and returns "500 Error from cloudfront"
+          for both / and /apis. Search engines still index
+          opengateway.claro.com.br/apis as "Catálogo de API - Claro Insight", so
+          this was a live Open Gateway catalog host that is now broken.
+      - url: https://api.claro.com.br
+        status: 403
+        note: >-
+          Live API gateway edge (CloudFront). 403 unauthenticated at root;
+          /oauth2/v1/token returns 401, confirming a live OAuth token endpoint.
+      - url: https://api-sandbox.claro.com.br
+        status: 404
+        note: Sandbox host resolves and answers; root 404, no discovery document.
+      - url: https://www.claro.com.co/desarrolladores
+        status: 404
+      - url: https://developer.claro.com.co
+        status: 000
+      - url: https://developer.claro.com.pe
+        status: 000
+      - url: https://opengateway.claro.com.co
+        status: 000
+      - url: https://opengateway.claro.com.ar
+        status: 000
+      - url: https://opengateway.claro.com.pe
+        status: 000
+      - url: https://developer.telmex.com
+        status: 000
+      - url: https://api.telmex.com
+        status: 000
+    realSurface:
+      url: https://www.claroinsight.com.br/
+      status: 200
+      redirectFrom: https://desenvolvedor.claro.com.br/ (301)
+      verdict: >-
+        REAL but REGISTRATION-GATED marketplace. Drupal-based "Marketplace API
+        Claro" operated by Claro Brasil. Public: a 14-API catalog at
+        /pt-br/catalogo-api, a per-API detail page for every product (all 200), a
+        plan/checkout flow (e.g. /pt-br/checkout/sim-swap/catalog/2490/plan/1361),
+        an onboarding page and an FAQ. Gated: every product page says "baixe a API
+        Swagger clicando no botão abaixo" but the Swagger download, endpoints,
+        credentials and consumption dashboards require /user/register and
+        /pt-br/user/login. No base URLs, auth details or examples are shown to an
+        anonymous visitor.
+      isSelfServe: false
+      isLoginWall: partial
+    mexicoSurface:
+      url: https://www.telcel.com/empresas/soluciones/busines-intelligence/autenticacion-movil
+      status: 403
+      note: >-
+        403 to non-browser clients (bot protection); renders in a browser. Names
+        Number Verification, SIM change detection and Device Location
+        Verification under "el proyecto Open Gateway impulsado por Telcel y los
+        operadores en México". No portal, no spec, no sandbox, no pricing — only a
+        "Contáctanos" sales form. This is a MARKETING PAGE, not a developer
+        portal.
+      isDeveloperPortal: false
+  openapiHarvested: true
+  specsCount: 2
+  specs:
+    - path: openapi/america-movil-claro-sim-swap-openapi.json
+      originalFilename: mobile-gsmagatewaysimswap-v1 (2).json
+      sourceURL: https://www.claroinsight.com.br/sites/default/files/files/sim-swap-docs-pt.zip
+      sourceHTTPStatus: 200
+      fetchDate: '2026-07-25'
+      discoveredVia: >-
+        Linked directly from the public product page
+        https://www.claroinsight.com.br/pt-br/sim-swap (the "download docs" zip,
+        served anonymously despite the page copy implying login).
+      format: OpenAPI 3.0.3
+      parsed: true
+      title: SIM Swap
+      specVersion: 0.4.0 (per embedded changelog, author Diego Bulsing Rodrigues, 2023-12-01)
+      paths:
+        - POST /retrieve-date
+        - POST /check
+      servers:
+        - https://api-sandbox.claro.com.br/mobile/v1/gsma/gateway/simswap (Sandbox SaaS)
+        - https://api-lab.claro.com.br/mobile/v1/gsma/gateway/simswap (Lab SaaS)
+        - https://api-dev.claro.com.br/mobile/v1/gsma/gateway/simswap (Dev SaaS)
+        - https://api-test.claro.com.br/mobile/v1/gsma/gateway/simswap (Test SaaS)
+        - https://api.claro.com.br/mobile/v1/gsma/gateway/simswap (Production SaaS)
+      securitySchemes:
+        - OAuth2 clientCredentials, tokenUrl /oauth2/v1/token, no declared scopes
+      note: >-
+        The description states the API "derives from the GSMA Mobile Connect
+        Account Takeover Protection specification". The operation shape
+        (retrieve-date + check) matches CAMARA SIM Swap v0.4.0. The zip also
+        contained "Tutorial de consumo da API SIM Swap.pdf" (not committed).
+    - path: openapi/america-movil-claro-device-location-openapi.json
+      originalFilename: Swagger_API_LBS_Device_Locations.json
+      sourceURL: https://www.claroinsight.com.br/sites/default/files/files/device-location-docs-pt.zip
+      sourceHTTPStatus: 200
+      fetchDate: '2026-07-25'
+      discoveredVia: >-
+        Direct path probe of the portal's public file store, guessed from the
+        sim-swap zip naming convention. NOT linked from any current catalog page —
+        the Device Location product pages carry no download link. An identical
+        English-language zip is served at device-location-docs-en.zip (200,
+        byte-identical spec, English PDF).
+      format: OpenAPI 3.0.0
+      parsed: true
+      title: "Mobile - LBS Devices Locations (Proxy Apigee: mobile-lbsdeviceslocations-v1)"
+      specVersion: 1;2023-06-30
+      paths:
+        - GET /lbs/devices/locations
+      servers:
+        - https://api-sandbox.claro.com.br/mobile/v1 (Sandbox SaaS)
+        - https://api-test.claro.com.br/mobile/v1 (Test SaaS)
+        - https://api.claro.com.br/mobile/v1 (Production SaaS)
+        - https://test.apigw.claro.com.br/mobile/v1 (Test on-premises)
+        - https://cas.apigw.claro.com.br/mobile/v1 (Production on-premises, DC Campinas)
+        - https://lpa.apigw.claro.com.br/mobile/v1 (Production on-premises, DC Lapa)
+      securitySchemes:
+        - HTTP Basic
+        - HTTP Bearer
+        - apiKey header X-API-Key
+        - OAuth2 clientCredentials, tokenUrl /oauth2/v1/token
+      note: >-
+        This is Claro's own LBS platform API, not a CAMARA document — it predates
+        and sits beside the CAMARA Device Location work. The Apigee proxy name is
+        exposed in the title, and the on-premises data-centre hostnames are
+        published.
+  camara:
+    posture: >-
+      Real CAMARA-aligned implementation in Brazil only; press-release-only in
+      Mexico and the rest of the footprint.
+    detail: >-
+      Claro Brasil ships a genuine CAMARA-derived SIM Swap API — a downloadable
+      OpenAPI 3.0.3 document with CAMARA's retrieve-date/check operation shape,
+      live production and sandbox hosts under a /gsma/gateway/ path, and OAuth2
+      client credentials. That is an implementation, not an announcement, and it
+      is the strongest CAMARA evidence anywhere in the América Móvil group.
+      Everything else is softer: the Claro Insight catalog lists Number
+      Verification, Device Location Verify and KYC as products but publishes no
+      specification for them, and Telcel's Mexican Open Gateway launch of SIM
+      Swap / Number Verification / Device Location on 28 May 2025 has produced a
+      marketing page and a sales form and nothing callable. A press release is
+      not an implementation, and in Mexico — América Móvil's home market and its
+      largest — that is exactly what exists.
+    apisWithEvidence:
+      - name: SIM Swap
+        evidence: >-
+          OpenAPI 3.0.3 harvested; POST /retrieve-date + POST /check; production
+          host https://api.claro.com.br/mobile/v1/gsma/gateway/simswap.
+        strength: implementation
+      - name: Number Verification
+        evidence: >-
+          Named product page at claroinsight.com.br/pt-br/number-verification
+          (200) and named in the GSMA Mexico Open Gateway launch (28 May 2025) and
+          the Brazil launch (Nov 2023). No spec published.
+        strength: product-listing
+      - name: Device Location / Location Verification
+        evidence: >-
+          Two Claro Insight product pages (device-location-verify,
+          device-location-retrievel, both 200), an LBS OpenAPI harvested (Claro's
+          own, not CAMARA), and named in both the Brazil and Mexico Open Gateway
+          launches.
+        strength: implementation-adjacent
+      - name: KYC Match
+        evidence: >-
+          "Know your customer" product page at claroinsight.com.br/pt-br/claro-kyc
+          (200); Claro Empresas announced a KYC API under Open Gateway. No spec.
+        strength: product-listing
+      - name: Number Recycling
+        evidence: >-
+          Product page at claroinsight.com.br/pt-br/number-recycling (200). No
+          spec.
+        strength: product-listing
+      - name: Tenure
+        evidence: Product page at claroinsight.com.br/pt-br/tenure (200). No spec.
+        strength: product-listing
+      - name: Device Swap
+        evidence: >-
+          Marketed as "Claro Alerta" (claroinsight.com.br/pt-br/claro-alerta,
+          200) — detects SIM or device change. Claro-branded rather than
+          CAMARA-named. No spec.
+        strength: product-listing
+      - name: Geofencing
+        evidence: >-
+          Product page at claroinsight.com.br/pt-br/geofencing (200). CAMARA has a
+          Geofencing subscription API; Claro's is described as M2M cellular
+          monitoring. No spec.
+        strength: product-listing
+    apisNotFound:
+      - Quality on Demand (QoD)
+      - Carrier Billing
+      - Device Status / Reachability
+      - Anti-fraud / Scam Signal (as a CAMARA-named API)
+      - Population Density
+    camaraProjectMembership: >-
+      América Móvil is NOT among the companies named in the Linux Foundation's
+      28 February 2022 CAMARA founding press release (AT&T, Capgemini, Deutsche
+      Telekom, Ericsson, GSMA, Google Cloud, IBM, Intel, Kandy, KDDI, Microsoft,
+      MobiledgeX, Nokia, NGMN, Orange, Scenera, T-Mobile US, TIM, Telefónica,
+      TELUS, the Linux Foundation, Vodafone). Its CAMARA relationship is as a
+      downstream implementer via GSMA Open Gateway, not as a founding
+      specification author.
+  openGateway:
+    member: true
+    evidence: >-
+      GSMA names América Móvil among the Latin American operator groups
+      participating in GSMA Open Gateway. Claro launched Open Gateway in Brazil
+      with TIM and Vivo in November 2023 (number verification, SIM swap, device
+      location); Telcel launched in Mexico on 28 May 2025 at M360 LATAM alongside
+      Altán Redes, AT&T Mexico and Telefónica Mexico with SIM Swap, Number
+      Verification and Device Location — making Mexico the 5th Latin American and
+      14th global country to adopt. Claro is also named in the Argentina launch
+      (with Telecom and Telefónica) and the Uruguay launch (with Antel), and
+      Claro Ecuador carries a GSMA Open Gateway institutional page
+      (claro.com.ec/institucional/gsma-open-gateway/, 200 — which contains no API
+      or developer content at all).
+  aduna:
+    equityPartner: false
+    note: >-
+      América Móvil was named in Ericsson's September 2024 announcement of the
+      network-API joint venture that became Aduna, but it is ABSENT from the
+      twelve-CSP equity structure completed in July 2025 (AT&T, Bharti Airtel,
+      Deutsche Telekom, KDDI, Orange, Reliance Jio, Singtel, Telefónica, Telstra,
+      T-Mobile, Verizon, Vodafone alongside Ericsson's 50%). It is therefore
+      outside the industry's single largest commercial aggregation channel for
+      network APIs — a notable gap for the largest operator group in Latin
+      America.
+  channelToDevelopers: >-
+    Aggregator-mediated outside Brazil. Infobip announced a partnership with three
+    Brazilian mobile network operators — including Claro — to launch the first
+    CAMARA-compliant network APIs in Brazil under GSMA Open Gateway, and Brazil's
+    launch materials point developers at Microsoft Azure and integrators such as
+    Infobip. Claro Brasil is the only América Móvil operating company that also
+    sells directly, through the Claro Insight marketplace and a
+    "Conexão Claro Open Gateway for Startups" programme offering 1,000 free calls
+    per month for six months. In Mexico, Telcel offers no direct developer channel
+    at all — the only route is a sales conversation.
+  tmForum:
+    conformanceFound: false
+    note: >-
+      No TM Forum Open API conformance certification was found for América Móvil,
+      Telcel, Telmex, Claro or Embratel. No TMF620 / TMF622 / TMF641 badge or
+      certificate is published on any group property. TM Forum and GSMA now
+      operate a unified conformance programme covering TM Forum Operate APIs
+      alongside CAMARA Service APIs; nothing in the group appears in it as of this
+      review.
+  threeGppExposure:
+    nefOrScef: false
+    networkSlicing: false
+    edgeMec: false
+    note: >-
+      No NEF or SCEF surface, no network-slicing API and no edge/MEC API is
+      published or documented anywhere in the group's public properties.
+  authModel:
+    schemes:
+      - OAuth 2.0 client credentials (both harvested specs; tokenUrl /oauth2/v1/token)
+      - HTTP Basic (Device Location spec)
+      - HTTP Bearer (Device Location spec)
+      - API key header X-API-Key (Device Location spec)
+    ciba: false
+    cibaNote: >-
+      CIBA (Client-Initiated Backchannel Authentication) does NOT appear anywhere.
+      Neither harvested specification references CIBA, OIDC, an authorization
+      endpoint, or a backchannel flow. Both use plain OAuth2 client-credentials —
+      the enterprise-to-enterprise pattern, not CAMARA's specified
+      network-based user-authorization pattern. There is no subject-consent
+      mechanism in evidence.
+    wellKnown:
+      - url: https://api.claro.com.br/.well-known/openid-configuration
+        status: 403
+      - url: https://api.claro.com.br/.well-known/oauth-authorization-server
+        status: 403
+      - url: https://api-sandbox.claro.com.br/.well-known/openid-configuration
+        status: 404
+      - url: https://www.claroinsight.com.br/.well-known/openid-configuration
+        status: 404
+    tokenEndpoint:
+      url: https://api.claro.com.br/oauth2/v1/token
+      status: 401
+      note: Live and rejecting anonymous requests, as expected.
+  webhooksAndEvents:
+    published: false
+    asyncapi: false
+    note: >-
+      No webhook catalog and no AsyncAPI document is published. Neither harvested
+      OpenAPI declares a callbacks or webhooks section. The Geofencing product is
+      described in marketing copy as raising notifications, but no event schema,
+      delivery mechanism or subscription API is documented publicly.
+  graphql:
+    found: false
+    note: No /graphql surface was found on any group property.
+  grpc:
+    found: false
+    note: No published .proto files.
+  sdks:
+    firstParty: false
+    note: >-
+      No first-party SDK packages were found on npm, PyPI, Maven or NuGet for
+      América Móvil, Telcel or Claro network APIs. The consumption "tutorials"
+      shipped in the docs zips are PDFs, not code.
+  sourceControl:
+    note: >-
+      No public GitHub presence. github.com/americamovil and
+      github.com/america-movil are 404. github.com/clarobrasil and
+      github.com/claro-brasil exist as organizations with 0 public repositories;
+      github.com/telcel and github.com/ClaroColombia exist as user accounts with 0
+      public repositories. All four are effectively name placeholders.
+  postman:
+    workspaceFound: true
+    verified: false
+    url: https://www.postman.com/clarojobs/claro
+    note: >-
+      A public Postman workspace named "Claro" (team handle "clarojobs", publisher
+      NOT verified, created 2021-11-26, last active 2026-06-12) contains 183
+      collections. Sampled collection names are internal microservice test suites
+      — "msnotificationcuschannel", "MSProductRegisterLinkWHT" ("Colección de
+      pruebas para el microservicio MSProductRegisterLinkWHT"), "WIN - Toolbox".
+      This is not a published developer product, is not linked from any Claro
+      property, and its affiliation with América Móvil is UNCONFIRMED. It is
+      recorded here as an observation only and is deliberately NOT listed as an
+      API property in apis.yml.
+  transports:
+    - protocol: REST
+      scheme: https
+      baseURL: https://api.claro.com.br/mobile/v1/gsma/gateway/simswap
+      documented: true
+      note: CAMARA-derived SIM Swap, OpenAPI 3.0.3 harvested.
+    - protocol: REST
+      scheme: https
+      baseURL: https://api.claro.com.br/mobile/v1
+      documented: true
+      note: LBS Devices Locations, OpenAPI 3.0.0 harvested.
+    - protocol: GraphQL
+      documented: false
+    - protocol: gRPC
+      documented: false
+    - protocol: WebSocket
+      scheme: wss
+      documented: false
+    - protocol: AsyncAPI/Events
+      documented: false
+sources:
+  - url: https://www.americamovil.com/
+    type: Website
+    status: 403
+    note: Corporate/IR site; no developer or API navigation.
+  - url: https://www.claroinsight.com.br/
+    type: Documentation
+    status: 200
+    note: Claro Brasil "Marketplace API" — the group's only real API surface. Registration-gated docs.
+  - url: https://www.claroinsight.com.br/pt-br/catalogo-api
+    type: APIReference
+    status: 200
+    note: 14-product catalog with per-API detail pages.
+  - url: https://www.claroinsight.com.br/sites/default/files/files/sim-swap-docs-pt.zip
+    type: OpenAPI
+    status: 200
+    note: Publicly served zip containing the CAMARA-derived SIM Swap OpenAPI 3.0.3.
+  - url: https://www.claroinsight.com.br/sites/default/files/files/device-location-docs-pt.zip
+    type: OpenAPI
+    status: 200
+    note: Publicly served zip containing the LBS Devices Locations OpenAPI 3.0.0.
+  - url: https://www.claro.com.br/empresas/data-analytics/open-gateway
+    type: Documentation
+    status: 200
+    note: >-
+      Claro Empresas Open Gateway sales page naming SIM swap, number verification,
+      KYC, device location, number recycling, tenure, geofencing and location
+      retrieval. Sales callback form only; does not name CAMARA or GSMA directly.
+  - url: https://www.telcel.com/empresas/soluciones/busines-intelligence/autenticacion-movil
+    type: Documentation
+    status: 403
+    note: >-
+      Telcel Mexico "Autenticación Móvil" page. Marketing page with sales form; no
+      portal, spec or sandbox.
+  - url: https://www.gsma.com/newsroom/press-release/mexicos-mobile-industry-joins-forces-to-simplify-the-development-of-applications-and-digital-services-through-gsma-open-gateway/
+    type: PressRelease
+    status: 200
+    note: >-
+      28 May 2025 Mexico Open Gateway launch. Names América Móvil (via Telcel),
+      Altán Redes, AT&T Mexico, Telefónica Mexico; APIs SIM SWAP, Device Location,
+      Number Verification; points developers at the CAMARA repository.
+  - url: https://www.linuxfoundation.org/press/press-release/linux-foundation-announces-new-project-camara-the-telco-global-api-alliance-with-global-industry-ecosystem
+    type: PressRelease
+    status: 200
+    note: >-
+      28 February 2022 CAMARA founding announcement. América Móvil is NOT among
+      the named founding companies.
+  - url: https://www.sdxcentral.com/news/ericsson-finalizes-aduna-api-venture-with-all-star-cast/
+    type: News
+    status: 200
+    note: >-
+      "Most of the above companies were named in the launch of Aduna in late 2024,
+      with América Móvil missing from the updated partner pool." Confirms América
+      Móvil is not an Aduna equity partner.
+  - url: https://www.infobip.com/news/infobip-partners-with-mobile-network-operators-to-launch-camara-compliant-apis-in-brazil
+    type: News
+    status: 200
+    note: >-
+      Infobip as the CPaaS channel carrying Claro's CAMARA-compliant network APIs
+      in Brazil.
+  - url: https://www.claro.com.ec/institucional/gsma-open-gateway/
+    type: Documentation
+    status: 200
+    note: >-
+      Claro Ecuador GSMA Open Gateway institutional page. Contains no API,
+      developer, documentation or sandbox content of any kind.
+  - url: https://opengateway.claro.com.br/apis
+    type: Documentation
+    status: 500
+    note: >-
+      Dangling CloudFront deployment of what search engines still index as the
+      "Catálogo de API - Claro Insight" Open Gateway host.
+actions:
+  openapiHarvested: 2
+  openapiPaths:
+    - openapi/america-movil-claro-sim-swap-openapi.json
+    - openapi/america-movil-claro-device-location-openapi.json
+  apisYmlCreated: true
+  reason: >-
+    Bootstrap of the América Móvil provider profile for the telecom sector study.
+    Identity captured from the corporate site and the 2025 Form 20-F reporting.
+    Fifteen real, documented APIs listed — fourteen Claro Brasil marketplace
+    products with live public detail pages, plus the Telcel Mexico Open Gateway
+    listing recorded honestly as a sales surface. Two OpenAPI documents harvested
+    verbatim from the provider's own public file store. No spec, endpoint, scope
+    or host in this repository was invented.

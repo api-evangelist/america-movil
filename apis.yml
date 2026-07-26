@@ -1,0 +1,360 @@
+aid: america-movil
+url: https://raw.githubusercontent.com/api-evangelist/america-movil/refs/heads/main/apis.yml
+name: América Móvil
+kind: company
+description: >-
+  América Móvil, S.A.B. de C.V. is the largest telecommunications group in Latin
+  America, headquartered in Mexico City and controlled by the Slim family. It
+  serves roughly 331 million wireless subscribers and 79 million fixed
+  revenue-generating units across 23 countries (2025 Form 20-F), operating as
+  Telcel and Telmex in its home market of Mexico, as Claro across most of Latin
+  America and the Caribbean, and as the majority owner of A1 Telekom Austria
+  Group in Central and Eastern Europe. In the value chain it is a mobile network
+  operator and fixed-line carrier — it owns the spectrum, the radio access
+  network, the SIM estate and the subscriber identity records that network APIs
+  monetize, and it does not resell anyone else's connectivity. Its API posture is
+  the classic carrier posture: there is no corporate developer portal at
+  americamovil.com (the domain is an investor-relations site and returns 403 to
+  non-browser clients; developer.*, developers.*, docs.*, api.* and opengateway.*
+  subdomains do not resolve), and the only real API surface in the group sits
+  inside one operating company — Claro Brasil's "Claro Insight" marketplace at
+  claroinsight.com.br, a registration-gated catalog of 14 network and identity
+  APIs including CAMARA-aligned SIM Swap, Number Verification and Device
+  Location. In Mexico, Telcel launched GSMA Open Gateway on 28 May 2025 alongside
+  Altán Redes, AT&T Mexico and Telefónica Mexico with three APIs — SIM Swap,
+  Number Verification and Device Location — but publishes no portal, no
+  specification and no sandbox, only a business sales contact form. América Móvil
+  is a GSMA Open Gateway participant and was named in Ericsson's September 2024
+  launch of the Aduna network-API joint venture, but it is absent from the final
+  twelve-CSP equity structure completed in July 2025; in Brazil its CAMARA APIs
+  reach developers through the CPaaS aggregator Infobip. Outside the Brazilian
+  marketplace, América Móvil is partner-gated and sales-led, and is reachable by
+  most developers only through an aggregator rather than directly.
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+tags:
+- Telecommunications
+- Mexico
+- Latin America
+- Mobile Network Operator
+- Network APIs
+- CAMARA
+- Open Gateway
+- SIM Swap
+- Identity Verification
+- Device Location
+- Broadband
+- 5G
+- Carrier
+created: '2026-07-25'
+modified: '2026-07-25'
+specificationVersion: '0.19'
+apis:
+- aid: america-movil:claro-sim-swap-api
+  name: Claro SIM Swap API
+  description: >-
+    CAMARA-aligned SIM Swap API from Claro Brasil, exposed through the Claro
+    Insight API marketplace. Returns the date of the most recent SIM pairing
+    change on a Brazilian mobile line, or checks whether a swap occurred within a
+    caller-supplied window, for account-takeover and payment-fraud prevention.
+    The published OpenAPI 3.0.3 document declares POST /retrieve-date and POST
+    /check, sandbox / lab / dev / test / production servers under
+    api*.claro.com.br, and OAuth 2.0 client-credentials authorization. The
+    document states the API derives from the GSMA Mobile Connect Account Takeover
+    Protection specification.
+  humanURL: https://www.claroinsight.com.br/pt-br/sim-swap
+  baseURL: https://api.claro.com.br/mobile/v1/gsma/gateway/simswap
+  tags:
+  - SIM Swap
+  - CAMARA
+  - Open Gateway
+  - Anti-Fraud
+  - Identity Verification
+  properties:
+  - type: OpenAPI
+    url: openapi/america-movil-claro-sim-swap-openapi.json
+  - type: Documentation
+    url: https://www.claroinsight.com.br/pt-br/sim-swap
+  - type: APIReference
+    url: https://www.claroinsight.com.br/pt-br/catalogo-api
+- aid: america-movil:claro-device-location-api
+  name: Claro Device Location API
+  description: >-
+    Location-Based Services device-location API from Claro Brasil, published as
+    "Mobile - LBS Devices Locations" (Apigee proxy mobile-lbsdeviceslocations-v1).
+    Returns the last known network-derived location of a mobile device on the
+    Claro network. The published OpenAPI 3.0.0 document declares GET
+    /lbs/devices/locations, six servers spanning SaaS sandbox/test/production
+    (api*.claro.com.br) and on-premises data centres (test/cas/lpa.apigw.claro.com.br),
+    and four security schemes — HTTP Basic, HTTP Bearer, an X-API-Key header, and
+    OAuth 2.0 client credentials.
+  humanURL: https://www.claroinsight.com.br/pt-br/device-location-retrievel
+  baseURL: https://api.claro.com.br/mobile/v1
+  tags:
+  - Device Location
+  - LBS
+  - Open Gateway
+  - IoT
+  properties:
+  - type: OpenAPI
+    url: openapi/america-movil-claro-device-location-openapi.json
+  - type: Documentation
+    url: https://www.claroinsight.com.br/pt-br/device-location-retrievel
+  - type: APIReference
+    url: https://www.claroinsight.com.br/pt-br/catalogo-api
+- aid: america-movil:claro-number-verification-api
+  name: Claro Number Verification API
+  description: >-
+    CAMARA-aligned Number Verification API from Claro Brasil — silent
+    verification that a mobile number is the one actually attached to the device
+    making the request, offered as an alternative to SMS one-time passwords.
+    Listed in the Claro Insight catalog; technical documentation and the Swagger
+    download are behind portal registration.
+  humanURL: https://www.claroinsight.com.br/pt-br/number-verification
+  tags:
+  - Number Verification
+  - CAMARA
+  - Open Gateway
+  - Identity Verification
+  properties:
+  - type: Documentation
+    url: https://www.claroinsight.com.br/pt-br/number-verification
+  - type: APIReference
+    url: https://www.claroinsight.com.br/pt-br/catalogo-api
+- aid: america-movil:claro-device-location-verify-api
+  name: Claro Device Location Verify API
+  description: >-
+    Verifies whether a mobile device is located within a caller-supplied
+    geographic area, using Claro Brasil network-derived location. Aligns with the
+    CAMARA Device Location Verification pattern. Listed in the Claro Insight
+    catalog; documentation requires portal registration.
+  humanURL: https://www.claroinsight.com.br/pt-br/device-location-verify
+  tags:
+  - Device Location
+  - CAMARA
+  - Open Gateway
+  - Anti-Fraud
+  properties:
+  - type: Documentation
+    url: https://www.claroinsight.com.br/pt-br/device-location-verify
+  - type: APIReference
+    url: https://www.claroinsight.com.br/pt-br/catalogo-api
+- aid: america-movil:claro-know-your-customer-api
+  name: Claro Know Your Customer API
+  description: >-
+    KYC Match-style API from Claro Brasil that validates user-supplied
+    identity attributes — phone number, name, address, e-mail — against Claro's
+    subscriber records for onboarding and fraud prevention. Listed in the Claro
+    Insight catalog; documentation requires portal registration.
+  humanURL: https://www.claroinsight.com.br/pt-br/claro-kyc
+  tags:
+  - KYC
+  - Identity Verification
+  - Anti-Fraud
+  - Open Gateway
+  properties:
+  - type: Documentation
+    url: https://www.claroinsight.com.br/pt-br/claro-kyc
+  - type: APIReference
+    url: https://www.claroinsight.com.br/pt-br/catalogo-api
+- aid: america-movil:claro-kyc-fill-in-api
+  name: Claro KYC Fill In API
+  description: >-
+    Returns verified customer registration data held by Claro Brasil so that
+    onboarding forms can be pre-populated from carrier records rather than
+    self-declared input. Listed in the Claro Insight catalog; documentation
+    requires portal registration.
+  humanURL: https://www.claroinsight.com.br/pt-br/fill-in
+  tags:
+  - KYC
+  - Identity Verification
+  - Onboarding
+  properties:
+  - type: Documentation
+    url: https://www.claroinsight.com.br/pt-br/fill-in
+  - type: APIReference
+    url: https://www.claroinsight.com.br/pt-br/catalogo-api
+- aid: america-movil:claro-number-recycling-api
+  name: Claro Number Recycling API
+  description: >-
+    Detects whether a Brazilian mobile number has changed owner — the recycling
+    of a disconnected number to a new subscriber — so that accounts keyed to a
+    phone number are not silently transferred. Listed in the Claro Insight
+    catalog; documentation requires portal registration.
+  humanURL: https://www.claroinsight.com.br/pt-br/number-recycling
+  tags:
+  - Number Recycling
+  - Identity Verification
+  - Anti-Fraud
+  properties:
+  - type: Documentation
+    url: https://www.claroinsight.com.br/pt-br/number-recycling
+  - type: APIReference
+    url: https://www.claroinsight.com.br/pt-br/catalogo-api
+- aid: america-movil:claro-tenure-api
+  name: Claro Tenure API
+  description: >-
+    Reports how long a mobile number has been active on the Claro Brasil network
+    and the plan associated with it, used as a stability and risk signal in
+    identity and credit decisions. Listed in the Claro Insight catalog;
+    documentation requires portal registration.
+  humanURL: https://www.claroinsight.com.br/pt-br/tenure
+  tags:
+  - Tenure
+  - Identity Verification
+  - Risk
+  properties:
+  - type: Documentation
+    url: https://www.claroinsight.com.br/pt-br/tenure
+  - type: APIReference
+    url: https://www.claroinsight.com.br/pt-br/catalogo-api
+- aid: america-movil:claro-geofencing-api
+  name: Claro Geofencing API
+  description: >-
+    Monitors M2M/IoT devices on the Claro Brasil network against geographic
+    fences and raises cellular-network notifications when a device enters or
+    leaves an area. Listed in the Claro Insight catalog; documentation requires
+    portal registration.
+  humanURL: https://www.claroinsight.com.br/pt-br/geofencing
+  tags:
+  - Geofencing
+  - IoT
+  - M2M
+  - Device Location
+  properties:
+  - type: Documentation
+    url: https://www.claroinsight.com.br/pt-br/geofencing
+  - type: APIReference
+    url: https://www.claroinsight.com.br/pt-br/catalogo-api
+- aid: america-movil:claro-face-match-api
+  name: Claro Face Match API
+  description: >-
+    Biometric face-match validation against Claro Brasil's own image records,
+    sold as an identity-assurance step alongside the network APIs. Listed in the
+    Claro Insight catalog; documentation requires portal registration.
+  humanURL: https://www.claroinsight.com.br/pt-br/facial-biometrics
+  tags:
+  - Biometrics
+  - Identity Verification
+  - Anti-Fraud
+  properties:
+  - type: Documentation
+    url: https://www.claroinsight.com.br/pt-br/facial-biometrics
+  - type: APIReference
+    url: https://www.claroinsight.com.br/pt-br/catalogo-api
+- aid: america-movil:claro-alerta-api
+  name: Claro Alerta API
+  description: >-
+    Detects SIM-card or handset changes on a Claro Brasil mobile line and raises
+    an alert, a Claro-branded companion to the CAMARA SIM Swap API. Listed in the
+    Claro Insight catalog; documentation requires portal registration.
+  humanURL: https://www.claroinsight.com.br/pt-br/claro-alerta
+  tags:
+  - SIM Swap
+  - Device Swap
+  - Anti-Fraud
+  properties:
+  - type: Documentation
+    url: https://www.claroinsight.com.br/pt-br/claro-alerta
+  - type: APIReference
+    url: https://www.claroinsight.com.br/pt-br/catalogo-api
+- aid: america-movil:claro-valida-telefone-api
+  name: Claro Valida Telefone API
+  description: >-
+    Validates the relationship between a Brazilian CPF (taxpayer identifier) and
+    a mobile number using Claro Brasil subscriber records. Listed in the Claro
+    Insight catalog; documentation requires portal registration.
+  humanURL: https://www.claroinsight.com.br/pt-br/claro-valida-telefone
+  tags:
+  - Identity Verification
+  - KYC
+  - Brazil
+  properties:
+  - type: Documentation
+    url: https://www.claroinsight.com.br/pt-br/claro-valida-telefone
+  - type: APIReference
+    url: https://www.claroinsight.com.br/pt-br/catalogo-api
+- aid: america-movil:claro-valida-endereco-api
+  name: Claro Valida Endereço 2.0 API
+  description: >-
+    Scores a declared address against antenna-proximity analysis of the Claro
+    Brasil network, used to corroborate residential address claims during
+    onboarding. Listed in the Claro Insight catalog; documentation requires
+    portal registration.
+  humanURL: https://www.claroinsight.com.br/pt-br/claro-valida-endereco-v2
+  tags:
+  - Address Verification
+  - KYC
+  - Brazil
+  properties:
+  - type: Documentation
+    url: https://www.claroinsight.com.br/pt-br/claro-valida-endereco-v2
+  - type: APIReference
+    url: https://www.claroinsight.com.br/pt-br/catalogo-api
+- aid: america-movil:claro-score-api
+  name: Claro Score API
+  description: >-
+    Credit-risk scoring derived from Claro Brasil telecom behaviour, used to
+    identify lower-risk consumers. Listed in the Claro Insight catalog;
+    documentation requires portal registration.
+  humanURL: https://www.claroinsight.com.br/pt-br/claro-score
+  tags:
+  - Scoring
+  - Credit Risk
+  - Brazil
+  properties:
+  - type: Documentation
+    url: https://www.claroinsight.com.br/pt-br/claro-score
+  - type: APIReference
+    url: https://www.claroinsight.com.br/pt-br/catalogo-api
+- aid: america-movil:telcel-mobile-authentication-apis
+  name: Telcel Mobile Authentication APIs
+  description: >-
+    América Móvil's GSMA Open Gateway surface in its home market of Mexico,
+    marketed by Telcel to enterprises as "Autenticación Móvil" — Number
+    Verification (silent authentication of the mobile number), SIM change
+    detection, and device location verification. Launched 28 May 2025 alongside
+    Altán Redes, AT&T Mexico and Telefónica Mexico. There is no developer portal,
+    no published specification, no sandbox and no self-serve signup; the page
+    offers only a sales contact form routed to a Telcel account executive. This
+    is a commitment and a sales listing, not a callable public API.
+  humanURL: https://www.telcel.com/empresas/soluciones/busines-intelligence/autenticacion-movil
+  tags:
+  - Open Gateway
+  - CAMARA
+  - Number Verification
+  - SIM Swap
+  - Device Location
+  - Mexico
+  properties:
+  - type: Documentation
+    url: https://www.telcel.com/empresas/soluciones/busines-intelligence/autenticacion-movil
+common:
+- type: Website
+  url: https://www.americamovil.com/
+- type: Website
+  url: https://www.telcel.com/
+- type: Website
+  url: https://www.claro.com.br/
+- type: Documentation
+  url: https://www.claroinsight.com.br/pt-br/catalogo-api
+- type: SignUp
+  url: https://www.claroinsight.com.br/user/register
+- type: Login
+  url: https://www.claroinsight.com.br/pt-br/user/login
+- type: Onboarding
+  url: https://www.claroinsight.com.br/onboarding
+- type: FAQ
+  url: https://www.claroinsight.com.br/pt-br/perguntas-frequentes
+- type: Contact
+  url: https://www.claroinsight.com.br/pt-br/contato
+- type: Privacy
+  url: https://www.claro.com.br/privacidade
+- type: LinkedIn
+  url: https://www.linkedin.com/company/america-movil
+- type: Standards
+  url: https://camaraproject.org/
+- type: Standards
+  url: https://www.gsma.com/solutions-and-impact/gsma-open-gateway/
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com
