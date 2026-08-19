@@ -1,22 +1,18 @@
 generated: '2026-07-25'
 method: derived
 status: candidate
-source: >-
-  Derived from the operations of openapi/america-movil-claro-sim-swap-openapi.json
-  and openapi/america-movil-claro-device-location-openapi.json, plus the endpoints
-  Claro Brasil publishes in its Claro Insight code samples.
+source: Derived from the operations of openapi/america-movil-claro-sim-swap-openapi.json and openapi/america-movil-claro-device-location-openapi.json,
+  plus the endpoints Claro Brasil publishes in its Claro Insight code samples.
 searched:
   result: none
   probes:
   - Claro Insight marketplace and product pages — no MCP, agent or AI-tool surface.
   - npm @modelcontextprotocol and MCP registries — no América Móvil / Claro / Telcel server.
   - No mcp.* host resolves on americamovil.com, telcel.com or claro.com.br.
-description: >-
-  América Móvil publishes no MCP server. This is a CANDIDATE manifest — the tool
-  surface an MCP server over Claro Brasil's network APIs would expose, derived
-  one-for-one from operations that genuinely exist. Nothing here is callable
-  today: every tool requires an OAuth 2.0 client-credentials token issued to a
-  registered, contracted marketplace account.
+description: 'América Móvil publishes no MCP server. This is a CANDIDATE manifest — the tool surface an
+  MCP server over Claro Brasil''s network APIs would expose, derived one-for-one from operations that
+  genuinely exist. Nothing here is callable today: every tool requires an OAuth 2.0 client-credentials
+  token issued to a registered, contracted marketplace account.'
 server:
   name: america-movil-claro
   transport: http
@@ -29,35 +25,56 @@ tools:
 - name: retrieve_sim_swap_date
   description: Return the timestamp of the most recent SIM pairing change for a Brazilian mobile line.
   source_operation: openapi/america-movil-claro-sim-swap-openapi.json#retrieveSimSwapDate
-  input: {phoneNumber: E.164 string}
+  input:
+    phoneNumber: E.164 string
   consequence: read — subscriber identity signal
 - name: check_sim_swap
   description: Check whether a SIM swap occurred on a line within the last maxAge hours.
   source_operation: openapi/america-movil-claro-sim-swap-openapi.json#checkSimSwap
-  input: {phoneNumber: E.164 string, maxAge: hours 1-2400, default 240}
+  input:
+    phoneNumber: E.164 string
+    maxAge: hours 1-2400
+    default 240: null
   consequence: read — subscriber identity signal
 - name: get_device_location
   description: Return the last known network-derived location of a device on the Claro network (LBS).
   source_operation: openapi/america-movil-claro-device-location-openapi.json#device-locations-v1
-  input: {X-QueryString: 'MSISDN=…&locationMethod=…&locationType=CURRENT|LAST|CURRENT_OR_LAST|LAST_OR_CURRENT'}
+  input:
+    X-QueryString: MSISDN=…&locationMethod=…&locationType=CURRENT|LAST|CURRENT_OR_LAST|LAST_OR_CURRENT
   consequence: read — precise personal location, LGPD-sensitive
 documented_endpoints_without_spec:
-  note: >-
-    These endpoints are published in Claro's own code samples but have no
-    machine-readable contract, so no tool schema can be derived without
-    fabricating one. They are listed as the gap, not as tools.
+  note: These endpoints are published in Claro's own code samples but have no machine-readable contract,
+    so no tool schema can be derived without fabricating one. They are listed as the gap, not as tools.
   endpoints:
-  - {product: KYC Match, endpoint: 'POST https://api.claro.com.br/mobile/v1/gsma/gateway/knowyourcustomer/match'}
-  - {product: KYC Fill In, endpoint: 'POST https://api.claro.com.br/mobile/v1/gsma/gateway/kyc/fillin'}
-  - {product: Device Location Retrieval, endpoint: 'POST https://api.claro.com.br/mobile/v1/gsma/gateway/devicelocation/retrieve'}
-  - {product: Geofencing, endpoint: 'POST https://api.claro.com.br/mobile/v1/gsma/gateway/geofencing/subscriptions'}
-  - {product: Number Recycling, endpoint: 'POST https://api.claro.com.br/number-recycling/v0.1/check'}
-  - {product: Tenure, endpoint: 'POST https://api.claro.com.br/gsma/gateway/kyc/tenure/check'}
-  - {product: Claro Alerta, endpoint: 'POST https://api.claro.com.br/customers/v1/alerts'}
-  - {product: Claro Score, endpoint: 'POST https://api.claro.com.br/customers/v1/scores'}
-  - {product: Claro Valida Telefone, endpoint: 'POST https://api.claro.com.br/customers/v1/validationsphones'}
-  - {product: Claro Valida Endereço 2.0, endpoint: 'POST https://api.claro.com.br/customers/v2/validationsaddress'}
+  - product: KYC Match
+    endpoint: POST https://api.claro.com.br/mobile/v1/gsma/gateway/knowyourcustomer/match
+  - product: KYC Fill In
+    endpoint: POST https://api.claro.com.br/mobile/v1/gsma/gateway/kyc/fillin
+  - product: Device Location Retrieval
+    endpoint: POST https://api.claro.com.br/mobile/v1/gsma/gateway/devicelocation/retrieve
+  - product: Geofencing
+    endpoint: POST https://api.claro.com.br/mobile/v1/gsma/gateway/geofencing/subscriptions
+  - product: Number Recycling
+    endpoint: POST https://api.claro.com.br/number-recycling/v0.1/check
+  - product: Tenure
+    endpoint: POST https://api.claro.com.br/gsma/gateway/kyc/tenure/check
+  - product: Claro Alerta
+    endpoint: POST https://api.claro.com.br/customers/v1/alerts
+  - product: Claro Score
+    endpoint: POST https://api.claro.com.br/customers/v1/scores
+  - product: Claro Valida Telefone
+    endpoint: POST https://api.claro.com.br/customers/v1/validationsphones
+  - product: Claro Valida Endereço 2.0
+    endpoint: POST https://api.claro.com.br/customers/v2/validationsaddress
 agent_notes:
-  - Every tool is a subscriber-data lookup: treat results as personal data under LGPD.
-  - Device location and KYC lookups require documented subject consent even though no technical consent flow exists.
-  - There is no idempotency key; all operations are non-mutating reads except the geofencing subscription create.
+- Every tool is a subscriber-data lookup: treat results as personal data under LGPD.
+- Device location and KYC lookups require documented subject consent even though no technical consent
+  flow exists.
+- There is no idempotency key; all operations are non-mutating reads except the geofencing subscription
+  create.
+deployment:
+  mode: none
+  verified: derived
+  tools: 3
+  checked: '2026-08-12'
+  source: catalog MCP census

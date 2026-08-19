@@ -1,0 +1,700 @@
+{
+  "item": [
+    {
+      "id": "8c3a020d-2351-4fbc-b0b6-04f6831de98b",
+      "name": "Device Locations",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "e161a5e5-169e-4841-a9aa-e7628b62fbaf",
+          "name": "Recupera os dados de localizacao de um determinado device de acordo com seu msisdn. Backend: LBS LOCATION BASED SERVICES",
+          "request": {
+            "name": "Recupera os dados de localizacao de um determinado device de acordo com seu msisdn. Backend: LBS LOCATION BASED SERVICES",
+            "description": {
+              "content": "",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "lbs",
+                "devices",
+                "locations"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Header query string (LGPD compliant) onde são informados os campos de identificação da pesquisa de designacoes. A identificação é composta de 3 campos obrigatorios e dois opcionais:\n\n  * MSISDN (required) - array com msisdn\n    \n  * locationMethod  (not required) - Define o metodo de localizacao desejado\n    * De 0 a 99: AGPS (Nao disponivel agora)\n    * de 100 a 499: TA/RTT\n    * 500 a 999: Cell ID\n  \n  * locationType (not required) - Define se voce recebe a localizacao atual do device ou recebe a ultima localizacao armazenada no banco de dados\n      o  CURRENT – forca a localizacao atual\n      o  LAST – a ultima localizacao registrada no banco de dados\n      o  CURRENT_OR_LAST – tenta a localizacao atual primeiro, se falhar pega a ultima localizacao registrada no banco de dados\n      o  LAST_OR_CURRENT – obtem o ultimo registro no banco de dados, se nao conseguir tenta trazer a localizacao atual",
+                "key": "X-QueryString",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b81fb99d-0a9a-45ec-a205-d861c620f261",
+              "name": "successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lbs",
+                    "devices",
+                    "locations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Header query string (LGPD compliant) onde são informados os campos de identificação da pesquisa de designacoes. A identificação é composta de 3 campos obrigatorios e dois opcionais:\n\n  * MSISDN (required) - array com msisdn\n    \n  * locationMethod  (not required) - Define o metodo de localizacao desejado\n    * De 0 a 99: AGPS (Nao disponivel agora)\n    * de 100 a 499: TA/RTT\n    * 500 a 999: Cell ID\n  \n  * locationType (not required) - Define se voce recebe a localizacao atual do device ou recebe a ultima localizacao armazenada no banco de dados\n      o  CURRENT – forca a localizacao atual\n      o  LAST – a ultima localizacao registrada no banco de dados\n      o  CURRENT_OR_LAST – tenta a localizacao atual primeiro, se falhar pega a ultima localizacao registrada no banco de dados\n      o  LAST_OR_CURRENT – obtem o ultimo registro no banco de dados, se nao conseguir tenta trazer a localizacao atual",
+                    "key": "X-QueryString",
+                    "value": "MSISDN=192388923&locationMethod=99&locationType=LAST"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"apiVersion\": \"1;2023-06-30\",\n  \"transactionId\": \"1440a001-6bc8-4d5e-a55e-f32680c457e6\",\n  \"data\": {\n    \"deviceLocation\": {\n      \"geograficLocation\": {\n        \"geometry\": {\n          \"X\": \"-23.532600\",\n          \"Y\": \"-23.532600\"\n        },\n        \"typeArea\": \"CircularArcArea\",\n        \"method\": \"Cell\",\n        \"accuracy\": {\n          \"inRadius\": \"391\",\n          \"outRadius\": \"1000\",\n          \"startAngle\": \"87\",\n          \"stopAngle\": \"65\"\n        },\n        \"msisdn\": \"5521912345678\",\n        \"validationDate\": \"20150611113203\"\n      }\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fe9e019a-f872-4279-9b3c-6c8ad507e6e6",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lbs",
+                    "devices",
+                    "locations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Header query string (LGPD compliant) onde são informados os campos de identificação da pesquisa de designacoes. A identificação é composta de 3 campos obrigatorios e dois opcionais:\n\n  * MSISDN (required) - array com msisdn\n    \n  * locationMethod  (not required) - Define o metodo de localizacao desejado\n    * De 0 a 99: AGPS (Nao disponivel agora)\n    * de 100 a 499: TA/RTT\n    * 500 a 999: Cell ID\n  \n  * locationType (not required) - Define se voce recebe a localizacao atual do device ou recebe a ultima localizacao armazenada no banco de dados\n      o  CURRENT – forca a localizacao atual\n      o  LAST – a ultima localizacao registrada no banco de dados\n      o  CURRENT_OR_LAST – tenta a localizacao atual primeiro, se falhar pega a ultima localizacao registrada no banco de dados\n      o  LAST_OR_CURRENT – obtem o ultimo registro no banco de dados, se nao conseguir tenta trazer a localizacao atual",
+                    "key": "X-QueryString",
+                    "value": "MSISDN=192388923&locationMethod=99&locationType=LAST"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"apiVersion\": \"1;2023-06-30\",\n  \"transactionId\": \"Id-34fcb05c6d1923e35cef248d\",\n  \"error\": {\n    \"httpCode\": \"400\",\n    \"message\": \"Bad Request\",\n    \"errorCode\": \"API-LBSDEVICESLOCATIONS-400\",\n    \"detailedMessage\": \"Bad Request\",\n    \"link\": {\n      \"rel\": \"related\",\n      \"href\": \"https://api.claro.com.br/docs\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2c3fd80e-3c77-4400-969a-063d58eb964c",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lbs",
+                    "devices",
+                    "locations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Header query string (LGPD compliant) onde são informados os campos de identificação da pesquisa de designacoes. A identificação é composta de 3 campos obrigatorios e dois opcionais:\n\n  * MSISDN (required) - array com msisdn\n    \n  * locationMethod  (not required) - Define o metodo de localizacao desejado\n    * De 0 a 99: AGPS (Nao disponivel agora)\n    * de 100 a 499: TA/RTT\n    * 500 a 999: Cell ID\n  \n  * locationType (not required) - Define se voce recebe a localizacao atual do device ou recebe a ultima localizacao armazenada no banco de dados\n      o  CURRENT – forca a localizacao atual\n      o  LAST – a ultima localizacao registrada no banco de dados\n      o  CURRENT_OR_LAST – tenta a localizacao atual primeiro, se falhar pega a ultima localizacao registrada no banco de dados\n      o  LAST_OR_CURRENT – obtem o ultimo registro no banco de dados, se nao conseguir tenta trazer a localizacao atual",
+                    "key": "X-QueryString",
+                    "value": "MSISDN=192388923&locationMethod=99&locationType=LAST"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"apiVersion\": \"1;2023-06-30\",\n  \"transactionId\": \"Id-34fcb05c6d1923e35cef248d\",\n  \"error\": {\n    \"httpCode\": \"401\",\n    \"message\": \"Unauthorized\",\n    \"errorCode\": \"API-LBSDEVICESLOCATIONS-401\",\n    \"detailedMessage\": \"Unauthorized user.\",\n    \"link\": {\n      \"rel\": \"related\",\n      \"href\": \"https://api.claro.com.br/docs\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2bef1db7-0d29-4921-a421-bad250aa10ff",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lbs",
+                    "devices",
+                    "locations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Header query string (LGPD compliant) onde são informados os campos de identificação da pesquisa de designacoes. A identificação é composta de 3 campos obrigatorios e dois opcionais:\n\n  * MSISDN (required) - array com msisdn\n    \n  * locationMethod  (not required) - Define o metodo de localizacao desejado\n    * De 0 a 99: AGPS (Nao disponivel agora)\n    * de 100 a 499: TA/RTT\n    * 500 a 999: Cell ID\n  \n  * locationType (not required) - Define se voce recebe a localizacao atual do device ou recebe a ultima localizacao armazenada no banco de dados\n      o  CURRENT – forca a localizacao atual\n      o  LAST – a ultima localizacao registrada no banco de dados\n      o  CURRENT_OR_LAST – tenta a localizacao atual primeiro, se falhar pega a ultima localizacao registrada no banco de dados\n      o  LAST_OR_CURRENT – obtem o ultimo registro no banco de dados, se nao conseguir tenta trazer a localizacao atual",
+                    "key": "X-QueryString",
+                    "value": "MSISDN=192388923&locationMethod=99&locationType=LAST"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"apiVersion\": \"1;2023-06-30\",\n  \"transactionId\": \"Id-34fcb05c6d1923e35cef248d\",\n  \"error\": {\n    \"httpCode\": \"403\",\n    \"message\": \"Forbidden\",\n    \"errorCode\": \"API-LBSDEVICESLOCATIONS-403\",\n    \"detailedMessage\": \"Client authorization failed.\",\n    \"link\": {\n      \"rel\": \"related\",\n      \"href\": \"https://api.claro.com.br/docs\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "02ed3449-bf2f-44ff-8d28-421e3d7723f4",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lbs",
+                    "devices",
+                    "locations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Header query string (LGPD compliant) onde são informados os campos de identificação da pesquisa de designacoes. A identificação é composta de 3 campos obrigatorios e dois opcionais:\n\n  * MSISDN (required) - array com msisdn\n    \n  * locationMethod  (not required) - Define o metodo de localizacao desejado\n    * De 0 a 99: AGPS (Nao disponivel agora)\n    * de 100 a 499: TA/RTT\n    * 500 a 999: Cell ID\n  \n  * locationType (not required) - Define se voce recebe a localizacao atual do device ou recebe a ultima localizacao armazenada no banco de dados\n      o  CURRENT – forca a localizacao atual\n      o  LAST – a ultima localizacao registrada no banco de dados\n      o  CURRENT_OR_LAST – tenta a localizacao atual primeiro, se falhar pega a ultima localizacao registrada no banco de dados\n      o  LAST_OR_CURRENT – obtem o ultimo registro no banco de dados, se nao conseguir tenta trazer a localizacao atual",
+                    "key": "X-QueryString",
+                    "value": "MSISDN=192388923&locationMethod=99&locationType=LAST"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"apiVersion\": \"1;2023-06-30\",\n  \"transactionId\": \"Id-34fcb05c6d1923e35cef248d\",\n  \"error\": {\n    \"httpCode\": \"404\",\n    \"message\": \"Not Found\",\n    \"errorCode\": \"API-LBSDEVICESLOCATIONS-404\",\n    \"detailedMessage\": \"Resource not found.\",\n    \"link\": {\n      \"rel\": \"related\",\n      \"href\": \"https://api.claro.com.br/docs\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "276e9936-6ebd-4bb9-b833-b490cf27e238",
+              "name": "Method Not Allowed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lbs",
+                    "devices",
+                    "locations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Header query string (LGPD compliant) onde são informados os campos de identificação da pesquisa de designacoes. A identificação é composta de 3 campos obrigatorios e dois opcionais:\n\n  * MSISDN (required) - array com msisdn\n    \n  * locationMethod  (not required) - Define o metodo de localizacao desejado\n    * De 0 a 99: AGPS (Nao disponivel agora)\n    * de 100 a 499: TA/RTT\n    * 500 a 999: Cell ID\n  \n  * locationType (not required) - Define se voce recebe a localizacao atual do device ou recebe a ultima localizacao armazenada no banco de dados\n      o  CURRENT – forca a localizacao atual\n      o  LAST – a ultima localizacao registrada no banco de dados\n      o  CURRENT_OR_LAST – tenta a localizacao atual primeiro, se falhar pega a ultima localizacao registrada no banco de dados\n      o  LAST_OR_CURRENT – obtem o ultimo registro no banco de dados, se nao conseguir tenta trazer a localizacao atual",
+                    "key": "X-QueryString",
+                    "value": "MSISDN=192388923&locationMethod=99&locationType=LAST"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Method Not Allowed",
+              "code": 405,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"apiVersion\": \"1;2023-06-30\",\n  \"transactionId\": \"Id-34fcb05c6d1923e35cef248d\",\n  \"error\": {\n    \"httpCode\": \"405\",\n    \"message\": \"Method Not Allowed\",\n    \"errorCode\": \"API-LBSDEVICESLOCATIONS-405\",\n    \"detailedMessage\": \"Unavailable HTTP method.\",\n    \"link\": {\n      \"rel\": \"related\",\n      \"href\": \"https://api.claro.com.br/docs\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c2e94d33-7de5-4d00-a2fa-4f956ab7e942",
+              "name": "Not Acceptable",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lbs",
+                    "devices",
+                    "locations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Header query string (LGPD compliant) onde são informados os campos de identificação da pesquisa de designacoes. A identificação é composta de 3 campos obrigatorios e dois opcionais:\n\n  * MSISDN (required) - array com msisdn\n    \n  * locationMethod  (not required) - Define o metodo de localizacao desejado\n    * De 0 a 99: AGPS (Nao disponivel agora)\n    * de 100 a 499: TA/RTT\n    * 500 a 999: Cell ID\n  \n  * locationType (not required) - Define se voce recebe a localizacao atual do device ou recebe a ultima localizacao armazenada no banco de dados\n      o  CURRENT – forca a localizacao atual\n      o  LAST – a ultima localizacao registrada no banco de dados\n      o  CURRENT_OR_LAST – tenta a localizacao atual primeiro, se falhar pega a ultima localizacao registrada no banco de dados\n      o  LAST_OR_CURRENT – obtem o ultimo registro no banco de dados, se nao conseguir tenta trazer a localizacao atual",
+                    "key": "X-QueryString",
+                    "value": "MSISDN=192388923&locationMethod=99&locationType=LAST"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Acceptable",
+              "code": 406,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"apiVersion\": \"1;2023-06-30\",\n  \"transactionId\": \"Id-34fcb05c6d1923e35cef248d\",\n  \"error\": {\n    \"httpCode\": \"406\",\n    \"message\": \"Request Not Acceptable\",\n    \"errorCode\": \"API-LBSDEVICESLOCATIONS-406\",\n    \"detailedMessage\": \"Requested content type not acceptable.\",\n    \"link\": {\n      \"rel\": \"related\",\n      \"href\": \"https://api.claro.com.br/docs\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cb540a2a-7f7b-4dc4-817c-f556ddd356af",
+              "name": "Unsupported Media Type",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lbs",
+                    "devices",
+                    "locations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Header query string (LGPD compliant) onde são informados os campos de identificação da pesquisa de designacoes. A identificação é composta de 3 campos obrigatorios e dois opcionais:\n\n  * MSISDN (required) - array com msisdn\n    \n  * locationMethod  (not required) - Define o metodo de localizacao desejado\n    * De 0 a 99: AGPS (Nao disponivel agora)\n    * de 100 a 499: TA/RTT\n    * 500 a 999: Cell ID\n  \n  * locationType (not required) - Define se voce recebe a localizacao atual do device ou recebe a ultima localizacao armazenada no banco de dados\n      o  CURRENT – forca a localizacao atual\n      o  LAST – a ultima localizacao registrada no banco de dados\n      o  CURRENT_OR_LAST – tenta a localizacao atual primeiro, se falhar pega a ultima localizacao registrada no banco de dados\n      o  LAST_OR_CURRENT – obtem o ultimo registro no banco de dados, se nao conseguir tenta trazer a localizacao atual",
+                    "key": "X-QueryString",
+                    "value": "MSISDN=192388923&locationMethod=99&locationType=LAST"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unsupported Media Type",
+              "code": 415,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"apiVersion\": \"1;2023-06-30\",\n  \"transactionId\": \"Id-34fcb05c6d1923e35cef248d\",\n  \"error\": {\n    \"httpCode\": \"415\",\n    \"message\": \"Unsupported Media Type\",\n    \"errorCode\": \"API-LBSDEVICESLOCATIONS-415\",\n    \"detailedMessage\": \"Unsupported Media Type.\",\n    \"link\": {\n      \"rel\": \"related\",\n      \"href\": \"https://api.claro.com.br/docs\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d902652f-2208-46c0-bc7d-bddbf0b84409",
+              "name": "Unprocessable Entity - Identify business errors that can be detailed according to backend system rules. \n\nThe possible values are:\n  * API-LBSDEVICESLOCATIONS-001: The request can not be handled because of a general problem in the location server.\n  * API-LBSDEVICESLOCATIONS-002: An unspecified error used in case none of the other errors apply. This can also be used in case privacy issues prevent certain errors from being presented.\n  * API-LBSDEVICESLOCATIONS-003: The requesting location+based application is not allowed to access the location server or a wrong password has been supplied.\n  * API-LBSDEVICESLOCATIONS-004: Unknown subscriber. The user is unknown, i.e. no such subscription exists.\n  * API-LBSDEVICESLOCATIONS-005: Absent subscriber. The user is currently not reachable.\n  * API-LBSDEVICESLOCATIONS-006: The request can not be handled due to congestion in the location server.\n  * API-LBSDEVICESLOCATIONS-007: Too many position items have been specified in the request.\n  * API-LBSDEVICESLOCATIONS-008: A protocol element in the request has invalid format. The invalid element is indicated.\n  * API-LBSDEVICESLOCATIONS-009: The position request has invalid syntax.\n  * API-LBSDEVICESLOCATIONS-010: The requested service is not supported in the Location Server.\n  * API-LBSDEVICESLOCATIONS-011: A protocol element in the request has an invalid value.\n  * API-LBSDEVICESLOCATIONS-012: A protocol element attribute in the request has a wrong value.\n  * API-LBSDEVICESLOCATIONS-013: The request can not be handled due to congestion in the mobile network.\n  * API-LBSDEVICESLOCATIONS-014: A protocol element specified in the position request is not supported by the Location Server, or the position result is not supported by the LCS Client.\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lbs",
+                    "devices",
+                    "locations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Header query string (LGPD compliant) onde são informados os campos de identificação da pesquisa de designacoes. A identificação é composta de 3 campos obrigatorios e dois opcionais:\n\n  * MSISDN (required) - array com msisdn\n    \n  * locationMethod  (not required) - Define o metodo de localizacao desejado\n    * De 0 a 99: AGPS (Nao disponivel agora)\n    * de 100 a 499: TA/RTT\n    * 500 a 999: Cell ID\n  \n  * locationType (not required) - Define se voce recebe a localizacao atual do device ou recebe a ultima localizacao armazenada no banco de dados\n      o  CURRENT – forca a localizacao atual\n      o  LAST – a ultima localizacao registrada no banco de dados\n      o  CURRENT_OR_LAST – tenta a localizacao atual primeiro, se falhar pega a ultima localizacao registrada no banco de dados\n      o  LAST_OR_CURRENT – obtem o ultimo registro no banco de dados, se nao conseguir tenta trazer a localizacao atual",
+                    "key": "X-QueryString",
+                    "value": "MSISDN=192388923&locationMethod=99&locationType=LAST"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"apiVersion\": \"1;2023-06-30\",\n  \"transactionId\": \"Id-34fcb05c6d1923e35cef248d\",\n  \"error\": {\n    \"httpCode\": \"422\",\n    \"message\": \"Unprocessable Entity\",\n    \"errorCode\": \"API-LBSDEVICESLOCATIONS-422\",\n    \"detailedMessage\": \"Business Fault occured.\",\n    \"link\": {\n      \"rel\": \"related\",\n      \"href\": \"https://api.claro.com.br/docs\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "53e5b78f-725e-4002-9e1d-cac30c073800",
+              "name": "Too Many Requests",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lbs",
+                    "devices",
+                    "locations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Header query string (LGPD compliant) onde são informados os campos de identificação da pesquisa de designacoes. A identificação é composta de 3 campos obrigatorios e dois opcionais:\n\n  * MSISDN (required) - array com msisdn\n    \n  * locationMethod  (not required) - Define o metodo de localizacao desejado\n    * De 0 a 99: AGPS (Nao disponivel agora)\n    * de 100 a 499: TA/RTT\n    * 500 a 999: Cell ID\n  \n  * locationType (not required) - Define se voce recebe a localizacao atual do device ou recebe a ultima localizacao armazenada no banco de dados\n      o  CURRENT – forca a localizacao atual\n      o  LAST – a ultima localizacao registrada no banco de dados\n      o  CURRENT_OR_LAST – tenta a localizacao atual primeiro, se falhar pega a ultima localizacao registrada no banco de dados\n      o  LAST_OR_CURRENT – obtem o ultimo registro no banco de dados, se nao conseguir tenta trazer a localizacao atual",
+                    "key": "X-QueryString",
+                    "value": "MSISDN=192388923&locationMethod=99&locationType=LAST"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"apiVersion\": \"1;2023-06-30\",\n  \"transactionId\": \"Id-34fcb05c6d1923e35cef248d\",\n  \"error\": {\n    \"httpCode\": \"429\",\n    \"message\": \"Too Many Requests\",\n    \"errorCode\": \"API-LBSDEVICESLOCATIONS-429\",\n    \"detailedMessage\": \"The maximum request limit for this MSISDN has been exceeded.\",\n    \"link\": {\n      \"rel\": \"related\",\n      \"href\": \"https://api.claro.com.br/docs\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a048a2e9-1929-405c-a69c-c9a4dfe00c5e",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lbs",
+                    "devices",
+                    "locations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Header query string (LGPD compliant) onde são informados os campos de identificação da pesquisa de designacoes. A identificação é composta de 3 campos obrigatorios e dois opcionais:\n\n  * MSISDN (required) - array com msisdn\n    \n  * locationMethod  (not required) - Define o metodo de localizacao desejado\n    * De 0 a 99: AGPS (Nao disponivel agora)\n    * de 100 a 499: TA/RTT\n    * 500 a 999: Cell ID\n  \n  * locationType (not required) - Define se voce recebe a localizacao atual do device ou recebe a ultima localizacao armazenada no banco de dados\n      o  CURRENT – forca a localizacao atual\n      o  LAST – a ultima localizacao registrada no banco de dados\n      o  CURRENT_OR_LAST – tenta a localizacao atual primeiro, se falhar pega a ultima localizacao registrada no banco de dados\n      o  LAST_OR_CURRENT – obtem o ultimo registro no banco de dados, se nao conseguir tenta trazer a localizacao atual",
+                    "key": "X-QueryString",
+                    "value": "MSISDN=192388923&locationMethod=99&locationType=LAST"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"apiVersion\": \"1;2023-06-30\",\n  \"transactionId\": \"Id-34fcb05c6d1923e35cef248d\",\n  \"error\": {\n    \"httpCode\": \"500\",\n    \"message\": \"Internal Server Error\",\n    \"errorCode\": \"API-LBSDEVICESLOCATIONS-500\",\n    \"detailedMessage\": \"Internal Server Error.\",\n    \"link\": {\n      \"rel\": \"related\",\n      \"href\": \"https://api.claro.com.br/docs\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "701b6069-3885-47c8-b4a7-49b9f2102a2b",
+              "name": "Service unavailable",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lbs",
+                    "devices",
+                    "locations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Header query string (LGPD compliant) onde são informados os campos de identificação da pesquisa de designacoes. A identificação é composta de 3 campos obrigatorios e dois opcionais:\n\n  * MSISDN (required) - array com msisdn\n    \n  * locationMethod  (not required) - Define o metodo de localizacao desejado\n    * De 0 a 99: AGPS (Nao disponivel agora)\n    * de 100 a 499: TA/RTT\n    * 500 a 999: Cell ID\n  \n  * locationType (not required) - Define se voce recebe a localizacao atual do device ou recebe a ultima localizacao armazenada no banco de dados\n      o  CURRENT – forca a localizacao atual\n      o  LAST – a ultima localizacao registrada no banco de dados\n      o  CURRENT_OR_LAST – tenta a localizacao atual primeiro, se falhar pega a ultima localizacao registrada no banco de dados\n      o  LAST_OR_CURRENT – obtem o ultimo registro no banco de dados, se nao conseguir tenta trazer a localizacao atual",
+                    "key": "X-QueryString",
+                    "value": "MSISDN=192388923&locationMethod=99&locationType=LAST"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"apiVersion\": \"1;2023-06-30\",\n  \"transactionId\": \"Id-34fcb05c6d1923e35cef248d\",\n  \"error\": {\n    \"httpCode\": \"503\",\n    \"message\": \"Service unavailable\",\n    \"errorCode\": \"API-LBSDEVICESLOCATIONS-503\",\n    \"detailedMessage\": \"Service Unavailable.\",\n    \"link\": {\n      \"rel\": \"related\",\n      \"href\": \"https://api.claro.com.br/docs\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api-sandbox.claro.com.br/mobile/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "a2e941f5-9cf5-496b-92b7-ee8e26dffdff",
+    "name": "Mobile - LBS Devices Locations\n (Proxy Apigee: mobile-lbsdeviceslocations-v1)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "<table>   \n  <thead>  \n    <tr>\n      <th>Version</th>\n      <th>Author</th>\n      <th>Date</th>\n      <th>Changes</th>\n    </tr>  \n  </thead>\n  <tbody>\n    <tr>\n      <td>1.0.0</td>\n      <td>EngDB</td>\n      <td>2023-06-29</td>\n      <td>[LBS Device Locations] Versão inicial</td>\n    </tr>\n  </tbody>\n</table> \n\n## Objetivo\n  Gestão de localizações de dispositivos móveis na plataforma LBS (Location Based Services) da Engenharia.\n  \n## Público-Alvo\n  Servico de localizacao de devices.\n  \n## Provedores\n  LBS (Location Based Services)\n  \n## Contexto em que a API se Insere\n  Fornecer informacoes de localizacao de despositivos que estao localizadas no LBS para o microservico DeviceLocation.\n",
+      "type": "text/plain"
+    }
+  }
+}

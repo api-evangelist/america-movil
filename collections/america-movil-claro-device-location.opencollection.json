@@ -1,0 +1,42 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Mobile - LBS Devices Locations\n (Proxy Apigee: mobile-lbsdeviceslocations-v1)",
+    "version": "1;2023-06-30"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Device Locations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Recupera os dados de localizacao de um determinado device de acordo com seu msisdn. Backend: LBS LOCATION BASED SERVICES",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api-sandbox.claro.com.br/mobile/v1/lbs/devices/locations",
+            "headers": [
+              {
+                "name": "X-QueryString",
+                "value": "MSISDN=192388923&locationMethod=99&locationType=LAST"
+              }
+            ]
+          },
+          "docs": "Recupera os dados de localizacao de um determinado device de acordo com seu msisdn. Backend: LBS LOCATION BASED SERVICES"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

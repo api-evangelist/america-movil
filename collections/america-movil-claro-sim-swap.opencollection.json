@@ -1,0 +1,74 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "SIM Swap",
+    "version": "1;2023-12-01"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Retrieve SIM swap date",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get timestamp of last MSISDN <-> IMSI pairing change for a mobile user account provided with MSIDN. Backend: Claro.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api-sandbox.claro.com.br/mobile/v1/gsma/gateway/simswap/retrieve-date",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "/oauth2/v1/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get timestamp of last MSISDN <-> IMSI pairing change for a mobile user account provided with MSIDN."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Check SIM swap",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Check if SIM swap has been performed during a past period.                           Backend: Claro.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api-sandbox.claro.com.br/mobile/v1/gsma/gateway/simswap/check",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "/oauth2/v1/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Check if SIM swap has been performed during a past period"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
