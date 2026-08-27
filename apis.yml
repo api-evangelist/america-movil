@@ -49,74 +49,13 @@ created: '2026-07-25'
 modified: '2026-07-25'
 specificationVersion: '0.23'
 apis:
-- aid: america-movil:claro-sim-swap-api
-  name: Claro SIM Swap API
-  description: >-
-    CAMARA-aligned SIM Swap API from Claro Brasil, exposed through the Claro
-    Insight API marketplace. Returns the date of the most recent SIM pairing
-    change on a Brazilian mobile line, or checks whether a swap occurred within a
-    caller-supplied window, for account-takeover and payment-fraud prevention.
-    The published OpenAPI 3.0.3 document declares POST /retrieve-date and POST
-    /check, sandbox / lab / dev / test / production servers under
-    api*.claro.com.br, and OAuth 2.0 client-credentials authorization. The
-    document states the API derives from the GSMA Mobile Connect Account Takeover
-    Protection specification.
-  humanURL: https://www.claroinsight.com.br/pt-br/sim-swap
-  baseURL: https://api.claro.com.br/mobile/v1/gsma/gateway/simswap
-  tags:
-  - SIM Swap
-  - CAMARA
-  - Open Gateway
-  - Anti-Fraud
-  - Identity Verification
-  properties:
-  - type: OpenAPI
-    url: openapi/america-movil-claro-sim-swap-openapi.json
-  - type: Documentation
-    url: https://www.claroinsight.com.br/pt-br/sim-swap
-  - type: APIReference
-    url: https://www.claroinsight.com.br/pt-br/catalogo-api
-  - type: Overlay
-    url: overlays/america-movil-claro-sim-swap-overlay.yaml
-  - type: AgentSkill
-    url: skills/america-movil-sim-swap-fraud-check.md
-- aid: america-movil:claro-device-location-api
-  name: Claro Device Location API
-  description: >-
-    Location-Based Services device-location API from Claro Brasil, published as
-    "Mobile - LBS Devices Locations" (Apigee proxy mobile-lbsdeviceslocations-v1).
-    Returns the last known network-derived location of a mobile device on the
-    Claro network. The published OpenAPI 3.0.0 document declares GET
-    /lbs/devices/locations, six servers spanning SaaS sandbox/test/production
-    (api*.claro.com.br) and on-premises data centres (test/cas/lpa.apigw.claro.com.br),
-    and four security schemes — HTTP Basic, HTTP Bearer, an X-API-Key header, and
-    OAuth 2.0 client credentials.
-  humanURL: https://www.claroinsight.com.br/pt-br/device-location-retrievel
-  baseURL: https://api.claro.com.br/mobile/v1
-  tags:
-  - Device Location
-  - LBS
-  - Open Gateway
-  - IoT
-  properties:
-  - type: OpenAPI
-    url: openapi/america-movil-claro-device-location-openapi.json
-  - type: Documentation
-    url: https://www.claroinsight.com.br/pt-br/device-location-retrievel
-  - type: APIReference
-    url: https://www.claroinsight.com.br/pt-br/catalogo-api
-  - type: Overlay
-    url: overlays/america-movil-claro-device-location-overlay.yaml
-  - type: AgentSkill
-    url: skills/america-movil-device-location-lookup.md
 - aid: america-movil:claro-number-verification-api
   name: Claro Number Verification API
   description: >-
-    CAMARA-aligned Number Verification API from Claro Brasil — silent
-    verification that a mobile number is the one actually attached to the device
-    making the request, offered as an alternative to SMS one-time passwords.
-    Listed in the Claro Insight catalog; technical documentation and the Swagger
-    download are behind portal registration.
+    CAMARA-aligned Number Verification API from Claro Brasil — silent verification that a mobile number
+    is the one actually attached to the device making the request, offered as an alternative to SMS one-time
+    passwords. Listed in the Claro Insight catalog; technical documentation and the Swagger download are
+    behind portal registration.
   humanURL: https://www.claroinsight.com.br/pt-br/number-verification
   tags:
   - Number Verification
@@ -128,38 +67,12 @@ apis:
     url: https://www.claroinsight.com.br/pt-br/number-verification
   - type: APIReference
     url: https://www.claroinsight.com.br/pt-br/catalogo-api
-- aid: america-movil:claro-device-location-verify-api
-  name: Claro Device Location Verify API
-  description: >-
-    Verifies whether a mobile device is located within a caller-supplied
-    geographic area, using Claro Brasil network-derived location, returning true
-    or false. Claro's product page names GSMA as co-author, states that subject
-    consent is mandatory under Brazil's LGPD, and links the CAMARA DeviceLocation
-    v0.1.0 definition (code/API_definitions/location.yaml) as the API's technical
-    reference — that upstream definition is saved verbatim in openapi/ and is the
-    only machine-readable contract published for this product. Claro publishes no
-    Claro-hosted variant of it and no endpoint URL; the rest of the documentation
-    requires portal registration.
-  humanURL: https://www.claroinsight.com.br/pt-br/device-location-verify
-  tags:
-  - Device Location
-  - CAMARA
-  - Open Gateway
-  - Anti-Fraud
-  properties:
-  - type: Documentation
-    url: https://www.claroinsight.com.br/pt-br/device-location-verify
-  - type: APIReference
-    url: https://www.claroinsight.com.br/pt-br/catalogo-api
-  - type: OpenAPI
-    url: openapi/america-movil-claro-device-location-verify-camara-openapi.yaml
 - aid: america-movil:claro-know-your-customer-api
   name: Claro Know Your Customer API
   description: >-
-    KYC Match-style API from Claro Brasil that validates user-supplied
-    identity attributes — phone number, name, address, e-mail — against Claro's
-    subscriber records for onboarding and fraud prevention. Listed in the Claro
-    Insight catalog; documentation requires portal registration.
+    KYC Match-style API from Claro Brasil that validates user-supplied identity attributes — phone number,
+    name, address, e-mail — against Claro's subscriber records for onboarding and fraud prevention. Listed
+    in the Claro Insight catalog; documentation requires portal registration.
   humanURL: https://www.claroinsight.com.br/pt-br/claro-kyc
   baseURL: https://api.claro.com.br/mobile/v1/gsma/gateway/knowyourcustomer
   tags:
@@ -175,9 +88,8 @@ apis:
 - aid: america-movil:claro-kyc-fill-in-api
   name: Claro KYC Fill In API
   description: >-
-    Returns verified customer registration data held by Claro Brasil so that
-    onboarding forms can be pre-populated from carrier records rather than
-    self-declared input. Listed in the Claro Insight catalog; documentation
+    Returns verified customer registration data held by Claro Brasil so that onboarding forms can be pre-populated
+    from carrier records rather than self-declared input. Listed in the Claro Insight catalog; documentation
     requires portal registration.
   humanURL: https://www.claroinsight.com.br/pt-br/fill-in
   baseURL: https://api.claro.com.br/mobile/v1/gsma/gateway/kyc
@@ -193,10 +105,9 @@ apis:
 - aid: america-movil:claro-number-recycling-api
   name: Claro Number Recycling API
   description: >-
-    Detects whether a Brazilian mobile number has changed owner — the recycling
-    of a disconnected number to a new subscriber — so that accounts keyed to a
-    phone number are not silently transferred. Listed in the Claro Insight
-    catalog; documentation requires portal registration.
+    Detects whether a Brazilian mobile number has changed owner — the recycling of a disconnected number
+    to a new subscriber — so that accounts keyed to a phone number are not silently transferred. Listed
+    in the Claro Insight catalog; documentation requires portal registration.
   humanURL: https://www.claroinsight.com.br/pt-br/number-recycling
   baseURL: https://api.claro.com.br/number-recycling/v0.1
   tags:
@@ -211,10 +122,9 @@ apis:
 - aid: america-movil:claro-tenure-api
   name: Claro Tenure API
   description: >-
-    Reports how long a mobile number has been active on the Claro Brasil network
-    and the plan associated with it, used as a stability and risk signal in
-    identity and credit decisions. Listed in the Claro Insight catalog;
-    documentation requires portal registration.
+    Reports how long a mobile number has been active on the Claro Brasil network and the plan associated
+    with it, used as a stability and risk signal in identity and credit decisions. Listed in the Claro
+    Insight catalog; documentation requires portal registration.
   humanURL: https://www.claroinsight.com.br/pt-br/tenure
   baseURL: https://api.claro.com.br/gsma/gateway/kyc/tenure
   tags:
@@ -229,10 +139,9 @@ apis:
 - aid: america-movil:claro-geofencing-api
   name: Claro Geofencing API
   description: >-
-    Monitors M2M/IoT devices on the Claro Brasil network against geographic
-    fences and raises cellular-network notifications when a device enters or
-    leaves an area. Listed in the Claro Insight catalog; documentation requires
-    portal registration.
+    Monitors M2M/IoT devices on the Claro Brasil network against geographic fences and raises cellular-network
+    notifications when a device enters or leaves an area. Listed in the Claro Insight catalog; documentation
+    requires portal registration.
   humanURL: https://www.claroinsight.com.br/pt-br/geofencing
   baseURL: https://api.claro.com.br/mobile/v1/gsma/gateway/geofencing
   tags:
@@ -248,9 +157,9 @@ apis:
 - aid: america-movil:claro-face-match-api
   name: Claro Face Match API
   description: >-
-    Biometric face-match validation against Claro Brasil's own image records,
-    sold as an identity-assurance step alongside the network APIs. Listed in the
-    Claro Insight catalog; documentation requires portal registration.
+    Biometric face-match validation against Claro Brasil's own image records, sold as an identity-assurance
+    step alongside the network APIs. Listed in the Claro Insight catalog; documentation requires portal
+    registration.
   humanURL: https://www.claroinsight.com.br/pt-br/facial-biometrics
   tags:
   - Biometrics
@@ -264,9 +173,9 @@ apis:
 - aid: america-movil:claro-alerta-api
   name: Claro Alerta API
   description: >-
-    Detects SIM-card or handset changes on a Claro Brasil mobile line and raises
-    an alert, a Claro-branded companion to the CAMARA SIM Swap API. Listed in the
-    Claro Insight catalog; documentation requires portal registration.
+    Detects SIM-card or handset changes on a Claro Brasil mobile line and raises an alert, a Claro-branded
+    companion to the CAMARA SIM Swap API. Listed in the Claro Insight catalog; documentation requires
+    portal registration.
   humanURL: https://www.claroinsight.com.br/pt-br/claro-alerta
   baseURL: https://api.claro.com.br/customers/v1
   tags:
@@ -281,9 +190,9 @@ apis:
 - aid: america-movil:claro-valida-telefone-api
   name: Claro Valida Telefone API
   description: >-
-    Validates the relationship between a Brazilian CPF (taxpayer identifier) and
-    a mobile number using Claro Brasil subscriber records. Listed in the Claro
-    Insight catalog; documentation requires portal registration.
+    Validates the relationship between a Brazilian CPF (taxpayer identifier) and a mobile number using
+    Claro Brasil subscriber records. Listed in the Claro Insight catalog; documentation requires portal
+    registration.
   humanURL: https://www.claroinsight.com.br/pt-br/claro-valida-telefone
   baseURL: https://api.claro.com.br/customers/v1
   tags:
@@ -298,10 +207,9 @@ apis:
 - aid: america-movil:claro-valida-endereco-api
   name: Claro Valida Endereço 2.0 API
   description: >-
-    Scores a declared address against antenna-proximity analysis of the Claro
-    Brasil network, used to corroborate residential address claims during
-    onboarding. Listed in the Claro Insight catalog; documentation requires
-    portal registration.
+    Scores a declared address against antenna-proximity analysis of the Claro Brasil network, used to
+    corroborate residential address claims during onboarding. Listed in the Claro Insight catalog; documentation
+    requires portal registration.
   humanURL: https://www.claroinsight.com.br/pt-br/claro-valida-endereco-v2
   baseURL: https://api.claro.com.br/customers/v2
   tags:
@@ -316,9 +224,8 @@ apis:
 - aid: america-movil:claro-score-api
   name: Claro Score API
   description: >-
-    Credit-risk scoring derived from Claro Brasil telecom behaviour, used to
-    identify lower-risk consumers. Listed in the Claro Insight catalog;
-    documentation requires portal registration.
+    Credit-risk scoring derived from Claro Brasil telecom behaviour, used to identify lower-risk consumers.
+    Listed in the Claro Insight catalog; documentation requires portal registration.
   humanURL: https://www.claroinsight.com.br/pt-br/claro-score
   baseURL: https://api.claro.com.br/customers/v1
   tags:
@@ -333,14 +240,12 @@ apis:
 - aid: america-movil:telcel-mobile-authentication-apis
   name: Telcel Mobile Authentication APIs
   description: >-
-    América Móvil's GSMA Open Gateway surface in its home market of Mexico,
-    marketed by Telcel to enterprises as "Autenticación Móvil" — Number
-    Verification (silent authentication of the mobile number), SIM change
-    detection, and device location verification. Launched 28 May 2025 alongside
-    Altán Redes, AT&T Mexico and Telefónica Mexico. There is no developer portal,
-    no published specification, no sandbox and no self-serve signup; the page
-    offers only a sales contact form routed to a Telcel account executive. This
-    is a commitment and a sales listing, not a callable public API.
+    América Móvil's GSMA Open Gateway surface in its home market of Mexico, marketed by Telcel to enterprises
+    as "Autenticación Móvil" — Number Verification (silent authentication of the mobile number), SIM change
+    detection, and device location verification. Launched 28 May 2025 alongside Altán Redes, AT&T Mexico
+    and Telefónica Mexico. There is no developer portal, no published specification, no sandbox and no
+    self-serve signup; the page offers only a sales contact form routed to a Telcel account executive.
+    This is a commitment and a sales listing, not a callable public API.
   humanURL: https://www.telcel.com/empresas/soluciones/busines-intelligence/autenticacion-movil
   tags:
   - Open Gateway
@@ -352,7 +257,89 @@ apis:
   properties:
   - type: Documentation
     url: https://www.telcel.com/empresas/soluciones/busines-intelligence/autenticacion-movil
+- aid: america-movil:america-movil-check-sim-swap-api
+  name: América Móvil Check SIM swap API
+  description: The Check SIM swap API from América Móvil — 1 operation(s) for check sim swap.
+  humanURL: https://www.claroinsight.com.br/pt-br/sim-swap
+  baseURL: https://api.claro.com.br/mobile/v1/gsma/gateway/simswap
+  tags:
+  - Check SIM swap
+  properties:
+  - type: OpenAPI
+    url: openapi/america-movil-check-sim-swap-api-openapi.yml
+  - type: Documentation
+    url: https://www.claroinsight.com.br/pt-br/sim-swap
+  - type: APIReference
+    url: https://www.claroinsight.com.br/pt-br/catalogo-api
+  - type: Documentation
+    url: https://www.claroinsight.com.br/pt-br/device-location-retrievel
+  - type: Documentation
+    url: https://www.claroinsight.com.br/pt-br/device-location-verify
+- aid: america-movil:america-movil-device-locations-api
+  name: América Móvil Device Locations API
+  description: The Device Locations API from América Móvil — 1 operation(s) for device locations.
+  humanURL: https://www.claroinsight.com.br/pt-br/sim-swap
+  baseURL: https://api.claro.com.br/mobile/v1/gsma/gateway/simswap
+  tags:
+  - Device Locations
+  properties:
+  - type: OpenAPI
+    url: openapi/america-movil-device-locations-api-openapi.yml
+  - type: Documentation
+    url: https://www.claroinsight.com.br/pt-br/sim-swap
+  - type: APIReference
+    url: https://www.claroinsight.com.br/pt-br/catalogo-api
+  - type: Documentation
+    url: https://www.claroinsight.com.br/pt-br/device-location-retrievel
+  - type: Documentation
+    url: https://www.claroinsight.com.br/pt-br/device-location-verify
+- aid: america-movil:america-movil-location-verification-api
+  name: América Móvil Location verification API
+  description: >-
+    The Location verification API from América Móvil — 1 operation(s) for location verification.
+  humanURL: https://www.claroinsight.com.br/pt-br/sim-swap
+  baseURL: https://api.claro.com.br/mobile/v1/gsma/gateway/simswap
+  tags:
+  - Location verification
+  properties:
+  - type: OpenAPI
+    url: openapi/america-movil-location-verification-api-openapi.yml
+  - type: Documentation
+    url: https://www.claroinsight.com.br/pt-br/sim-swap
+  - type: APIReference
+    url: https://www.claroinsight.com.br/pt-br/catalogo-api
+  - type: Documentation
+    url: https://www.claroinsight.com.br/pt-br/device-location-retrievel
+  - type: Documentation
+    url: https://www.claroinsight.com.br/pt-br/device-location-verify
+- aid: america-movil:america-movil-retrieve-sim-swap-date-api
+  name: América Móvil Retrieve SIM swap date API
+  description: >-
+    The Retrieve SIM swap date API from América Móvil — 1 operation(s) for retrieve sim swap date.
+  humanURL: https://www.claroinsight.com.br/pt-br/sim-swap
+  baseURL: https://api.claro.com.br/mobile/v1/gsma/gateway/simswap
+  tags:
+  - Retrieve SIM swap date
+  properties:
+  - type: OpenAPI
+    url: openapi/america-movil-retrieve-sim-swap-date-api-openapi.yml
+  - type: Documentation
+    url: https://www.claroinsight.com.br/pt-br/sim-swap
+  - type: APIReference
+    url: https://www.claroinsight.com.br/pt-br/catalogo-api
+  - type: Documentation
+    url: https://www.claroinsight.com.br/pt-br/device-location-retrievel
+  - type: Documentation
+    url: https://www.claroinsight.com.br/pt-br/device-location-verify
 common:
+- type: Overlay
+  url: overlays/america-movil-claro-sim-swap-overlay.yaml
+- type: AgentSkill
+  url: skills/america-movil-sim-swap-fraud-check.md
+- type: Overlay
+  url: overlays/america-movil-claro-device-location-overlay.yaml
+- type: AgentSkill
+  url: skills/america-movil-device-location-lookup.md
 - type: AgenticAccess
   url: agentic-access/america-movil-agentic-access.yml
 - type: DomainSecurity
