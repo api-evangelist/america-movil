@@ -14,11 +14,14 @@ x-source: >-
   Composed from operations verified in the two harvested Claro Brasil OpenAPI
   documents. Both operationIds exist verbatim in the referenced specs.
 sourceDescriptions:
-- name: simSwap
-  url: ../openapi/america-movil-claro-sim-swap-openapi.json
+- name: checkSimSwapApi
+  url: ../openapi/america-movil-check-sim-swap-api-openapi.yml
   type: openapi
-- name: deviceLocation
-  url: ../openapi/america-movil-claro-device-location-openapi.json
+- name: deviceLocationsApi
+  url: ../openapi/america-movil-device-locations-api-openapi.yml
+  type: openapi
+- name: retrieveSimSwapDateApi
+  url: ../openapi/america-movil-retrieve-sim-swap-date-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: account-takeover-check
