@@ -344,6 +344,9 @@ apis:
   - type: Documentation
     url: https://www.claroinsight.com.br/pt-br/device-location-verify
 common:
+- type: CapabilityMap
+  url: capabilities/america-movil-capability-edges.yml
+  name: América Móvil Business Capability Map
 - type: Overlay
   url: overlays/america-movil-claro-sim-swap-overlay.yaml
 - type: AgentSkill

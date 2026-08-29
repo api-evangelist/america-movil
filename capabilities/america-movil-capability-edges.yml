@@ -1,0 +1,26 @@
+slug: america-movil
+provider: América Móvil
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Telecommunications
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 1
+edges:
+- tag: Check SIM swap
+  spec_file: america-movil-check-sim-swap-api-openapi.yml
+  capability_id: BC-2690
+  capability_id_l1: BC-2690
+  capability_name: Telecom Fraud Management
+  confidence: 0.7
+  evidence: '''Check if SIM swap has been performed during a past period''; ''derives from the GSMA Mobile
+    Connect Account Takeover Protection specification'''
+  reason: The operation exposes recent SIM-pairing changes explicitly for account-takeover (SIM-swap fraud)
+    protection, which is telecom fraud management. Unclear whether it is best read as detection or as
+    a preventive authentication-uplift control, so L2 is left unset.
