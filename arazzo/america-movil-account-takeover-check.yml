@@ -8,6 +8,17 @@ info:
     on the network? Step one is the decision gate — if the SIM was swapped inside
     the window, stop and escalate rather than spending a location lookup on a
     line you already distrust.
+  x-realizes-capability-ids:
+  - BC-2690
+  x-capability-derivation:
+    method: 'deterministic join: sourceDescriptions -> per-tag OpenAPI -> tag/capability edge. No classification at this step.'
+    min_confidence: 0.7
+    sources:
+    - capability_id: BC-2690
+      capability_name: Telecom Fraud Management
+      spec: america-movil-check-sim-swap-api-openapi.yml
+      confidence: 0.7
+    model: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities, CC BY 4.0
 x-generated: '2026-07-25'
 x-method: generated
 x-source: >-
