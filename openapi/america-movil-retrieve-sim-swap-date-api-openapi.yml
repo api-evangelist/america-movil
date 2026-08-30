@@ -1,0 +1,198 @@
+openapi: 3.2.0
+info:
+  title: Retrieve SIM swap date API
+  description: "<table>\n  <thead>\n    <tr>\n      <th>Version</th>\n      <th>Author</th>\n      <th>Date</th>\n      <th>Changes</th>\n    </tr>\n  </thead>\n  <tbody>\n   <tr>\n      <td>0.4.0</td>\n      <td>Diego Bulsing Rodrigues</td>\n      <td>2023-12-01</td>\n      <td>[Monetization] - Initial version</td>\n    </tr>\n  </tbody>\n</table>\n\nSIM Swap API provides the customer the ability to obtain information on any recent SIM pairing change related to the User's mobile account.\n\nThis API derives from the GSMA Mobile Connect Account Takeover Protection specification [Mobile Connect Account Takeover Protection](https://www.gsma.com/identity/wp-content/uploads/2022/12/IDY.24-Mobile-Connect-Account-Takeover-Protection-Definition-and-Technical-Requirements-v2.0.pdf).  For more about Mobile Connect, please see [about Mobile Connect](https://mobileconnect.io/).\n\nThe API provides 2 operations:\n\n- POST retrieve-date : Provides timestamp of latest SIM swap\n\n- POST check: Checks if SIM swap has been performed during a past period (defined in the request with 'maxAge' attribute).\n"
+  termsOfService: http://swagger.io/terms/
+  contact:
+    name: Diego Bulsing Rodrigues
+    email: coee.api.integracao@claro.com.br
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  x-claro-domains:
+  - Customer
+  version: 1;2023-12-01
+servers:
+- url: https://api-sandbox.claro.com.br/mobile/v1/gsma/gateway/simswap
+  description: Sandbox (SaaS)
+- url: https://api-lab.claro.com.br/mobile/v1/gsma/gateway/simswap
+  description: Lab (SaaS)
+- url: https://api-dev.claro.com.br/mobile/v1/gsma/gateway/simswap
+  description: Dev (SaaS)
+- url: https://api-test.claro.com.br/mobile/v1/gsma/gateway/simswap
+  description: Test (SaaS)
+- url: https://api.claro.com.br/mobile/v1/gsma/gateway/simswap
+  description: Production (SaaS)
+tags:
+- name: Retrieve SIM swap date
+paths:
+  /retrieve-date:
+    post:
+      security:
+      - OAuth2:
+        - retrieve-sim-swap-date
+      tags:
+      - Retrieve SIM swap date
+      summary: 'Get timestamp of last MSISDN <-> IMSI pairing change for a mobile user account provided with MSIDN. Backend: Claro.'
+      description: Get timestamp of last MSISDN <-> IMSI pairing change for a mobile user account provided with MSIDN.
+      operationId: retrieveSimSwapDate
+      requestBody:
+        description: 'Create a SIM swap date request for a MSISDN identifier.
+
+          '
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateSimSwapDate'
+        required: true
+      responses:
+        '200':
+          description: Contains information about SIM swap change
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SimSwapInfo'
+        '400':
+          $ref: '#/components/responses/Generic400'
+        '401':
+          $ref: '#/components/responses/Generic401'
+        '403':
+          $ref: '#/components/responses/Generic403'
+        '404':
+          $ref: '#/components/responses/Generic404'
+        '409':
+          $ref: '#/components/responses/Generic409'
+        '500':
+          $ref: '#/components/responses/Generic500'
+        '503':
+          $ref: '#/components/responses/Generic503'
+        '504':
+          $ref: '#/components/responses/Generic504'
+components:
+  responses:
+    Generic503:
+      description: Service unavailable. Typically the server is down
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorInfo'
+          example:
+            status: 503
+            code: UNAVAILABLE
+            message: Service unavailable
+    Generic504:
+      description: Request time exceeded. If it happens repeatedly, consider reducing the request complexity
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorInfo'
+          example:
+            status: 504
+            code: TIMEOUT
+            message: Request timeout exceeded. Try later
+    Generic401:
+      description: Authentication problem with the client request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorInfo'
+          example:
+            status: 401
+            code: UNAUTHENTICATED
+            message: Request not authenticated due to missing, invalid, or expired credentials
+    Generic500:
+      description: Server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorInfo'
+          example:
+            status: 500
+            code: INTERNAL
+            message: Server error
+    Generic403:
+      description: Client does not have sufficient permission
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorInfo'
+          example:
+            status: 403
+            code: PERMISSION_DENIED
+            message: Client does not have sufficient permissions to perform this action
+    Generic409:
+      description: Conflict
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorInfo'
+          example:
+            status: 409
+            code: CONFLICT
+            message: Another request is created for the same MSISDN
+    Generic404:
+      description: Resource Not Found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorInfo'
+          example:
+            status: 404
+            code: SIM_SWAP.UNKNOWN_PHONE_NUMBER
+            message: SIM Swap can't be checked because the phone number is unknown.
+    Generic400:
+      description: Problem with the client request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorInfo'
+          example:
+            status: 400
+            code: INVALID_ARGUMENT
+            message: Client specified an invalid argument, request body or query param
+  schemas:
+    PhoneNumber:
+      type: string
+      pattern: ^\+?[0-9]{5,15}$
+      example: '+346661113334'
+      description: Subscriber number in E.164 format (starting with country code). Optionally prefixed with '+'.
+    SimSwapInfo:
+      type: object
+      properties:
+        latestSimChange:
+          type: string
+          format: date-time
+          description: Timestamp of latest SIM swap performed
+    ErrorInfo:
+      type: object
+      required:
+      - status
+      - code
+      - message
+      properties:
+        status:
+          type: integer
+          description: HTTP response status code
+        code:
+          type: string
+          description: Code given to this error
+        message:
+          type: string
+          description: Detailed error description
+    CreateSimSwapDate:
+      type: object
+      required:
+      - phoneNumber
+      properties:
+        phoneNumber:
+          $ref: '#/components/schemas/PhoneNumber'
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: /oauth2/v1/token
+          scopes: {}
+externalDocs:
+  description: Product documentation at Camara
+  url: https://github.com/camaraproject/
