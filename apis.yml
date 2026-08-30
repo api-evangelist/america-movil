@@ -312,6 +312,8 @@ apis:
   humanURL: https://www.claroinsight.com.br/pt-br/sim-swap
   baseURL: https://api.claro.com.br/mobile/v1/gsma/gateway/simswap
   tags:
+  - Location Verification
+  tags_raw:
   - Location verification
   properties:
   - type: OpenAPI
