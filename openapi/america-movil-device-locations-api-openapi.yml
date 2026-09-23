@@ -1,7 +1,42 @@
 openapi: 3.2.0
 info:
-  title: 'Mobile - LBS Devices Locations (Proxy Apigee: mobile-lbsdeviceslocations-v1) Device Locations API'
-  description: "<table>   \n  <thead>  \n    <tr>\n      <th>Version</th>\n      <th>Author</th>\n      <th>Date</th>\n      <th>Changes</th>\n    </tr>  \n  </thead>\n  <tbody>\n    <tr>\n      <td>1.0.0</td>\n      <td>EngDB</td>\n      <td>2023-06-29</td>\n      <td>[LBS Device Locations] Versão inicial</td>\n    </tr>\n  </tbody>\n</table> \n\n## Objetivo\n  Gestão de localizações de dispositivos móveis na plataforma LBS (Location Based Services) da Engenharia.\n  \n## Público-Alvo\n  Servico de localizacao de devices.\n  \n## Provedores\n  LBS (Location Based Services)\n  \n## Contexto em que a API se Insere\n  Fornecer informacoes de localizacao de despositivos que estao localizadas no LBS para o microservico DeviceLocation.\n"
+  title: Mobile - LBS Devices Locations (Proxy Apigee…
+  description: 'Version
+
+    Author
+
+    Date
+
+    Changes
+
+
+    1.0.0
+
+    EngDB
+
+    2023-06-29
+
+    [LBS Device Locations] Versão inicial
+
+
+    ## Objetivo
+
+    Gestão de localizações de dispositivos móveis na plataforma LBS (Location Based Services) da Engenharia.
+
+
+    ## Público-Alvo
+
+    Servico de localizacao de devices.
+
+
+    ## Provedores
+
+    LBS (Location Based Services)
+
+
+    ## Contexto em que a API se Insere
+
+    Fornecer informacoes de localizacao de despositivos que estao localizadas no LBS para o microservico DeviceLocation.'
   version: 1;2023-06-30
   x-claro-domains:
   - Geographic Location
@@ -31,7 +66,7 @@ paths:
     get:
       tags:
       - Device Locations
-      summary: 'Recupera os dados de localizacao de um determinado device de acordo com seu msisdn. Backend: LBS LOCATION BASED SERVICES'
+      summary: Recupera os dados de localizacao de um determinado device de acordo com seu…
       description: ''
       operationId: device-locations-v1
       parameters:
@@ -151,7 +186,321 @@ paths:
         '503':
           $ref: '#/components/responses/503'
 components:
+  responses:
+    '404':
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+          example:
+            apiVersion: 1;2023-06-30
+            transactionId: Id-34fcb05c6d1923e35cef248d
+            error:
+              httpCode: '404'
+              message: Not Found
+              errorCode: API-LBSDEVICESLOCATIONS-404
+              detailedMessage: Resource not found.
+              link:
+                rel: related
+                href: https://api.claro.com.br/docs
+    '500':
+      description: Internal Server Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+          example:
+            apiVersion: 1;2023-06-30
+            transactionId: Id-34fcb05c6d1923e35cef248d
+            error:
+              httpCode: '500'
+              message: Internal Server Error
+              errorCode: API-LBSDEVICESLOCATIONS-500
+              detailedMessage: Internal Server Error.
+              link:
+                rel: related
+                href: https://api.claro.com.br/docs
+    '405':
+      description: Method Not Allowed
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+          example:
+            apiVersion: 1;2023-06-30
+            transactionId: Id-34fcb05c6d1923e35cef248d
+            error:
+              httpCode: '405'
+              message: Method Not Allowed
+              errorCode: API-LBSDEVICESLOCATIONS-405
+              detailedMessage: Unavailable HTTP method.
+              link:
+                rel: related
+                href: https://api.claro.com.br/docs
+    '406':
+      description: Not Acceptable
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+          example:
+            apiVersion: 1;2023-06-30
+            transactionId: Id-34fcb05c6d1923e35cef248d
+            error:
+              httpCode: '406'
+              message: Request Not Acceptable
+              errorCode: API-LBSDEVICESLOCATIONS-406
+              detailedMessage: Requested content type not acceptable.
+              link:
+                rel: related
+                href: https://api.claro.com.br/docs
+    '403':
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+          example:
+            apiVersion: 1;2023-06-30
+            transactionId: Id-34fcb05c6d1923e35cef248d
+            error:
+              httpCode: '403'
+              message: Forbidden
+              errorCode: API-LBSDEVICESLOCATIONS-403
+              detailedMessage: Client authorization failed.
+              link:
+                rel: related
+                href: https://api.claro.com.br/docs
+    '503':
+      description: Service unavailable
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+          example:
+            apiVersion: 1;2023-06-30
+            transactionId: Id-34fcb05c6d1923e35cef248d
+            error:
+              httpCode: '503'
+              message: Service unavailable
+              errorCode: API-LBSDEVICESLOCATIONS-503
+              detailedMessage: Service Unavailable.
+              link:
+                rel: related
+                href: https://api.claro.com.br/docs
+    '400':
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+          example:
+            apiVersion: 1;2023-06-30
+            transactionId: Id-34fcb05c6d1923e35cef248d
+            error:
+              httpCode: '400'
+              message: Bad Request
+              errorCode: API-LBSDEVICESLOCATIONS-400
+              detailedMessage: Bad Request
+              link:
+                rel: related
+                href: https://api.claro.com.br/docs
+    '415':
+      description: Unsupported Media Type
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+          example:
+            apiVersion: 1;2023-06-30
+            transactionId: Id-34fcb05c6d1923e35cef248d
+            error:
+              httpCode: '415'
+              message: Unsupported Media Type
+              errorCode: API-LBSDEVICESLOCATIONS-415
+              detailedMessage: Unsupported Media Type.
+              link:
+                rel: related
+                href: https://api.claro.com.br/docs
+    '429':
+      description: Too Many Requests
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+          example:
+            apiVersion: 1;2023-06-30
+            transactionId: Id-34fcb05c6d1923e35cef248d
+            error:
+              httpCode: '429'
+              message: Too Many Requests
+              errorCode: API-LBSDEVICESLOCATIONS-429
+              detailedMessage: The maximum request limit for this MSISDN has been exceeded.
+              link:
+                rel: related
+                href: https://api.claro.com.br/docs
+    '401':
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+          example:
+            apiVersion: 1;2023-06-30
+            transactionId: Id-34fcb05c6d1923e35cef248d
+            error:
+              httpCode: '401'
+              message: Unauthorized
+              errorCode: API-LBSDEVICESLOCATIONS-401
+              detailedMessage: Unauthorized user.
+              link:
+                rel: related
+                href: https://api.claro.com.br/docs
   schemas:
+    error:
+      description: Object returned when an error occurs (4xx/5xx)
+      type: object
+      required:
+      - apiVersion
+      - transactionId
+      - error
+      properties:
+        apiVersion:
+          type: string
+          description: Major and minor API Version.
+          example: 1;2023-06-30
+        transactionId:
+          type: string
+          description: Transaction´s tracking identification generated by API.
+          example: Id-2d0384f0823434
+        error:
+          type: object
+          properties:
+            httpCode:
+              type: string
+              description: HTTP error code
+            message:
+              type: string
+              description: Error Message.
+            detailedMessage:
+              type: string
+              description: Detailed error message.
+            link:
+              type: object
+              description: Object containing page link to errors detailed documentation on API Portal.
+              properties:
+                rel:
+                  type: string
+                  enum:
+                  - related
+                  description: To reference the API portal error page is used the “related” semantics in this scenario.
+                href:
+                  type: string
+                  description: Resource URL
+    deviceLocationWithCircularArea:
+      type: object
+      properties:
+        deviceLocation:
+          type: object
+          properties:
+            geograficLocation:
+              type: object
+              properties:
+                geometry:
+                  description: "inclui o <X> (latitude) e o <Y> (longitude). <X> e <Y> podem ter os seguintes formatos (o cliente pode escolher quais formatos serão utilizados):\n Exemplo de graus decimais:\n   <X>-23.596400</X>\n   <Y>-46.622900</Y>\n Graus, minutos, segundos com N S E W, exemplo:\n   <X>23 30 29.120400S</X>\n   <Y>46 35 42,403200W</Y>\n"
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      X:
+                        description: Componente de latitude de um local
+                        type: string
+                        example: '-23.532600'
+                      Y:
+                        description: Componente longitude da localização
+                        type: string
+                        example: '-23.532600'
+                typeArea:
+                  description: 'Dentro deste elemento podem ser utilizados 3 tipos de formas: CircularArea, CircularArcArea e Point
+
+                    '
+                  type: string
+                  example: CircularArea
+                method:
+                  description: "Informa qual método foi utilizado para a localização. Pode ter os seguintes valores:\n   CELL – Método de identificação de célula\n   OTHER  – método TA/RTT (usando PSL)\n   A-GPS – método A-GPS (não disponível no momento)\n"
+                  type: string
+                  example: Cell
+                accuracy:
+                  type: object
+                  properties:
+                    radius:
+                      type: integer
+                      description: Distância do centro em metros
+                      example: '500'
+                msisdn:
+                  description: 'MSISDN do assinante, em formato internacional (55 + 2 dígitos para código de área + 8 ou 9 dígitos para número de assinante), ex: 5521912345678
+
+                    '
+                  type: string
+                  example: '5521912345678'
+                validationDate:
+                  description: 'Data e hora do local. Caso tenha sido utilizado o último local armazenado no banco de dados, a data e hora serão relacionadas a esse último local, para que o cliente possa saber sua idade.
+
+                    '
+                  type: string
+                  example: '20150611113203'
+    deviceLocationWithPoint:
+      type: object
+      properties:
+        deviceLocation:
+          type: object
+          properties:
+            geograficLocation:
+              type: object
+              properties:
+                geometry:
+                  description: "inclui o <X> (latitude) e o <Y> (longitude). <X> e <Y> podem ter os seguintes formatos (o cliente pode escolher quais formatos serão utilizados):\n Exemplo de graus decimais:\n   <X>-23.596400</X>\n   <Y>-46.622900</Y>\n Graus, minutos, segundos com N S E W, exemplo:\n   <X>23 30 29.120400S</X>\n   <Y>46 35 42,403200W</Y>\n"
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      X:
+                        description: Componente de latitude de um local
+                        type: string
+                        example: '-23.532600'
+                      Y:
+                        description: Componente longitude da localização
+                        type: string
+                        example: '-23.532600'
+                typeArea:
+                  description: 'Dentro deste elemento podem ser utilizados 3 tipos de formas: CircularArea, CircularArcArea e Point
+
+                    '
+                  type: string
+                  example: Point
+                method:
+                  description: "Informa qual método foi utilizado para a localização. Pode ter os seguintes valores:\n   CELL – Método de identificação de célula\n   OTHER  – método TA/RTT (usando PSL)\n   A-GPS – método A-GPS (não disponível no momento)\n"
+                  type: string
+                  example: Cell
+                pointName:
+                  description: 'Um identificador público que endereça uma assinatura em uma rede móvel. Na terminologia 3GPP, corresponde ao GPSI formatado com o Identificador Externo ({Local Identifier}@{Domain Identifier}). Ao contrário do número de telefone, o identificador de acesso à rede não está sujeito às regras de portabilidade em vigor, sendo gerido individualmente por cada operador.
+
+                    '
+                  type: string
+                  example: www.epsg.org#4326
+                msisdn:
+                  description: 'MSISDN do assinante, em formato internacional (55 + 2 dígitos para código de área + 8 ou 9 dígitos para número de assinante), ex: 5521912345678
+
+                    '
+                  type: string
+                  example: '5521912345678'
+                validationDate:
+                  description: 'Data e hora do local. Caso tenha sido utilizado o último local armazenado no banco de dados, a data e hora serão relacionadas a esse último local, para que o cliente possa saber sua idade.
+
+                    '
+                  type: string
+                  example: '20150611113203'
     deviceLocationWithCircularArchArea:
       type: object
       properties:
@@ -224,320 +573,6 @@ components:
                     '
                   type: string
                   example: '20150611113203'
-    error:
-      description: Object returned when an error occurs (4xx/5xx)
-      type: object
-      required:
-      - apiVersion
-      - transactionId
-      - error
-      properties:
-        apiVersion:
-          type: string
-          description: Major and minor API Version.
-          example: 1;2023-06-30
-        transactionId:
-          type: string
-          description: Transaction´s tracking identification generated by API.
-          example: Id-2d0384f0823434
-        error:
-          type: object
-          properties:
-            httpCode:
-              type: string
-              description: HTTP error code
-            message:
-              type: string
-              description: Error Message.
-            detailedMessage:
-              type: string
-              description: Detailed error message.
-            link:
-              type: object
-              description: Object containing page link to errors detailed documentation on API Portal.
-              properties:
-                rel:
-                  type: string
-                  enum:
-                  - related
-                  description: To reference the API portal error page is used the “related” semantics in this scenario.
-                href:
-                  type: string
-                  description: Resource URL
-    deviceLocationWithPoint:
-      type: object
-      properties:
-        deviceLocation:
-          type: object
-          properties:
-            geograficLocation:
-              type: object
-              properties:
-                geometry:
-                  description: "inclui o <X> (latitude) e o <Y> (longitude). <X> e <Y> podem ter os seguintes formatos (o cliente pode escolher quais formatos serão utilizados):\n Exemplo de graus decimais:\n   <X>-23.596400</X>\n   <Y>-46.622900</Y>\n Graus, minutos, segundos com N S E W, exemplo:\n   <X>23 30 29.120400S</X>\n   <Y>46 35 42,403200W</Y>\n"
-                  type: array
-                  items:
-                    type: object
-                    properties:
-                      X:
-                        description: Componente de latitude de um local
-                        type: string
-                        example: '-23.532600'
-                      Y:
-                        description: Componente longitude da localização
-                        type: string
-                        example: '-23.532600'
-                typeArea:
-                  description: 'Dentro deste elemento podem ser utilizados 3 tipos de formas: CircularArea, CircularArcArea e Point
-
-                    '
-                  type: string
-                  example: Point
-                method:
-                  description: "Informa qual método foi utilizado para a localização. Pode ter os seguintes valores:\n   CELL – Método de identificação de célula\n   OTHER  – método TA/RTT (usando PSL)\n   A-GPS – método A-GPS (não disponível no momento)\n"
-                  type: string
-                  example: Cell
-                pointName:
-                  description: 'Um identificador público que endereça uma assinatura em uma rede móvel. Na terminologia 3GPP, corresponde ao GPSI formatado com o Identificador Externo ({Local Identifier}@{Domain Identifier}). Ao contrário do número de telefone, o identificador de acesso à rede não está sujeito às regras de portabilidade em vigor, sendo gerido individualmente por cada operador.
-
-                    '
-                  type: string
-                  example: www.epsg.org#4326
-                msisdn:
-                  description: 'MSISDN do assinante, em formato internacional (55 + 2 dígitos para código de área + 8 ou 9 dígitos para número de assinante), ex: 5521912345678
-
-                    '
-                  type: string
-                  example: '5521912345678'
-                validationDate:
-                  description: 'Data e hora do local. Caso tenha sido utilizado o último local armazenado no banco de dados, a data e hora serão relacionadas a esse último local, para que o cliente possa saber sua idade.
-
-                    '
-                  type: string
-                  example: '20150611113203'
-    deviceLocationWithCircularArea:
-      type: object
-      properties:
-        deviceLocation:
-          type: object
-          properties:
-            geograficLocation:
-              type: object
-              properties:
-                geometry:
-                  description: "inclui o <X> (latitude) e o <Y> (longitude). <X> e <Y> podem ter os seguintes formatos (o cliente pode escolher quais formatos serão utilizados):\n Exemplo de graus decimais:\n   <X>-23.596400</X>\n   <Y>-46.622900</Y>\n Graus, minutos, segundos com N S E W, exemplo:\n   <X>23 30 29.120400S</X>\n   <Y>46 35 42,403200W</Y>\n"
-                  type: array
-                  items:
-                    type: object
-                    properties:
-                      X:
-                        description: Componente de latitude de um local
-                        type: string
-                        example: '-23.532600'
-                      Y:
-                        description: Componente longitude da localização
-                        type: string
-                        example: '-23.532600'
-                typeArea:
-                  description: 'Dentro deste elemento podem ser utilizados 3 tipos de formas: CircularArea, CircularArcArea e Point
-
-                    '
-                  type: string
-                  example: CircularArea
-                method:
-                  description: "Informa qual método foi utilizado para a localização. Pode ter os seguintes valores:\n   CELL – Método de identificação de célula\n   OTHER  – método TA/RTT (usando PSL)\n   A-GPS – método A-GPS (não disponível no momento)\n"
-                  type: string
-                  example: Cell
-                accuracy:
-                  type: object
-                  properties:
-                    radius:
-                      type: integer
-                      description: Distância do centro em metros
-                      example: '500'
-                msisdn:
-                  description: 'MSISDN do assinante, em formato internacional (55 + 2 dígitos para código de área + 8 ou 9 dígitos para número de assinante), ex: 5521912345678
-
-                    '
-                  type: string
-                  example: '5521912345678'
-                validationDate:
-                  description: 'Data e hora do local. Caso tenha sido utilizado o último local armazenado no banco de dados, a data e hora serão relacionadas a esse último local, para que o cliente possa saber sua idade.
-
-                    '
-                  type: string
-                  example: '20150611113203'
-  responses:
-    '404':
-      description: Not Found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-          example:
-            apiVersion: 1;2023-06-30
-            transactionId: Id-34fcb05c6d1923e35cef248d
-            error:
-              httpCode: '404'
-              message: Not Found
-              errorCode: API-LBSDEVICESLOCATIONS-404
-              detailedMessage: Resource not found.
-              link:
-                rel: related
-                href: https://api.claro.com.br/docs
-    '503':
-      description: Service unavailable
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-          example:
-            apiVersion: 1;2023-06-30
-            transactionId: Id-34fcb05c6d1923e35cef248d
-            error:
-              httpCode: '503'
-              message: Service unavailable
-              errorCode: API-LBSDEVICESLOCATIONS-503
-              detailedMessage: Service Unavailable.
-              link:
-                rel: related
-                href: https://api.claro.com.br/docs
-    '400':
-      description: Bad Request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-          example:
-            apiVersion: 1;2023-06-30
-            transactionId: Id-34fcb05c6d1923e35cef248d
-            error:
-              httpCode: '400'
-              message: Bad Request
-              errorCode: API-LBSDEVICESLOCATIONS-400
-              detailedMessage: Bad Request
-              link:
-                rel: related
-                href: https://api.claro.com.br/docs
-    '406':
-      description: Not Acceptable
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-          example:
-            apiVersion: 1;2023-06-30
-            transactionId: Id-34fcb05c6d1923e35cef248d
-            error:
-              httpCode: '406'
-              message: Request Not Acceptable
-              errorCode: API-LBSDEVICESLOCATIONS-406
-              detailedMessage: Requested content type not acceptable.
-              link:
-                rel: related
-                href: https://api.claro.com.br/docs
-    '429':
-      description: Too Many Requests
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-          example:
-            apiVersion: 1;2023-06-30
-            transactionId: Id-34fcb05c6d1923e35cef248d
-            error:
-              httpCode: '429'
-              message: Too Many Requests
-              errorCode: API-LBSDEVICESLOCATIONS-429
-              detailedMessage: The maximum request limit for this MSISDN has been exceeded.
-              link:
-                rel: related
-                href: https://api.claro.com.br/docs
-    '415':
-      description: Unsupported Media Type
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-          example:
-            apiVersion: 1;2023-06-30
-            transactionId: Id-34fcb05c6d1923e35cef248d
-            error:
-              httpCode: '415'
-              message: Unsupported Media Type
-              errorCode: API-LBSDEVICESLOCATIONS-415
-              detailedMessage: Unsupported Media Type.
-              link:
-                rel: related
-                href: https://api.claro.com.br/docs
-    '405':
-      description: Method Not Allowed
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-          example:
-            apiVersion: 1;2023-06-30
-            transactionId: Id-34fcb05c6d1923e35cef248d
-            error:
-              httpCode: '405'
-              message: Method Not Allowed
-              errorCode: API-LBSDEVICESLOCATIONS-405
-              detailedMessage: Unavailable HTTP method.
-              link:
-                rel: related
-                href: https://api.claro.com.br/docs
-    '500':
-      description: Internal Server Error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-          example:
-            apiVersion: 1;2023-06-30
-            transactionId: Id-34fcb05c6d1923e35cef248d
-            error:
-              httpCode: '500'
-              message: Internal Server Error
-              errorCode: API-LBSDEVICESLOCATIONS-500
-              detailedMessage: Internal Server Error.
-              link:
-                rel: related
-                href: https://api.claro.com.br/docs
-    '401':
-      description: Unauthorized
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-          example:
-            apiVersion: 1;2023-06-30
-            transactionId: Id-34fcb05c6d1923e35cef248d
-            error:
-              httpCode: '401'
-              message: Unauthorized
-              errorCode: API-LBSDEVICESLOCATIONS-401
-              detailedMessage: Unauthorized user.
-              link:
-                rel: related
-                href: https://api.claro.com.br/docs
-    '403':
-      description: Forbidden
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-          example:
-            apiVersion: 1;2023-06-30
-            transactionId: Id-34fcb05c6d1923e35cef248d
-            error:
-              httpCode: '403'
-              message: Forbidden
-              errorCode: API-LBSDEVICESLOCATIONS-403
-              detailedMessage: Client authorization failed.
-              link:
-                rel: related
-                href: https://api.claro.com.br/docs
   securitySchemes:
     BasicAuth:
       type: http

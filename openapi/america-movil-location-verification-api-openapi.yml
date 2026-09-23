@@ -23,12 +23,12 @@ security:
 - three_legged:
   - device-location-read
 tags:
-- name: Location verification
+- name: Location Verification
 paths:
   /verify:
     post:
       tags:
-      - Location verification
+      - Location Verification
       summary: Execute location verification for a user equipment
       operationId: verifyLocation
       requestBody:
@@ -58,24 +58,58 @@ paths:
           $ref: '#/components/responses/Generic503'
 components:
   schemas:
+    VerificationResult:
+      description: Result of a verification request, true on match
+      type: boolean
+    Port:
+      type: integer
+      minimum: 0
+      maximum: 65535
+      description: User equipment port. Device port may be required along with IP address to identify the target device
+      example: 5060
     Accuracy:
       description: Accuracy expected for location verification in km
       type: number
       minimum: 2
       maximum: 200
       example: 50
+    Longitude:
+      description: Longitude component of location
+      type: number
+      format: double
+      minimum: -180
+      maximum: 180
+      example: 7.10066
+    ErrorInfo:
+      type: object
+      required:
+      - code
+      - message
+      properties:
+        code:
+          type: string
+          description: Code given to this error
+        message:
+          type: string
+          description: Detailed error description
+    VerifyLocationResponse:
+      type: object
+      required:
+      - verificationResult
+      properties:
+        verificationResult:
+          $ref: '#/components/schemas/VerificationResult'
     MSISDN:
       type: string
       pattern: ^\+?[0-9]{5,15}$
       example: '123456789'
       description: Subscriber number in E.164 format (starting with country code). Optionally prefixed with '+'.
-    Latitude:
-      description: Latitude component of location
-      type: number
-      format: double
-      minimum: -90
-      maximum: 90
-      example: 50.735851
+    Ipv4Addr:
+      type: string
+      format: ipv4
+      pattern: ^([01]?\d\d?|2[0-4]\d|25[0-5])(?:\.(?:[01]?\d\d?|2[0-4]\d|25[0-5])){3}(\/([0-9]|[1-2][0-9]|3[0-2]))?$
+      example: 192.168.0.1/24
+      description: "IPv4 address may be specified in form <address/mask> as:\n  - address - an IPv4 number in dotted-quad form 1.2.3.4. Only this exact IP number will match the flow control rule.\n  - address/mask - an IP number as above with a mask width of the form 1.2.3.4/24.\n    In this case, all IP numbers from 1.2.3.0 to 1.2.3.255 will match. The bit width MUST be valid for the IP version.\n"
     Ipv6Addr:
       type: string
       format: ipv6
@@ -84,19 +118,13 @@ components:
       - pattern: ^((([^:]+:){7}([^:]+))|((([^:]+:)*[^:]+)?::(([^:]+:)*[^:]+)?))(\/.+)?$
       example: 2001:db8:85a3:8d3:1319:8a2e:370:7344
       description: "IPv6 address, following IETF 5952 format, may be specified in form <address/mask> as:\n  - address - The /128 subnet is optional for single addresses:\n    - 2001:db8:85a3:8d3:1319:8a2e:370:7344\n    - 2001:db8:85a3:8d3:1319:8a2e:370:7344/128\n  - address/mask - an IP v6 number with a mask:\n    - 2001:db8:85a3:8d3::0/64\n    - 2001:db8:85a3:8d3::/64\n"
-    VerificationResult:
-      description: Result of a verification request, true on match
-      type: boolean
-    Longitude:
-      description: Longitude component of location
+    Latitude:
+      description: Latitude component of location
       type: number
       format: double
-      minimum: -180
-      maximum: 180
-      example: 7.10066
-    ExternalId:
-      type: string
-      example: 123456789@domain.com
+      minimum: -90
+      maximum: 90
+      example: 50.735851
     VerifyLocationRequest:
       type: object
       properties:
@@ -115,37 +143,6 @@ components:
       - latitude
       - longitude
       - accuracy
-    VerifyLocationResponse:
-      type: object
-      required:
-      - verificationResult
-      properties:
-        verificationResult:
-          $ref: '#/components/schemas/VerificationResult'
-    Port:
-      type: integer
-      minimum: 0
-      maximum: 65535
-      description: User equipment port. Device port may be required along with IP address to identify the target device
-      example: 5060
-    ErrorInfo:
-      type: object
-      required:
-      - code
-      - message
-      properties:
-        code:
-          type: string
-          description: Code given to this error
-        message:
-          type: string
-          description: Detailed error description
-    Ipv4Addr:
-      type: string
-      format: ipv4
-      pattern: ^([01]?\d\d?|2[0-4]\d|25[0-5])(?:\.(?:[01]?\d\d?|2[0-4]\d|25[0-5])){3}(\/([0-9]|[1-2][0-9]|3[0-2]))?$
-      example: 192.168.0.1/24
-      description: "IPv4 address may be specified in form <address/mask> as:\n  - address - an IPv4 number in dotted-quad form 1.2.3.4. Only this exact IP number will match the flow control rule.\n  - address/mask - an IP number as above with a mask width of the form 1.2.3.4/24.\n    In this case, all IP numbers from 1.2.3.0 to 1.2.3.255 will match. The bit width MUST be valid for the IP version.\n"
     UeId:
       description: User equipment identifier
       type: object
@@ -159,16 +156,28 @@ components:
         ipv6Addr:
           $ref: '#/components/schemas/Ipv6Addr'
       minProperties: 1
+    ExternalId:
+      type: string
+      example: 123456789@domain.com
   responses:
-    Generic401:
-      description: Unauthorized
+    Generic503:
+      description: Service unavailable
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorInfo'
           example:
-            code: UNAUTHORIZED
-            message: 'Authorization failed: ...'
+            code: SERVICE_UNAVAILABLE
+            message: Service unavailable
+    Generic403:
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorInfo'
+          example:
+            code: FORBIDDEN
+            message: 'Operation not allowed: ...'
     Generic404:
       description: Not found
       content:
@@ -187,15 +196,15 @@ components:
           example:
             code: INVALID_INPUT
             message: Invalid input
-    Generic503:
-      description: Service unavailable
+    Generic401:
+      description: Unauthorized
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorInfo'
           example:
-            code: SERVICE_UNAVAILABLE
-            message: Service unavailable
+            code: UNAUTHORIZED
+            message: 'Authorization failed: ...'
     Generic500:
       description: Internal server error
       content:
@@ -205,15 +214,6 @@ components:
           example:
             code: INTERNAL_SERVER_ERROR
             message: Internal server error
-    Generic403:
-      description: Forbidden
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorInfo'
-          example:
-            code: FORBIDDEN
-            message: 'Operation not allowed: ...'
   securitySchemes:
     oAuth2ClientCredentials:
       type: oauth2

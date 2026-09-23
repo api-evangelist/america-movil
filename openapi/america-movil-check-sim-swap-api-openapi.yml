@@ -1,7 +1,25 @@
 openapi: 3.2.0
 info:
   title: Check SIM swap API
-  description: "<table>\n  <thead>\n    <tr>\n      <th>Version</th>\n      <th>Author</th>\n      <th>Date</th>\n      <th>Changes</th>\n    </tr>\n  </thead>\n  <tbody>\n   <tr>\n      <td>0.4.0</td>\n      <td>Diego Bulsing Rodrigues</td>\n      <td>2023-12-01</td>\n      <td>[Monetization] - Initial version</td>\n    </tr>\n  </tbody>\n</table>\n\nSIM Swap API provides the customer the ability to obtain information on any recent SIM pairing change related to the User's mobile account.\n\nThis API derives from the GSMA Mobile Connect Account Takeover Protection specification [Mobile Connect Account Takeover Protection](https://www.gsma.com/identity/wp-content/uploads/2022/12/IDY.24-Mobile-Connect-Account-Takeover-Protection-Definition-and-Technical-Requirements-v2.0.pdf).  For more about Mobile Connect, please see [about Mobile Connect](https://mobileconnect.io/).\n\nThe API provides 2 operations:\n\n- POST retrieve-date : Provides timestamp of latest SIM swap\n\n- POST check: Checks if SIM swap has been performed during a past period (defined in the request with 'maxAge' attribute).\n"
+  description: 'Version
+
+    Author
+
+    Date
+
+    Changes
+
+
+    0.4.0
+
+    Diego Bulsing Rodrigues
+
+    2023-12-01
+
+    [Monetization] - Initial version
+
+
+    SIM Swap API provides the customer the ability to obtain information on any recent SIM pairing change related to the User''s mobile account.'
   termsOfService: http://swagger.io/terms/
   contact:
     name: Diego Bulsing Rodrigues
@@ -24,7 +42,7 @@ servers:
 - url: https://api.claro.com.br/mobile/v1/gsma/gateway/simswap
   description: Production (SaaS)
 tags:
-- name: Check SIM swap
+- name: Check SIM Swap
 paths:
   /check:
     post:
@@ -32,9 +50,9 @@ paths:
       - OAuth2:
         - check-sim-swap
       tags:
-      - Check SIM swap
+      - Check SIM Swap
       description: Check if SIM swap has been performed during a past period
-      summary: 'Check if SIM swap has been performed during a past period.                           Backend: Claro.'
+      summary: 'Check if SIM swap has been performed during a past period. Backend: Claro'
       operationId: checkSimSwap
       requestBody:
         description: 'Create a check SIM swap request for a MSISDN identifier.
@@ -70,26 +88,6 @@ paths:
           $ref: '#/components/responses/Generic504'
 components:
   responses:
-    Generic503:
-      description: Service unavailable. Typically the server is down
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorInfo'
-          example:
-            status: 503
-            code: UNAVAILABLE
-            message: Service unavailable
-    Generic504:
-      description: Request time exceeded. If it happens repeatedly, consider reducing the request complexity
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorInfo'
-          example:
-            status: 504
-            code: TIMEOUT
-            message: Request timeout exceeded. Try later
     Generic401:
       description: Authentication problem with the client request
       content:
@@ -100,16 +98,6 @@ components:
             status: 401
             code: UNAUTHENTICATED
             message: Request not authenticated due to missing, invalid, or expired credentials
-    Generic500:
-      description: Server error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorInfo'
-          example:
-            status: 500
-            code: INTERNAL
-            message: Server error
     Generic403:
       description: Client does not have sufficient permission
       content:
@@ -120,16 +108,6 @@ components:
             status: 403
             code: PERMISSION_DENIED
             message: Client does not have sufficient permissions to perform this action
-    Generic409:
-      description: Conflict
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorInfo'
-          example:
-            status: 409
-            code: CONFLICT
-            message: Another request is created for the same MSISDN
     Generic404:
       description: Resource Not Found
       content:
@@ -150,7 +128,69 @@ components:
             status: 400
             code: INVALID_ARGUMENT
             message: Client specified an invalid argument, request body or query param
+    Generic409:
+      description: Conflict
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorInfo'
+          example:
+            status: 409
+            code: CONFLICT
+            message: Another request is created for the same MSISDN
+    Generic503:
+      description: Service unavailable. Typically the server is down
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorInfo'
+          example:
+            status: 503
+            code: UNAVAILABLE
+            message: Service unavailable
+    Generic500:
+      description: Server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorInfo'
+          example:
+            status: 500
+            code: INTERNAL
+            message: Server error
+    Generic504:
+      description: Request time exceeded. If it happens repeatedly, consider reducing the request complexity
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorInfo'
+          example:
+            status: 504
+            code: TIMEOUT
+            message: Request timeout exceeded. Try later
   schemas:
+    CheckSimSwapInfo:
+      type: object
+      properties:
+        swapped:
+          type: boolean
+          description: Indicates whether the SIM card has been swapped during the period within the provided age.
+    ErrorInfo:
+      type: object
+      required:
+      - status
+      - code
+      - message
+      properties:
+        status:
+          type: integer
+          description: HTTP response status code
+        code:
+          type: string
+          description: Code given to this error
+        message:
+          type: string
+          description: Detailed error description
     PhoneNumber:
       type: string
       pattern: ^\+?[0-9]{5,15}$
@@ -173,28 +213,6 @@ components:
           minimum: 1
           maximum: 2400
           default: 240
-    ErrorInfo:
-      type: object
-      required:
-      - status
-      - code
-      - message
-      properties:
-        status:
-          type: integer
-          description: HTTP response status code
-        code:
-          type: string
-          description: Code given to this error
-        message:
-          type: string
-          description: Detailed error description
-    CheckSimSwapInfo:
-      type: object
-      properties:
-        swapped:
-          type: boolean
-          description: Indicates whether the SIM card has been swapped during the period within the provided age.
   securitySchemes:
     OAuth2:
       type: oauth2

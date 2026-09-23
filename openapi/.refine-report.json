@@ -1,0 +1,33 @@
+{
+  "provider": "america-movil",
+  "sources": [
+    "_original/america-movil-claro-device-location-openapi.json",
+    "_original/america-movil-claro-device-location-verify-camara-openapi.yaml",
+    "_original/america-movil-claro-sim-swap-openapi.json"
+  ],
+  "outputs": [
+    "america-movil-device-locations-api-openapi.yml",
+    "america-movil-location-verification-api-openapi.yml",
+    "america-movil-check-sim-swap-api-openapi.yml",
+    "america-movil-retrieve-sim-swap-date-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [
+    "sourced from openapi/_original/ (3 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "america-movil-claro-device-location-openapi.json: upgraded openapi 3.0.0 -> OpenAPI 3.2.0",
+    "america-movil-claro-device-location-verify-camara-openapi.yaml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "america-movil-claro-device-location-verify-camara-openapi.yaml: declared missing tag: Location verification",
+    "america-movil-claro-sim-swap-openapi.json: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "america-movil-claro-sim-swap-openapi.json: declared missing tag: Check SIM swap",
+    "america-movil-claro-sim-swap-openapi.json: declared missing tag: Retrieve SIM swap date",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "america-movil-check-sim-swap-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "america-movil-device-locations-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "america-movil-location-verification-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "america-movil-retrieve-sim-swap-date-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
+}
