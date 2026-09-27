@@ -106,6 +106,11 @@ apis:
   tags:
   - KYC
   - Identity Verification
+  - Fraud Prevention
+  - Open Gateway
+  tags_raw:
+  - KYC
+  - Identity Verification
   - Anti-Fraud
   - Open Gateway
   properties:
@@ -141,6 +146,10 @@ apis:
   tags:
   - Number Recycling
   - Identity Verification
+  - Fraud Prevention
+  tags_raw:
+  - Number Recycling
+  - Identity Verification
   - Anti-Fraud
   properties:
   - type: Documentation
@@ -156,6 +165,10 @@ apis:
   humanURL: https://www.claroinsight.com.br/pt-br/tenure
   baseURL: https://api.claro.com.br/gsma/gateway/kyc/tenure
   tags:
+  - Tenure
+  - Identity Verification
+  - Risk Management
+  tags_raw:
   - Tenure
   - Identity Verification
   - Risk
@@ -192,6 +205,10 @@ apis:
   tags:
   - Biometrics
   - Identity Verification
+  - Fraud Prevention
+  tags_raw:
+  - Biometrics
+  - Identity Verification
   - Anti-Fraud
   properties:
   - type: Documentation
@@ -207,6 +224,10 @@ apis:
   humanURL: https://www.claroinsight.com.br/pt-br/claro-alerta
   baseURL: https://api.claro.com.br/customers/v1
   tags:
+  - SIM Swap
+  - Device Swap
+  - Fraud Prevention
+  tags_raw:
   - SIM Swap
   - Device Swap
   - Anti-Fraud

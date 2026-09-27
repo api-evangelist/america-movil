@@ -88,26 +88,6 @@ paths:
           $ref: '#/components/responses/Generic504'
 components:
   responses:
-    Generic401:
-      description: Authentication problem with the client request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorInfo'
-          example:
-            status: 401
-            code: UNAUTHENTICATED
-            message: Request not authenticated due to missing, invalid, or expired credentials
-    Generic403:
-      description: Client does not have sufficient permission
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorInfo'
-          example:
-            status: 403
-            code: PERMISSION_DENIED
-            message: Client does not have sufficient permissions to perform this action
     Generic404:
       description: Resource Not Found
       content:
@@ -128,26 +108,6 @@ components:
             status: 400
             code: INVALID_ARGUMENT
             message: Client specified an invalid argument, request body or query param
-    Generic409:
-      description: Conflict
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorInfo'
-          example:
-            status: 409
-            code: CONFLICT
-            message: Another request is created for the same MSISDN
-    Generic503:
-      description: Service unavailable. Typically the server is down
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorInfo'
-          example:
-            status: 503
-            code: UNAVAILABLE
-            message: Service unavailable
     Generic500:
       description: Server error
       content:
@@ -158,6 +118,46 @@ components:
             status: 500
             code: INTERNAL
             message: Server error
+    Generic503:
+      description: Service unavailable. Typically the server is down
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorInfo'
+          example:
+            status: 503
+            code: UNAVAILABLE
+            message: Service unavailable
+    Generic403:
+      description: Client does not have sufficient permission
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorInfo'
+          example:
+            status: 403
+            code: PERMISSION_DENIED
+            message: Client does not have sufficient permissions to perform this action
+    Generic401:
+      description: Authentication problem with the client request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorInfo'
+          example:
+            status: 401
+            code: UNAUTHENTICATED
+            message: Request not authenticated due to missing, invalid, or expired credentials
+    Generic409:
+      description: Conflict
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorInfo'
+          example:
+            status: 409
+            code: CONFLICT
+            message: Another request is created for the same MSISDN
     Generic504:
       description: Request time exceeded. If it happens repeatedly, consider reducing the request complexity
       content:
@@ -169,28 +169,6 @@ components:
             code: TIMEOUT
             message: Request timeout exceeded. Try later
   schemas:
-    CheckSimSwapInfo:
-      type: object
-      properties:
-        swapped:
-          type: boolean
-          description: Indicates whether the SIM card has been swapped during the period within the provided age.
-    ErrorInfo:
-      type: object
-      required:
-      - status
-      - code
-      - message
-      properties:
-        status:
-          type: integer
-          description: HTTP response status code
-        code:
-          type: string
-          description: Code given to this error
-        message:
-          type: string
-          description: Detailed error description
     PhoneNumber:
       type: string
       pattern: ^\+?[0-9]{5,15}$
@@ -213,6 +191,28 @@ components:
           minimum: 1
           maximum: 2400
           default: 240
+    ErrorInfo:
+      type: object
+      required:
+      - status
+      - code
+      - message
+      properties:
+        status:
+          type: integer
+          description: HTTP response status code
+        code:
+          type: string
+          description: Code given to this error
+        message:
+          type: string
+          description: Detailed error description
+    CheckSimSwapInfo:
+      type: object
+      properties:
+        swapped:
+          type: boolean
+          description: Indicates whether the SIM card has been swapped during the period within the provided age.
   securitySchemes:
     OAuth2:
       type: oauth2
