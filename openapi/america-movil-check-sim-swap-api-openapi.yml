@@ -88,26 +88,36 @@ paths:
           $ref: '#/components/responses/Generic504'
 components:
   responses:
-    Generic404:
-      description: Resource Not Found
+    Generic503:
+      description: Service unavailable. Typically the server is down
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorInfo'
           example:
-            status: 404
-            code: SIM_SWAP.UNKNOWN_PHONE_NUMBER
-            message: SIM Swap can't be checked because the phone number is unknown.
-    Generic403:
-      description: Client does not have sufficient permission
+            status: 503
+            code: UNAVAILABLE
+            message: Service unavailable
+    Generic409:
+      description: Conflict
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorInfo'
           example:
-            status: 403
-            code: PERMISSION_DENIED
-            message: Client does not have sufficient permissions to perform this action
+            status: 409
+            code: CONFLICT
+            message: Another request is created for the same MSISDN
+    Generic500:
+      description: Server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorInfo'
+          example:
+            status: 500
+            code: INTERNAL
+            message: Server error
     Generic400:
       description: Problem with the client request
       content:
@@ -128,16 +138,16 @@ components:
             status: 504
             code: TIMEOUT
             message: Request timeout exceeded. Try later
-    Generic409:
-      description: Conflict
+    Generic403:
+      description: Client does not have sufficient permission
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorInfo'
           example:
-            status: 409
-            code: CONFLICT
-            message: Another request is created for the same MSISDN
+            status: 403
+            code: PERMISSION_DENIED
+            message: Client does not have sufficient permissions to perform this action
     Generic401:
       description: Authentication problem with the client request
       content:
@@ -148,27 +158,28 @@ components:
             status: 401
             code: UNAUTHENTICATED
             message: Request not authenticated due to missing, invalid, or expired credentials
-    Generic500:
-      description: Server error
+    Generic404:
+      description: Resource Not Found
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorInfo'
           example:
-            status: 500
-            code: INTERNAL
-            message: Server error
-    Generic503:
-      description: Service unavailable. Typically the server is down
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorInfo'
-          example:
-            status: 503
-            code: UNAVAILABLE
-            message: Service unavailable
+            status: 404
+            code: SIM_SWAP.UNKNOWN_PHONE_NUMBER
+            message: SIM Swap can't be checked because the phone number is unknown.
   schemas:
+    PhoneNumber:
+      type: string
+      pattern: ^\+?[0-9]{5,15}$
+      example: '+346661113334'
+      description: Subscriber number in E.164 format (starting with country code). Optionally prefixed with '+'.
+    CheckSimSwapInfo:
+      type: object
+      properties:
+        swapped:
+          type: boolean
+          description: Indicates whether the SIM card has been swapped during the period within the provided age.
     CreateCheckSimSwap:
       type: object
       required:
@@ -202,17 +213,6 @@ components:
         message:
           type: string
           description: Detailed error description
-    CheckSimSwapInfo:
-      type: object
-      properties:
-        swapped:
-          type: boolean
-          description: Indicates whether the SIM card has been swapped during the period within the provided age.
-    PhoneNumber:
-      type: string
-      pattern: ^\+?[0-9]{5,15}$
-      example: '+346661113334'
-      description: Subscriber number in E.164 format (starting with country code). Optionally prefixed with '+'.
   securitySchemes:
     OAuth2:
       type: oauth2
