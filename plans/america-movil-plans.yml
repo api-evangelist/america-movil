@@ -46,3 +46,22 @@ gaps:
 - No published unit price for any API.
 - No enterprise/volume tier published.
 - No overage or rate-card documentation.
+x-canonical:
+  generated: '2026-10-08'
+  vocabulary: all/0-working/economics/plans-canonical.yml
+  models:
+  - free
+  units: []
+  plans:
+  - name: Plano Trial
+    access: other
+    model: free
+    model_how: derived
+    units: []
+    periods: []
+  - name: Plano Pay Per Use
+    access: other
+    model: unstated
+    model_how: derived
+    units: []
+    periods: []
