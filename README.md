@@ -1,4 +1,4 @@
-# América Móvil (america-movil)
+# América Móvil
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -64,100 +64,163 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-América Móvil, S.A.B. de C.V. is the largest telecommunications group in Latin America, headquartered in Mexico City and controlled by the Slim family. It serves roughly 331 million wireless subscribers and 79 million fixed revenue-generating units across 23 countries (2025 Form 20-F), operating as **Telcel** and **Telmex** in its home market of Mexico, as **Claro** across most of Latin America and the Caribbean, and as majority owner of **A1 Telekom Austria Group** in Central and Eastern Europe. It is a mobile network operator and fixed-line carrier — it owns the spectrum, the radio access network, the SIM estate and the subscriber identity records that network APIs monetize.
+América Móvil, S.A.B. de C.V. is the largest telecommunications group in Latin America, headquartered in Mexico City and controlled by the Slim family. It serves roughly 331 million wireless subscribers and 79 million fixed revenue-generating units across 23 countries (2025 Form 20-F), operating as Telcel and Telmex in its home market of Mexico, as Claro across most of Latin America and the Caribbean, and as the majority owner of A1 Telekom Austria Group in Central and Eastern Europe. In the value chain it is a mobile network operator and fixed-line carrier — it owns the spectrum, the radio access network, the SIM estate and the subscriber identity records that network APIs monetize, and it does not resell anyone else's connectivity. Its API posture is the classic carrier posture: there is no corporate developer portal at americamovil.com (the domain is an investor-relations site and returns 403 to non-browser clients; developer.*, developers.*, docs.*, api.* and opengateway.* subdomains do not resolve), and the only real API surface in the group sits inside one operating company — Claro Brasil's "Claro Insight" marketplace at claroinsight.com.br, a registration-gated catalog of 14 network and identity APIs including CAMARA-aligned SIM Swap, Number Verification and Device Location. In Mexico, Telcel launched GSMA Open Gateway on 28 May 2025 alongside Altán Redes, AT&T Mexico and Telefónica Mexico with three APIs — SIM Swap, Number Verification and Device Location — but publishes no portal, no specification and no sandbox, only a business sales contact form. América Móvil is a GSMA Open Gateway participant and was named in Ericsson's September 2024 launch of the Aduna network-API joint venture, but it is absent from the final twelve-CSP equity structure completed in July 2025; in Brazil its CAMARA APIs reach developers through the CPaaS aggregator Infobip. Outside the Brazilian marketplace, América Móvil is partner-gated and sales-led, and is reachable by most developers only through an aggregator rather than directly.
 
-Its API posture is the classic carrier posture. There is **no corporate developer portal**: `americamovil.com` is an investor-relations site, and `developer.`, `developers.`, `docs.`, `api.` and `opengateway.` subdomains do not resolve. The only real API surface in the group belongs to one operating company — **Claro Brasil**, whose *Claro Insight* marketplace publishes a 14-API catalog with plans and a checkout flow, but keeps every Swagger download behind registration.
+**Areas:** Telecommunications · Mexico · Latin America · Mobile Network Operator · Network APIs · CAMARA · Open Gateway · SIM Swap · Identity Verification · Device Location · Broadband · 5G
 
-In **Mexico**, América Móvil's home and largest market, Telcel launched GSMA Open Gateway on 28 May 2025 alongside Altán Redes, AT&T Mexico and Telefónica Mexico with SIM Swap, Number Verification and Device Location. It publishes no portal, no specification and no sandbox — only a business sales contact form. That is a commitment and a sales listing, not a callable API.
+## América Móvil on APIs.io
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/america-movil/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/america-movil/refs/heads/main/apis.yml)
+Everything profiled for América Móvil is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/america-movil/](https://apis.io/providers/america-movil/)** — or go straight to one of the APIs or properties below.
 
-## CAMARA and GSMA Open Gateway posture
+### APIs (16)
 
-- **GSMA Open Gateway participant:** yes. Claro launched in Brazil (Nov 2023, with TIM and Vivo), Telcel in Mexico (28 May 2025), and Claro is named in the Argentina and Uruguay launches.
-- **CAMARA implementation:** real in Brazil only. Claro Brasil's SIM Swap API ships a downloadable OpenAPI 3.0.3 document with CAMARA's `retrieve-date` / `check` operation shape, live sandbox and production hosts under a `/gsma/gateway/` path, and OAuth2 client credentials. Everywhere else — including Mexico — CAMARA is a press release with nothing callable behind it.
-- **CAMARA project membership:** no. América Móvil is not among the companies named in the Linux Foundation's February 2022 CAMARA founding announcement. It is a downstream implementer, not a specification author.
-- **Aduna:** not an equity partner. América Móvil was named at Ericsson's September 2024 launch of the network-API joint venture but is **absent** from the twelve-CSP equity structure completed in July 2025 — leaving the largest operator group in Latin America outside the industry's biggest commercial aggregation channel.
-- **Channel to developers:** aggregator-mediated. Infobip carries Claro's CAMARA-compliant network APIs in Brazil; Brazil launch materials point developers at Microsoft Azure and integrators. In Mexico there is no direct developer channel at all.
-- **TM Forum:** no Open API conformance certification found anywhere in the group.
-- **3GPP exposure:** no NEF/SCEF surface, no network-slicing API, no edge/MEC API published.
+- [Claro Number Verification API](https://apis.io/apis/america-movil/claro-number-verification-api/) — CAMARA-aligned Number Verification API from Claro Brasil — silent verification that a mobile number is the one actually attached to the device making the…
+- [Claro Know Your Customer API](https://apis.io/apis/america-movil/claro-know-your-customer-api/) — KYC Match-style API from Claro Brasil that validates user-supplied identity attributes — phone number, name, address, e-mail — against Claro's subscriber…
+- [Claro KYC Fill In API](https://apis.io/apis/america-movil/claro-kyc-fill-in-api/) — Returns verified customer registration data held by Claro Brasil so that onboarding forms can be pre-populated from carrier records rather than…
+- [Claro Number Recycling API](https://apis.io/apis/america-movil/claro-number-recycling-api/) — Detects whether a Brazilian mobile number has changed owner — the recycling of a disconnected number to a new subscriber — so that accounts keyed to a phone…
+- [Claro Tenure API](https://apis.io/apis/america-movil/claro-tenure-api/) — Reports how long a mobile number has been active on the Claro Brasil network and the plan associated with it, used as a stability and risk signal in…
+- [Claro Geofencing API](https://apis.io/apis/america-movil/claro-geofencing-api/) — Monitors M2M/IoT devices on the Claro Brasil network against geographic fences and raises cellular-network notifications when a device enters or leaves an…
+- [Claro Face Match API](https://apis.io/apis/america-movil/claro-face-match-api/) — Biometric face-match validation against Claro Brasil's own image records, sold as an identity-assurance step alongside the network APIs. Listed in the Claro…
+- [Claro Alerta API](https://apis.io/apis/america-movil/claro-alerta-api/) — Detects SIM-card or handset changes on a Claro Brasil mobile line and raises an alert, a Claro-branded companion to the CAMARA SIM Swap API. Listed in the…
+- [Claro Valida Telefone API](https://apis.io/apis/america-movil/claro-valida-telefone-api/) — Validates the relationship between a Brazilian CPF (taxpayer identifier) and a mobile number using Claro Brasil subscriber records. Listed in the Claro…
+- [Claro Valida Endereço 2.0 API](https://apis.io/apis/america-movil/claro-valida-endereco-api/) — Scores a declared address against antenna-proximity analysis of the Claro Brasil network, used to corroborate residential address claims during onboarding.…
+- [Claro Score API](https://apis.io/apis/america-movil/claro-score-api/) — Credit-risk scoring derived from Claro Brasil telecom behaviour, used to identify lower-risk consumers. Listed in the Claro Insight catalog; documentation…
+- [Telcel Mobile Authentication APIs](https://apis.io/apis/america-movil/telcel-mobile-authentication-apis/) — América Móvil's GSMA Open Gateway surface in its home market of Mexico, marketed by Telcel to enterprises as "Autenticación Móvil" — Number Verification…
+- [América Móvil Check SIM swap API](https://apis.io/apis/america-movil/america-movil-check-sim-swap-api/) — The Check SIM swap API from América Móvil — 1 operation(s) for check sim swap.
+- [América Móvil Device Locations API](https://apis.io/apis/america-movil/america-movil-device-locations-api/) — The Device Locations API from América Móvil — 1 operation(s) for device locations.
+- [América Móvil Location verification API](https://apis.io/apis/america-movil/america-movil-location-verification-api/) — The Location verification API from América Móvil — 1 operation(s) for location verification.
+- [América Móvil Retrieve SIM swap date API](https://apis.io/apis/america-movil/america-movil-retrieve-sim-swap-date-api/) — The Retrieve SIM swap date API from América Móvil — 1 operation(s) for retrieve sim swap date.
 
-## Auth
+### Published properties
 
-Both harvested specifications use **OAuth 2.0 client credentials** (`tokenUrl /oauth2/v1/token`); the Device Location spec additionally declares HTTP Basic, HTTP Bearer and an `X-API-Key` header. **CIBA does not appear anywhere** — there is no backchannel authentication, no OIDC configuration and no subject-consent mechanism in evidence. `https://api.claro.com.br/oauth2/v1/token` is live and returns 401 to anonymous callers.
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-## Tags
+#### Arazzo workflows (1)
 
-- Telecommunications
-- Mexico
-- Latin America
-- Mobile Network Operator
-- Network APIs
-- CAMARA
-- Open Gateway
-- SIM Swap
-- Identity Verification
-- Device Location
-- Broadband
-- 5G
-- Carrier
+Multi-step workflows that chain operations into a business task.
 
-## Timestamps
+- [Account-takeover check for a Brazilian mobile line](https://apis.io/arazzos/america-movil/america-movil-account-takeover-check/)
 
-- **Created:** 2026-07-25
-- **Modified:** 2026-07-25
+#### AsyncAPI (1)
 
-## APIs
+Event-driven and webhook contracts.
 
-### Claro SIM Swap API
+- [America Movil Webhooks](https://apis.io/asyncapis/america-movil/america-movil-webhooks/)
 
-CAMARA-aligned SIM Swap API from Claro Brasil. Returns the date of the most recent SIM pairing change on a Brazilian mobile line, or checks whether a swap occurred within a caller-supplied window.
+#### MCP servers (1)
 
-- **Human URL:** [https://www.claroinsight.com.br/pt-br/sim-swap](https://www.claroinsight.com.br/pt-br/sim-swap)
-- **Base URL:** `https://api.claro.com.br/mobile/v1/gsma/gateway/simswap`
-- **OpenAPI:** [openapi/america-movil-claro-sim-swap-openapi.json](openapi/america-movil-claro-sim-swap-openapi.json) — OpenAPI 3.0.3, `POST /retrieve-date`, `POST /check`
+Model Context Protocol servers that expose the API to agents.
 
-### Claro Device Location API
+- [america-movil-claro](https://apis.io/servers/america-movil/america-movil-claro/)
 
-"Mobile - LBS Devices Locations" (Apigee proxy `mobile-lbsdeviceslocations-v1`) — the last known network-derived location of a device on the Claro network.
+#### Agentic access (1)
 
-- **Human URL:** [https://www.claroinsight.com.br/pt-br/device-location-retrievel](https://www.claroinsight.com.br/pt-br/device-location-retrievel)
-- **Base URL:** `https://api.claro.com.br/mobile/v1`
-- **OpenAPI:** [openapi/america-movil-claro-device-location-openapi.json](openapi/america-movil-claro-device-location-openapi.json) — OpenAPI 3.0.0, `GET /lbs/devices/locations`
+Which operations an agent can call, which act, and which need a human in the loop.
 
-### Claro Insight catalog (documentation gated behind registration)
+- [America Movil Agentic Access](https://apis.io/agentic-access/america-movil/america-movil-agentic-access/)
 
-| API | Page |
-| --- | --- |
-| Claro Number Verification | [/pt-br/number-verification](https://www.claroinsight.com.br/pt-br/number-verification) |
-| Claro Device Location Verify | [/pt-br/device-location-verify](https://www.claroinsight.com.br/pt-br/device-location-verify) |
-| Claro Know Your Customer | [/pt-br/claro-kyc](https://www.claroinsight.com.br/pt-br/claro-kyc) |
-| Claro KYC Fill In | [/pt-br/fill-in](https://www.claroinsight.com.br/pt-br/fill-in) |
-| Claro Number Recycling | [/pt-br/number-recycling](https://www.claroinsight.com.br/pt-br/number-recycling) |
-| Claro Tenure | [/pt-br/tenure](https://www.claroinsight.com.br/pt-br/tenure) |
-| Claro Geofencing | [/pt-br/geofencing](https://www.claroinsight.com.br/pt-br/geofencing) |
-| Claro Face Match | [/pt-br/facial-biometrics](https://www.claroinsight.com.br/pt-br/facial-biometrics) |
-| Claro Alerta | [/pt-br/claro-alerta](https://www.claroinsight.com.br/pt-br/claro-alerta) |
-| Claro Valida Telefone | [/pt-br/claro-valida-telefone](https://www.claroinsight.com.br/pt-br/claro-valida-telefone) |
-| Claro Valida Endereço 2.0 | [/pt-br/claro-valida-endereco-v2](https://www.claroinsight.com.br/pt-br/claro-valida-endereco-v2) |
-| Claro Score | [/pt-br/claro-score](https://www.claroinsight.com.br/pt-br/claro-score) |
+#### Collections (2)
 
-### Telcel Mobile Authentication APIs (Mexico)
+Postman and Open Collection request collections.
 
-Number Verification, SIM change detection and device location verification, marketed by Telcel to enterprises under GSMA Open Gateway. **No developer portal, no specification, no sandbox, no self-serve signup** — a sales contact form only.
+- [Mobile - LBS Devices Locations\n (Proxy Apigee: mobile-lbsdeviceslocations-v1)](https://apis.io/collections/america-movil/open-america-movil-claro-device-location/)
+- [SIM Swap](https://apis.io/collections/america-movil/open-america-movil-claro-sim-swap/)
 
-- **Human URL:** [https://www.telcel.com/empresas/soluciones/busines-intelligence/autenticacion-movil](https://www.telcel.com/empresas/soluciones/busines-intelligence/autenticacion-movil)
+#### Overlays (2)
 
-## Links
+OpenAPI overlays, including conversational phrasing for each operation.
 
-- [América Móvil](https://www.americamovil.com/)
-- [Telcel](https://www.telcel.com/)
-- [Claro Brasil](https://www.claro.com.br/)
-- [Claro Insight API catalog](https://www.claroinsight.com.br/pt-br/catalogo-api)
-- [Claro Insight registration](https://www.claroinsight.com.br/user/register)
-- [CAMARA Project](https://camaraproject.org/)
-- [GSMA Open Gateway](https://www.gsma.com/solutions-and-impact/gsma-open-gateway/)
+- [America Movil Claro Device Location Overlay](https://apis.io/overlays/america-movil/america-movil-claro-device-location-overlay/)
+- [America Movil Claro Sim Swap Overlay](https://apis.io/overlays/america-movil/america-movil-claro-sim-swap-overlay/)
 
-## Review
+#### Security (2)
 
-See [review.yml](review.yml) for the full API Evangelist reviewer finding — probe-by-probe HTTP statuses, spec provenance, CAMARA evidence strength per API, Open Gateway and Aduna posture, auth model, and the honest absence of TM Forum conformance, 3GPP exposure, webhooks, SDKs and public source control.
+Authentication, trust centre, and vulnerability disclosure.
+
+- [America Movil Authentication](https://apis.io/security/america-movil/america-movil-authentication/)
+- [America Movil Domain Security](https://apis.io/security/america-movil/america-movil-domain-security/)
+
+#### OAuth scopes (1)
+
+The permissions the API asks for.
+
+- [America Movil Scopes](https://apis.io/scopes/america-movil/america-movil-scopes/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [America Movil Plans](https://apis.io/plans/america-movil/america-movil-plans/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [America Movil Rate Limits](https://apis.io/rate-limits/america-movil/america-movil-rate-limits/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://www.americamovil.com/)
+- [Documentation](https://www.claroinsight.com.br/pt-br/catalogo-api)
+- [API reference](https://www.claroinsight.com.br/pt-br/catalogo-api)
+- [Sign up](https://www.claroinsight.com.br/user/register)
+- [Support](https://www.claroinsight.com.br/pt-br/contato)
+- [Blog](https://www.claro.com.br/blog)
+- [Privacy policy](https://www.claro.com.br/privacidade)
+
+## API Evangelist rating
+
+**Kin Score 55.7** — strong · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 69.6 |
+| Contract quality | 56.5 |
+| Contract governance | 18.2 |
+| Operational transparency | 55.3 |
+| Developer ergonomics | 54.2 |
+| Access clarity | 44.7 |
+
+**Agent readiness 35.4** — agent-ready
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | negotiable (partial credit) |
+| Idempotency | — |
+| Error Semantics | documented (partial credit) |
+| OpenAPI Examples | partial |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | yes |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | documented (partial credit) |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | na |
+| Operation Distinctiveness | na |
+
+**Regulatory alignment 43.3** — Telecommunications
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/america-movil/](https://apis.io/providers/america-movil/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for América Móvil: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/america-movil/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
